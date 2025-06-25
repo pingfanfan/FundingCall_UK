@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_patt_travel_claim_for_competitively_awarded_observation_time_1750890766",
+  "title": "Funding opportunity: PATT travel claim for competitively awarded observation time",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 22 January 2024 - see all updates Claim back travel and subsistence costs when visiting an astronomy telescope. The visit must be for competitively awarded science observation time. You must be a UK-based researcher at an eligible UK institution. You can only claim your own costs.",
+  "eligibility": {
+    "career_stage": "Senior",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 7500000,
+      "max": 7500000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2021-03-22",
+    "next_deadline": "2026-06-25",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "justyna.misior@stfc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-25T23:32:46.160911",
+  "scraped_from": "https://www.ukri.org/opportunity/patt-travel-claim-for-competitively-awarded-observation-time/",
+  "status": "active"
+}

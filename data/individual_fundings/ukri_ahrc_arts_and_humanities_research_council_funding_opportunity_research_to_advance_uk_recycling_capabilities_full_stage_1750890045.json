@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_research_to_advance_uk_recycling_capabilities_full_stage_1750890045",
+  "title": "Funding opportunity: Research to advance UK recycling capabilities: full stage",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 17 June 2025 - see all updates This is the second stage of this funding opportunity. You may only submit a full proposal if you have been invited by EPSRC. Apply for funding for research to accelerate UK recycling capabilities. Projects will progress the development of more energy-efficient, environmentally sustainable, and economically viable recycling technologies and systems.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 13000000000,
+      "max": 13000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-28",
+    "next_deadline": "2026-06-25",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-25T23:20:45.792405",
+  "scraped_from": "https://www.ukri.org/opportunity/research-to-advance-uk-recycling-capabilities-full-stage/",
+  "status": "active"
+}

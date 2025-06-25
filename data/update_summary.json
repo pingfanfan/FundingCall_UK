@@ -1,0 +1,25 @@
+{
+  "update_timestamp": "2025-06-25T23:35:46.055831",
+  "total_opportunities": 125,
+  "category_breakdown": {
+    "ukri": 106,
+    "academies": 5,
+    "foundations": 14
+  },
+  "career_stage_breakdown": {
+    "Mid Career": 11,
+    "Early Career": 59,
+    "All Stages": 49,
+    "Senior": 6
+  },
+  "funding_totals": {
+    "min_total_gbp": 547609431000,
+    "max_total_gbp": 558469396000
+  },
+  "upcoming_deadlines_30_days": 0,
+  "data_sources": [
+    "ukri",
+    "academies",
+    "foundations"
+  ]
+}

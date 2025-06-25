@@ -1,0 +1,48 @@
+{
+  "id": "medical_research_council_funding_opportunity_sandpit_moving_respiratory_health_diagnosis_into_the_21st_century_invite_only_1750890046",
+  "title": "Funding opportunity: Sandpit: moving respiratory health diagnosis into the 21st century invite only",
+  "organization": "Medical Research Council",
+  "category": "ukri",
+  "subcategory": "mrc",
+  "description": "You can only apply for this funding opportunity if we have invited you to do so following a successful sandpit project pitch. Apply for funding to develop new, innovative, multidisciplinary and transformative diagnostic and monitoring approaches to respiratory health and disease in community healthcare settings. You must draw in part on engineering and physical sciences (EPS) principles and research.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 4000000000,
+      "max": 4000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-21",
+    "next_deadline": "2026-06-25",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "mrc"
+  ],
+  "last_updated": "2025-06-25T23:20:46.194481",
+  "scraped_from": "https://www.ukri.org/opportunity/sandpit-moving-respiratory-health-diagnosis-into-the-21st-century-invite-only/",
+  "status": "active"
+}
