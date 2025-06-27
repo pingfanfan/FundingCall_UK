@@ -1,0 +1,49 @@
+{
+  "id": "biotechnology_and_biological_sciences_research_council_funding_opportunity_bbsrc_standard_research_grant_2025_round_3_applicant_led_mode_1750937444",
+  "title": "Funding opportunity: BBSRC standard research grant: 2025 round 3: applicant-led mode",
+  "organization": "Biotechnology and Biological Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "bbsrc",
+  "description": "Apply for funding to support excellent investigator-led research across the breadth of Biotechnology and Biological Sciences Research Council (BBSRC) scientific remit. You must be based at a UK research organisation eligible for BBSRC funding. Standard research grants are available for researchers at eligible research organisations. The full economic cost (FEC) of your project can be up to £2 million. Funding is available for up to five years. BBSRC will fund 80% of the FEC.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 2000000000,
+      "max": 2000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-04-24",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "remit@bbsrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "bbsrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T12:30:44.866458",
+  "scraped_from": "https://www.ukri.org/opportunity/bbsrc-standard-research-grant-2025-round-3-applicant-led-mode/",
+  "status": "active"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "academy_research_fellowships_1750955280",
+  "title": "Research Fellowships",
+  "organization": "The Royal Academy of Engineering",
+  "category": "academies",
+  "subcategory": "royal_academy_engineering",
+  "description": "Support for outstanding early career engineers",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [
+      "Engineering",
+      "Technology"
+    ],
+    "requirements": [
+      "PhD completed within 8 years",
+      "Demonstrated research excellence",
+      "UK-based position or offer"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 500000,
+      "max": 600000,
+      "currency": "GBP",
+      "duration_years": 5
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-08-15",
+    "next_deadline": "2025-08-15",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "Very High",
+    "competition_level": "Very Competitive",
+    "success_rate": "15%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "engineering",
+    "early-career"
+  ],
+  "last_updated": "2025-06-26T17:28:00.193664",
+  "scraped_from": "https://raeng.org.uk",
+  "status": "active"
+}

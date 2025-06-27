@@ -1,0 +1,48 @@
+{
+  "id": "natural_environment_research_council_funding_opportunity_pre_announcement_opening_up_the_environment_2026_1750936473",
+  "title": "Funding opportunity: Pre-announcement: Opening up the Environment 2026",
+  "organization": "Natural Environment Research Council",
+  "category": "ukri",
+  "subcategory": "nerc",
+  "description": "You can only apply for this funding opportunity if we have invited you to do so following a successful Opening up the Environment 2025 application. Apply for funding to deliver activities to increase the diversity of the UK environmental science community. You must be:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 2835000000,
+      "max": 2835000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-02-06",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "openingup@nerc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "nerc"
+  ],
+  "last_updated": "2025-06-26T12:14:33.212457",
+  "scraped_from": "https://www.ukri.org/opportunity/opening-up-the-environment-2026/",
+  "status": "active"
+}

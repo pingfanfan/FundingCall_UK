@@ -1,0 +1,48 @@
+{
+  "id": "economic_and_social_research_council_funding_opportunity_esrc_responsive_mode_secondary_data_analysis_round_two_1750941208",
+  "title": "Funding opportunity: ESRC responsive mode: secondary data analysis round two",
+  "organization": "Economic and Social Research Council",
+  "category": "ukri",
+  "subcategory": "esrc",
+  "description": "Last updated: 8 May 2025 - see all updates Apply for funding to support research that exploits existing data resources for social and economic research, created by ESRC or other agencies. You must be based at a UK research organisation eligible for ESRC funding.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 300000000,
+      "max": 300000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-09-29",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "hub@adruk.org",
+    "phone": ""
+  },
+  "tags": [
+    "esrc"
+  ],
+  "last_updated": "2025-06-26T13:33:28.567451",
+  "scraped_from": "https://www.ukri.org/opportunity/esrc-responsive-mode-secondary-data-analysis-round-two/",
+  "status": "active"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ahrc_responsive_mode_catalyst_awards_1750942131",
+  "title": "Funding opportunity: AHRC responsive mode: catalyst awards",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 4 April 2025 - see all updates Awards to support researchers without prior experience of leading a significant research project to accelerate their trajectory as independent researchers, to unlock their potential, build leadership and convenor experience. You must be based at a UK research organisation eligible for AHRC funding.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 100000000,
+      "max": 300000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-01-31",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T13:48:51.713195",
+  "scraped_from": "https://www.ukri.org/opportunity/ahrc-responsive-mode-catalyst-awards/",
+  "status": "active"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_epsrc_programme_grant_full_proposal_1750957323",
+  "title": "Funding opportunity: EPSRC Programme grant full proposal",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Programme grants provide flexible funding to world-leading research groups addressing significant major research challenges. Funding should bring together a team of internationally recognised scientists or engineers to focus on one strategic research theme. Engineering and Physical Sciences Research Council (EPSRC) sees programme grants as critical mass investments, which cover a diverse engineering and physical sciences portfolio. They benefit UK research through the concentration of high-performing talent.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 138000000,
+      "max": 138000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-02-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "grant",
+    "international"
+  ],
+  "last_updated": "2025-06-26T18:02:03.651955",
+  "scraped_from": "https://www.ukri.org/opportunity/epsrc-programme-grant-full-proposal/",
+  "status": "active"
+}

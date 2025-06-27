@@ -1,0 +1,59 @@
+{
+  "id": "foundation_education_programme_1750935765",
+  "title": "Education Programme",
+  "organization": "Nuffield Foundation",
+  "category": "foundations",
+  "subcategory": "nuffield_foundation",
+  "description": "Research to improve educational outcomes and opportunities",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Education",
+      "Justice",
+      "Welfare"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 75000,
+      "max": 300000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel",
+      "Consumables"
+    ]
+  },
+  "application": {
+    "deadline": "2024-09-15",
+    "next_deadline": "2025-09-15",
+    "frequency": "Annual",
+    "application_url": "https://www.nuffieldfoundation.org",
+    "guidelines_url": "https://www.nuffieldfoundation.org"
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Competitive",
+    "success_rate": "24%"
+  },
+  "contact": {
+    "email": "info@nuffieldfoundation.org",
+    "phone": ""
+  },
+  "tags": [
+    "education",
+    "outcomes",
+    "opportunities"
+  ],
+  "last_updated": "2025-06-26T12:02:45.416939",
+  "scraped_from": "https://www.nuffieldfoundation.org",
+  "status": "active"
+}

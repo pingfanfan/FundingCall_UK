@@ -1,0 +1,48 @@
+{
+  "id": "medical_research_council_funding_opportunity_pre_announcement_research_and_partnership_hubs_for_a_healthy_society_1750941650",
+  "title": "Funding opportunity: Pre-announcement: Research and partnership hubs for a healthy society",
+  "organization": "Medical Research Council",
+  "category": "ukri",
+  "subcategory": "mrc",
+  "description": "Apply for funding to establish a large-scale multidisciplinary research hub drawing on expertise across the Engineering and Physical Sciences Research Council (EPSRC) and health research community to support people to live healthier lives and prevent ill health. Proposals should address long term research challenges in the priority area(s) of prevention, early diagnosis and self-management of health. You must be based at a UK research organisation eligible for EPSRC funding. This is a pre-announcement and the information may change.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 12500000000,
+      "max": 12500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-03",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "healthcare@epsrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "mrc"
+  ],
+  "last_updated": "2025-06-26T13:40:50.431528",
+  "scraped_from": "https://www.ukri.org/opportunity/research-and-partnership-hubs-for-a-healthy-society/",
+  "status": "active"
+}

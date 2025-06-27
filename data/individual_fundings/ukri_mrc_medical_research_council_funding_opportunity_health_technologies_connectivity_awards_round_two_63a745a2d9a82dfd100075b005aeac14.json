@@ -1,0 +1,49 @@
+{
+  "id": "medical_research_council_funding_opportunity_health_technologies_connectivity_awards_round_two_63a745a2d9a82dfd100075b005aeac14",
+  "title": "Funding opportunity: Health Technologies Connectivity Awards: round two",
+  "organization": "Medical Research Council",
+  "category": "ukri",
+  "subcategory": "mrc",
+  "description": "Apply for funding to spend time in a different research or user environment to build new connections applicable to health technologies. Novel engineering and physical sciences (EPS) research contributing to the delivery of the health technologies strategy must comprise a proportion of the placement. You must be based at a UK research organisation eligible for Engineering and Physical Sciences Research Council (EPSRC) funding. In this scheme, researchers will develop new skills and collaborations to progress their research in health technologies.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 4000000000,
+      "max": 4000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-13",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "mrc",
+    "collaboration"
+  ],
+  "last_updated": "2025-06-26T23:24:58.200165",
+  "scraped_from": "https://www.ukri.org/opportunity/health-technologies-connectivity-awards-round-two/",
+  "status": "active"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "science_and_technology_facilities_council_funding_opportunity_mathematical_sciences_open_and_open_plus_fellowship_1750953568",
+  "title": "Funding opportunity: Mathematical sciences open and open plus fellowship",
+  "organization": "Science and Technology Facilities Council",
+  "category": "ukri",
+  "subcategory": "stfc",
+  "description": "Last updated: 3 April 2025 - see all updates These are personal, career development focused awards. You must have either:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000000,
+      "max": 400000000,
+      "currency": "GBP",
+      "duration_years": 10
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-01-30",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "stfc",
+    "fellowship"
+  ],
+  "last_updated": "2025-06-26T16:59:28.951361",
+  "scraped_from": "https://www.ukri.org/opportunity/mathematical-sciences-open-and-open-plus-fellowship/",
+  "status": "active"
+}

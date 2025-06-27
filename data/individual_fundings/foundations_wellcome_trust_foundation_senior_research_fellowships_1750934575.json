@@ -1,0 +1,60 @@
+{
+  "id": "foundation_senior_research_fellowships_1750934575",
+  "title": "Senior Research Fellowships",
+  "organization": "The Wellcome Trust",
+  "category": "foundations",
+  "subcategory": "wellcome_trust",
+  "description": "Support for exceptional researchers to pursue ambitious programmes",
+  "eligibility": {
+    "career_stage": "Senior",
+    "disciplines": [
+      "Biomedical Research",
+      "Medical Humanities",
+      "Global Health"
+    ],
+    "requirements": [
+      "Senior academic position",
+      "Significant research achievements",
+      "Leadership in field"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000000,
+      "max": 3000000,
+      "currency": "GBP",
+      "duration_years": 7
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel",
+      "Training"
+    ]
+  },
+  "application": {
+    "deadline": "2024-09-30",
+    "next_deadline": "2025-09-30",
+    "frequency": "Annual",
+    "application_url": "https://wellcome.org",
+    "guidelines_url": "https://wellcome.org"
+  },
+  "key_info": {
+    "priority_level": "Very High",
+    "competition_level": "Extremely Competitive",
+    "success_rate": "8%"
+  },
+  "contact": {
+    "email": "grantsenquiries@wellcome.org",
+    "phone": ""
+  },
+  "tags": [
+    "senior",
+    "fellowship",
+    "ambitious-research"
+  ],
+  "last_updated": "2025-06-26T11:42:55.749368",
+  "scraped_from": "https://wellcome.org",
+  "status": "active"
+}

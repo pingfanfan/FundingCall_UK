@@ -1,0 +1,51 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_collaborate_with_researchers_in_norway_1750953506",
+  "title": "Funding opportunity: Collaborate with researchers in Norway",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Project co-leads (international) based in Norway can be included in UK-led applications and receive funding from UK Research and Innovation (UKRI) under the Money Follows Cooperation agreement between UKRI and Research Council of Norway (RCN) to reduce barriers to cross-border collaboration. This agreement does not represent a separate funding scheme. Applications must be submitted through existing council programmes. Conditions and budgets will differ depending on the funding opportunity. Search for funding opportunities",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 10000000,
+      "max": 10000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-04-01",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "international@ahrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation",
+    "collaboration",
+    "international"
+  ],
+  "last_updated": "2025-06-26T16:58:26.649892",
+  "scraped_from": "https://www.ukri.org/opportunity/collaborate-with-researchers-in-norway/",
+  "status": "active"
+}

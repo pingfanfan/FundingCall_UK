@@ -1,0 +1,48 @@
+{
+  "id": "natural_environment_research_council_funding_opportunity_pushing_the_frontiers_of_environmental_research_july_2025_1750938737",
+  "title": "Funding opportunity: Pushing the frontiers of environmental research: July 2025",
+  "organization": "Natural Environment Research Council",
+  "category": "ukri",
+  "subcategory": "nerc",
+  "description": "Apply for funding to pursue an ambitious, high risk and high reward curiosity-driven project in environmental research. You must be: We welcome:",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 26000000000,
+      "max": 26000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-01-31",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "marineplanning@nerc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "nerc"
+  ],
+  "last_updated": "2025-06-26T12:52:17.467078",
+  "scraped_from": "https://www.ukri.org/opportunity/pushing-the-frontiers-of-environmental-research-july-2025/",
+  "status": "active"
+}

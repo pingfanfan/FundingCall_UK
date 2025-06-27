@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_researching_me_cfs_priority_area_1750942490",
+  "title": "Funding opportunity: Researching ME/CFS: priority area",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 6 May 2025 - see all updates Apply for funding to research myalgic encephalomyelitis/chronic fatigue syndrome, also known as ME/CFS. You can get the funding through any of MRC’s funding schemes.",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 3000,
+      "max": 3000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2003-05-01",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "mecfs@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T13:54:50.628997",
+  "scraped_from": "https://www.ukri.org/opportunity/researching-me-cfs-priority-area/",
+  "status": "active"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "academy_starter_grants_for_clinical_lecturers_1750957754",
+  "title": "Starter Grants for Clinical Lecturers",
+  "organization": "The Academy of Medical Sciences",
+  "category": "academies",
+  "subcategory": "academy_medical_sciences",
+  "description": "Support for clinical academics to establish independent research",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [
+      "Medical Sciences",
+      "Biomedical Research"
+    ],
+    "requirements": [
+      "PhD completed within 8 years",
+      "Demonstrated research excellence",
+      "UK-based position or offer"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 100000,
+      "max": 150000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-07-31",
+    "next_deadline": "2025-07-31",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Very Competitive",
+    "success_rate": "15%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "clinical",
+    "lecturer",
+    "medical-research"
+  ],
+  "last_updated": "2025-06-26T18:09:14.771307",
+  "scraped_from": "https://acmedsci.ac.uk",
+  "status": "active"
+}

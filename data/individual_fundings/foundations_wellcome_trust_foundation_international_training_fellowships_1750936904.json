@@ -1,0 +1,60 @@
+{
+  "id": "foundation_international_training_fellowships_1750936904",
+  "title": "International Training Fellowships",
+  "organization": "The Wellcome Trust",
+  "category": "foundations",
+  "subcategory": "wellcome_trust",
+  "description": "Training opportunities for researchers from low- and middle-income countries",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [
+      "Biomedical Research",
+      "Medical Humanities",
+      "Global Health"
+    ],
+    "requirements": [
+      "PhD or equivalent qualification",
+      "Within 8 years of PhD completion",
+      "Demonstrated research potential"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 150000,
+      "max": 300000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel",
+      "Training"
+    ]
+  },
+  "application": {
+    "deadline": "2024-05-31",
+    "next_deadline": "2025-05-31",
+    "frequency": "Annual",
+    "application_url": "https://wellcome.org",
+    "guidelines_url": "https://wellcome.org"
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Competitive",
+    "success_rate": "25%"
+  },
+  "contact": {
+    "email": "grantsenquiries@wellcome.org",
+    "phone": ""
+  },
+  "tags": [
+    "international",
+    "training",
+    "global-health"
+  ],
+  "last_updated": "2025-06-26T12:21:44.165362",
+  "scraped_from": "https://wellcome.org",
+  "status": "active"
+}

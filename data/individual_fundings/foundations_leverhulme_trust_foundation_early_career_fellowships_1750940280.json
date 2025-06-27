@@ -1,0 +1,58 @@
+{
+  "id": "foundation_early_career_fellowships_1750940280",
+  "title": "Early Career Fellowships",
+  "organization": "The Leverhulme Trust",
+  "category": "foundations",
+  "subcategory": "leverhulme_trust",
+  "description": "Support for early career researchers to develop independence",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [
+      "All Academic Disciplines"
+    ],
+    "requirements": [
+      "PhD or equivalent qualification",
+      "Within 8 years of PhD completion",
+      "Demonstrated research potential"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 200000,
+      "max": 300000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel",
+      "Training"
+    ]
+  },
+  "application": {
+    "deadline": "2024-01-31",
+    "next_deadline": "2025-01-31",
+    "frequency": "Annual",
+    "application_url": "https://www.leverhulme.ac.uk",
+    "guidelines_url": "https://www.leverhulme.ac.uk"
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Very Competitive",
+    "success_rate": "20%"
+  },
+  "contact": {
+    "email": "enquiries@leverhulme.ac.uk",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "early-career",
+    "independence"
+  ],
+  "last_updated": "2025-06-26T13:18:00.939292",
+  "scraped_from": "https://www.leverhulme.ac.uk",
+  "status": "active"
+}

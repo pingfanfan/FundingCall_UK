@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ukri_cross_research_council_responsive_mode_pilot_scheme_round_two_full_stage_1750941088",
+  "title": "Funding opportunity: UKRI cross research council responsive mode pilot scheme: round two full stage",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 4 April 2025 - see all updates Invited teams can apply for funding to deliver breakthrough interdisciplinary ideas that transcend, combine or significantly span disciplines that are not routinely funded through existing UK Research and Innovation (UKRI) responsive mode schemes. Awards will be potentially transformative for the participating disciplines or lead to the creation of new disciplines.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 32500000000,
+      "max": 32500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-09-02",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "ukrirm@ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T13:31:28.258699",
+  "scraped_from": "https://www.ukri.org/opportunity/ukri-cross-research-council-responsive-mode-pilot-scheme-round-2/",
+  "status": "active"
+}

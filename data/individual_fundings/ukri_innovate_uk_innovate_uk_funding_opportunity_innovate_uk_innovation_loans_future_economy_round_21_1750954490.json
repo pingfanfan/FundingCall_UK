@@ -1,0 +1,49 @@
+{
+  "id": "innovate_uk_funding_opportunity_innovate_uk_innovation_loans_future_economy_round_21_1750954490",
+  "title": "Funding opportunity: Innovate UK innovation loans future economy: round 21",
+  "organization": "Innovate UK",
+  "category": "ukri",
+  "subcategory": "innovate_uk",
+  "description": "See the full opportunity details on the Innovation Funding Service. UK registered businesses can apply for loans for innovative projects with strong commercial potential to significantly improve the UK economy. This competition is open to single applications from micro, small or medium sized enterprises registered in the UK.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000000,
+      "max": 25000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-09",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "innovate_uk",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T17:14:50.839055",
+  "scraped_from": "https://www.ukri.org/opportunity/innovate-uk-innovation-loans-future-economy-round-21/",
+  "status": "active"
+}

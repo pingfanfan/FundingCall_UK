@@ -1,0 +1,50 @@
+{
+  "id": "biotechnology_and_biological_sciences_research_council_funding_opportunity_bbsrc_brazil_pump_priming_award_1750931486",
+  "title": "Funding opportunity: BBSRC Brazil pump-priming award",
+  "organization": "Biotechnology and Biological Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "bbsrc",
+  "description": "Last updated: 17 June 2024 - see all updates Pump-priming awards supported by BBSRC and the São Paulo Research Foundation (FAPESP) are for BBSRC-supported researchers and consortia of academics. They are to pump-prime collaborations between UK and Brazilian scientists in São Paulo state. Funding of up to £35,000 for the UK side is mainly for networking and travel, but can also include some modest research costs. Brazilian counterparts should apply for equivalent funding from FAPESP.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 35000000,
+      "max": 35000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2020-09-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "bbsrc.iru@bbsrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "bbsrc",
+    "collaboration",
+    "networking"
+  ],
+  "last_updated": "2025-06-26T10:51:26.693029",
+  "scraped_from": "https://www.ukri.org/opportunity/bbsrc-brazil-pump-priming-award/",
+  "status": "active"
+}

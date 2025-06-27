@@ -393,8 +393,12 @@ class UKRIScraper(FundingScraper):
         
         # Look for funding amount in text
         text_content = soup.get_text()
-        amount_info = self.extract_amount(text_content)
-        funding_details['amount'].update(amount_info)
+        try:
+            amount_info = self.extract_amount(text_content)
+            if amount_info:
+                funding_details['amount'].update(amount_info)
+        except Exception as e:
+            logger.error(f"Could not extract amount from {self.base_url}: {e}")
         
         # Extract duration
         duration_match = re.search(r'(\d+)\s*year', text_content, re.IGNORECASE)

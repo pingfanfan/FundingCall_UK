@@ -1,0 +1,60 @@
+{
+  "id": "foundation_arts_and_humanities_grants_1750934575",
+  "title": "Arts and Humanities Grants",
+  "organization": "The Wolfson Foundation",
+  "category": "foundations",
+  "subcategory": "wolfson_foundation",
+  "description": "Funding for outstanding projects in arts and humanities",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Science",
+      "Medicine",
+      "Arts",
+      "Humanities"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 100000,
+      "max": 500000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel",
+      "Consumables"
+    ]
+  },
+  "application": {
+    "deadline": "2024-07-31",
+    "next_deadline": "2025-07-31",
+    "frequency": "Annual",
+    "application_url": "https://www.wolfson.org.uk",
+    "guidelines_url": "https://www.wolfson.org.uk"
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "20%"
+  },
+  "contact": {
+    "email": "info@wolfson.org.uk",
+    "phone": ""
+  },
+  "tags": [
+    "arts",
+    "humanities",
+    "outstanding-projects"
+  ],
+  "last_updated": "2025-06-26T11:42:55.749606",
+  "scraped_from": "https://www.wolfson.org.uk",
+  "status": "active"
+}

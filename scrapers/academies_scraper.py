@@ -46,7 +46,7 @@ class AcademiesScraper(FundingScraper):
             'royal_academy_engineering': {
                 'name': 'The Royal Academy of Engineering',
                 'base_url': 'https://raeng.org.uk',
-                'funding_url': 'https://raeng.org.uk/grants-prizes',
+                'funding_url': 'https://www.raeng.org.uk/programmes-and-prizes',
                 'disciplines': ['Engineering', 'Technology']
             },
             'academy_medical_sciences': {
@@ -82,7 +82,10 @@ class AcademiesScraper(FundingScraper):
         
         try:
             # Get the funding page
-            soup = self.fetch_page(academy_info['funding_url'])
+            if academy_id == 'british_academy':
+                soup = self.fetch_page_with_selenium(academy_info['funding_url'])
+            else:
+                soup = self.fetch_page(academy_info['funding_url'])
             
             # Extract funding opportunities based on academy
             if academy_id == 'royal_society':

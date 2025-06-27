@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_developmental_pathway_funding_scheme_invited_stage_two_1750933784",
+  "title": "Funding opportunity: Developmental pathway funding scheme: invited stage two",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to develop and test novel therapeutics, medical devices, diagnostics and other interventions. You must be invited to apply for stage two of this funding opportunity. Your project can start and finish at any stage on the developmental pathway from early development, through pre-clinical refinement and testing to early-phase clinical studies and trials (up to phase 2a).",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 30000000000,
+      "max": 30000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-07",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T11:29:44.695584",
+  "scraped_from": "https://www.ukri.org/opportunity/developmental-pathway-funding-scheme-stage-two-application/",
+  "status": "active"
+}

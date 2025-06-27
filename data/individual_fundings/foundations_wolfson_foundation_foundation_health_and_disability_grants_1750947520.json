@@ -1,0 +1,60 @@
+{
+  "id": "foundation_health_and_disability_grants_1750947520",
+  "title": "Health and Disability Grants",
+  "organization": "The Wolfson Foundation",
+  "category": "foundations",
+  "subcategory": "wolfson_foundation",
+  "description": "Support for research into health and disability issues",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Science",
+      "Medicine",
+      "Arts",
+      "Humanities"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 150000,
+      "max": 600000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel",
+      "Consumables"
+    ]
+  },
+  "application": {
+    "deadline": "2024-08-31",
+    "next_deadline": "2025-08-31",
+    "frequency": "Annual",
+    "application_url": "https://www.wolfson.org.uk",
+    "guidelines_url": "https://www.wolfson.org.uk"
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Competitive",
+    "success_rate": "22%"
+  },
+  "contact": {
+    "email": "info@wolfson.org.uk",
+    "phone": ""
+  },
+  "tags": [
+    "health",
+    "disability",
+    "social-impact"
+  ],
+  "last_updated": "2025-06-26T15:18:40.844451",
+  "scraped_from": "https://www.wolfson.org.uk",
+  "status": "active"
+}

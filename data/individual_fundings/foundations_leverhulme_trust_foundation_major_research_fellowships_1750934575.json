@@ -1,0 +1,58 @@
+{
+  "id": "foundation_major_research_fellowships_1750934575",
+  "title": "Major Research Fellowships",
+  "organization": "The Leverhulme Trust",
+  "category": "foundations",
+  "subcategory": "leverhulme_trust",
+  "description": "Support for established researchers to pursue major projects",
+  "eligibility": {
+    "career_stage": "Senior",
+    "disciplines": [
+      "All Academic Disciplines"
+    ],
+    "requirements": [
+      "Senior academic position",
+      "Significant research achievements",
+      "Leadership in field"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000,
+      "max": 800000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel",
+      "Training"
+    ]
+  },
+  "application": {
+    "deadline": "2024-11-30",
+    "next_deadline": "2025-11-30",
+    "frequency": "Annual",
+    "application_url": "https://www.leverhulme.ac.uk",
+    "guidelines_url": "https://www.leverhulme.ac.uk"
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "15%"
+  },
+  "contact": {
+    "email": "enquiries@leverhulme.ac.uk",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "major-project",
+    "established-researcher"
+  ],
+  "last_updated": "2025-06-26T11:42:55.749464",
+  "scraped_from": "https://www.leverhulme.ac.uk",
+  "status": "active"
+}

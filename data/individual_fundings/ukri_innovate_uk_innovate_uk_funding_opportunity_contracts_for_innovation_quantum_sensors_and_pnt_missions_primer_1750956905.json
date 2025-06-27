@@ -1,0 +1,49 @@
+{
+  "id": "innovate_uk_funding_opportunity_contracts_for_innovation_quantum_sensors_and_pnt_missions_primer_1750956905",
+  "title": "Funding opportunity: Contracts for Innovation: quantum sensors and PNT missions primer",
+  "organization": "Innovate UK",
+  "category": "ukri",
+  "subcategory": "innovate_uk",
+  "description": "See the full opportunity details on the Innovation Funding Service. Organisations can apply for a share of £14 million, inclusive of VAT, to accelerate the development and adoption of quantum sensors and quantum position, navigation, and timing products and services. To lead a project, you can:",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 14000000000,
+      "max": 14000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-19",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "innovate_uk",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T17:55:05.882474",
+  "scraped_from": "https://www.ukri.org/opportunity/contracts-for-innovation-quantum-sensors-and-pnt-missions-primer/",
+  "status": "active"
+}

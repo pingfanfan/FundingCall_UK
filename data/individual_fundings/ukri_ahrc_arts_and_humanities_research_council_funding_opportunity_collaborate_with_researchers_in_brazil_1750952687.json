@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_collaborate_with_researchers_in_brazil_1750952687",
+  "title": "Funding opportunity: Collaborate with researchers in Brazil",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "UK Research and Innovation (UKRI) and FAPESP have signed a memorandum of understanding (MoU) to support collaborative applications. It provides for a lead agency agreement whereby participant UKRI research councils receive and assess joint applications from eligible UK and Brazil-based researchers from the state of São Paulo on behalf of both organisations. UKRI and FAPESP will co-fund applications submitted to participant UKRI councils’ responsive mode funding opportunities via selected funding opportunities. General conditions for applications will differ depending on the funding opportunity to which an application is being submitted.",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 0,
+      "max": 0,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2020-09-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "international@ahrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T16:44:47.142594",
+  "scraped_from": "https://www.ukri.org/opportunity/collaborate-with-researchers-in-brazil/",
+  "status": "active"
+}

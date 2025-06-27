@@ -1,0 +1,48 @@
+{
+  "id": "medical_research_council_funding_opportunity_applied_global_health_partnership_stage_two_1750948354",
+  "title": "Funding opportunity: Applied global health partnership: stage two",
+  "organization": "Medical Research Council",
+  "category": "ukri",
+  "subcategory": "mrc",
+  "description": "Apply for funding to support a new research partnership to enable the development and delivery of novel applied research that will address global health challenges and inequities. We are looking to develop a portfolio of high-quality partnerships, which will be diverse, promote multidisciplinarity and strengthen global health research capacity. We encourage applications from project leads based in:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 150000000,
+      "max": 1000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-04-03",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "international@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "mrc"
+  ],
+  "last_updated": "2025-06-26T15:32:34.344471",
+  "scraped_from": "https://www.ukri.org/opportunity/applied-global-health-partnership-invited-stage-two/",
+  "status": "active"
+}

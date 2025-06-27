@@ -1,0 +1,57 @@
+{
+  "id": "foundation_research_project_grants_1750944951",
+  "title": "Research Project Grants",
+  "organization": "The Leverhulme Trust",
+  "category": "foundations",
+  "subcategory": "leverhulme_trust",
+  "description": "Support for original research projects across all disciplines",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "All Academic Disciplines"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 50000,
+      "max": 500000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel",
+      "Consumables"
+    ]
+  },
+  "application": {
+    "deadline": "2024-02-28",
+    "next_deadline": "2025-02-28",
+    "frequency": "Annual",
+    "application_url": "https://www.leverhulme.ac.uk",
+    "guidelines_url": "https://www.leverhulme.ac.uk"
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Competitive",
+    "success_rate": "25%"
+  },
+  "contact": {
+    "email": "enquiries@leverhulme.ac.uk",
+    "phone": ""
+  },
+  "tags": [
+    "project-grant",
+    "interdisciplinary",
+    "original-research"
+  ],
+  "last_updated": "2025-06-26T14:35:51.299423",
+  "scraped_from": "https://www.leverhulme.ac.uk",
+  "status": "active"
+}

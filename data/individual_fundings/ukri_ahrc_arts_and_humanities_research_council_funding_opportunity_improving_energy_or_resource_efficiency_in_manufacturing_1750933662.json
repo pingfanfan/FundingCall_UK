@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_improving_energy_or_resource_efficiency_in_manufacturing_1750933662",
+  "title": "Funding opportunity: Improving energy or resource efficiency in manufacturing",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "UK registered organisations can apply for a share of up to £2 million for feasibility projects to develop new industrial digital technologies leading to a more productive, resilient and sustainable sector. See the full opportunity details on the Innovation Funding Service. This competition is open to single applicants or collaborations based in the UK.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 2000000000,
+      "max": 2000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-06",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation",
+    "collaboration"
+  ],
+  "last_updated": "2025-06-26T11:27:42.847279",
+  "scraped_from": "https://www.ukri.org/opportunity/improving-energy-or-resource-efficiency-in-manufacturing/",
+  "status": "active"
+}

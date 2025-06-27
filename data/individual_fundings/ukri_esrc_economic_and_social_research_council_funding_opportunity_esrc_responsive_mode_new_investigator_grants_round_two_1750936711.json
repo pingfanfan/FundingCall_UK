@@ -1,0 +1,49 @@
+{
+  "id": "economic_and_social_research_council_funding_opportunity_esrc_responsive_mode_new_investigator_grants_round_two_1750936711",
+  "title": "Funding opportunity: ESRC responsive mode: new investigator grants round two",
+  "organization": "Economic and Social Research Council",
+  "category": "ukri",
+  "subcategory": "esrc",
+  "description": "Last updated: 8 May 2025 - see all updates This opportunity supports researchers at the start of their careers to enable their transition to become independent researchers through gaining experience of managing and leading research projects and teams. It also provides an opportunity for them to support their own skill development, and that of any research staff employed on the grant.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 100000000,
+      "max": 350000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-09-29",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "hub@adruk.org",
+    "phone": ""
+  },
+  "tags": [
+    "esrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T12:18:31.575669",
+  "scraped_from": "https://www.ukri.org/opportunity/esrc-responsive-mode-new-investigator-grants-round-two/",
+  "status": "active"
+}

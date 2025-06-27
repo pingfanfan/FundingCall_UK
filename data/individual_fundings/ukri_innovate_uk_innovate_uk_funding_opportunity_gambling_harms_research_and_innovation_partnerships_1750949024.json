@@ -1,0 +1,49 @@
+{
+  "id": "innovate_uk_funding_opportunity_gambling_harms_research_and_innovation_partnerships_1750949024",
+  "title": "Funding opportunity: Gambling harms research and innovation partnerships",
+  "organization": "Innovate UK",
+  "category": "ukri",
+  "subcategory": "innovate_uk",
+  "description": "Apply for funding to develop Gambling Harms Research and Innovation Partnerships (GHRIP). The GHRIPs will be commissioned through a two-phase competitive process. The full programme will make up to £50m available over five years. This is the GHRIP phase one opportunity. During phase one you must provide resource and support capacity across stakeholders to undertake partnership development and landscape evidence analysis required to design the phase two work programme. The full economic cost of your phase one project can be up to £100,000. UK Research & Innovation (UKRI) will fund 80% of the full economic cost. UKRI will fund up to 20 phase one awards for nine months.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 2000000000,
+      "max": 2000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-23",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "innovate_uk",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T15:43:44.822137",
+  "scraped_from": "https://www.ukri.org/opportunity/gambling-harms-research-and-innovation-partnerships/",
+  "status": "active"
+}

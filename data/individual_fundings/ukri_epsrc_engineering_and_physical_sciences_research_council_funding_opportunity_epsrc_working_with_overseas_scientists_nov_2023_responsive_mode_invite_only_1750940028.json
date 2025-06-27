@@ -1,0 +1,49 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_epsrc_working_with_overseas_scientists_nov_2023_responsive_mode_invite_only_1750940028",
+  "title": "Funding opportunity: EPSRC working with overseas scientists: Nov 2023: responsive mode (invite only)",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Last updated: 13 June 2025 - see all updates Working with overseas scientists grants continue to be for researchers at eligible research organisations. You can work with researchers in Ireland, Luxembourg, Brazil, Germany and the US through EPSRC’s lead agency agreements.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000000,
+      "max": 400000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-11-13",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T13:13:48.814733",
+  "scraped_from": "https://www.ukri.org/opportunity/epsrc-working-with-overseas-scientists-nov-2023-responsive-mode/",
+  "status": "active"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_epsrc_network_grant_nov_2023_responsive_mode_1750955029",
+  "title": "Funding opportunity: EPSRC network grant: Nov 2023: responsive mode",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Last updated: 1 April 2025 - see all updates Network grants are for researchers at eligible research organisations. Engineering and Physical sciences Research Council (EPSRC) will support costs of building interdisciplinary research communities. We will award 80% of the full economic cost (FEC) of the project.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000,
+      "max": 25000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-11-13",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "grant",
+    "networking"
+  ],
+  "last_updated": "2025-06-26T17:23:49.762522",
+  "scraped_from": "https://www.ukri.org/opportunity/epsrc-network-grant-nov-2023-responsive-mode/",
+  "status": "active"
+}

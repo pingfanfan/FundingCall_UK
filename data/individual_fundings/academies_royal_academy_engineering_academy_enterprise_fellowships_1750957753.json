@@ -1,0 +1,58 @@
+{
+  "id": "academy_enterprise_fellowships_1750957753",
+  "title": "Enterprise Fellowships",
+  "organization": "The Royal Academy of Engineering",
+  "category": "academies",
+  "subcategory": "royal_academy_engineering",
+  "description": "Support for engineers to commercialize their research",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [
+      "Engineering",
+      "Technology"
+    ],
+    "requirements": [
+      "Established research track record",
+      "Independent research experience",
+      "UK-based position"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 75000,
+      "max": 100000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-06-30",
+    "next_deadline": "2025-06-30",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Very Competitive",
+    "success_rate": "20%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "enterprise",
+    "commercialization"
+  ],
+  "last_updated": "2025-06-26T18:09:13.584508",
+  "scraped_from": "https://raeng.org.uk",
+  "status": "active"
+}

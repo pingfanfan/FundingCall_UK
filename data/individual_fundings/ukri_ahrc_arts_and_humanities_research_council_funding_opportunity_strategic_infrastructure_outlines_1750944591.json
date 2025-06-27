@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_strategic_infrastructure_outlines_1750944591",
+  "title": "Funding opportunity: Strategic infrastructure outlines",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 24 June 2025 - see all updates Apply for funding to purchase strategic infrastructure including equipment, resources or both. The funding seeks to improve UK scientific capability and enable cutting-edge research of high priority to Engineering and Physical Sciences Research Council (EPSRC).",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000000,
+      "max": 400000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-06-18",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "equipment"
+  ],
+  "last_updated": "2025-06-26T14:29:51.807530",
+  "scraped_from": "https://www.ukri.org/opportunity/strategic-infrastructure-outlines/",
+  "status": "active"
+}

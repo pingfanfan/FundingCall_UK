@@ -1,0 +1,58 @@
+{
+  "id": "academy_newton_advanced_fellowships_1750951620",
+  "title": "Newton Advanced Fellowships",
+  "organization": "The Academy of Medical Sciences",
+  "category": "academies",
+  "subcategory": "academy_medical_sciences",
+  "description": "International fellowships for mid-career researchers",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [
+      "Medical Sciences",
+      "Biomedical Research"
+    ],
+    "requirements": [
+      "Established research track record",
+      "Independent research experience",
+      "UK-based position"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 200000,
+      "max": 300000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-05-15",
+    "next_deadline": "2025-05-15",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "20%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "international",
+    "newton"
+  ],
+  "last_updated": "2025-06-26T16:27:00.766133",
+  "scraped_from": "https://acmedsci.ac.uk",
+  "status": "active"
+}

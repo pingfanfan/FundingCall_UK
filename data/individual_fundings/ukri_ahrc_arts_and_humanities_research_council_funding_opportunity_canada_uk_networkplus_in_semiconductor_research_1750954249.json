@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_canada_uk_networkplus_in_semiconductor_research_1750954249",
+  "title": "Funding opportunity: Canada-UK NetworkPlus in semiconductor research",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to build a Canada-UK academic NetworkPlus in semiconductor research, share expertise in areas of joint interest and seed future projects. Focus on joint research and development strengths in compound semiconductors, photonics, NEMS/MEMS, advanced packaging and chip design. Funding for this activity is unilateral. It will develop a roadmap and vision for a longer-term larger scale Canada-UK initiative in semiconductors. You must be based at a UK research organisation eligible for EPSRC funding.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1125000000,
+      "max": 1125000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-17",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "networking"
+  ],
+  "last_updated": "2025-06-26T17:10:49.596638",
+  "scraped_from": "https://www.ukri.org/opportunity/canada-uk-networkplus-in-semiconductor-research/",
+  "status": "active"
+}

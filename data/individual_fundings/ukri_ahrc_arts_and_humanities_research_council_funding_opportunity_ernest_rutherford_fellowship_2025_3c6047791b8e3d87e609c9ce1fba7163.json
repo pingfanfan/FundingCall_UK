@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ernest_rutherford_fellowship_2025_3c6047791b8e3d87e609c9ce1fba7163",
+  "title": "Funding opportunity: Ernest Rutherford Fellowship 2025",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 17 June 2025 - see all updates Apply for an STFC Ernest Rutherford Fellowship (ERF) to work on an independent research project. Projects must be within the remit of STFC’s core science programme. You must:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 6000000000,
+      "max": 6000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-04",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "fellowships@stfc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "fellowship"
+  ],
+  "last_updated": "2025-06-26T23:26:58.786334",
+  "scraped_from": "https://www.ukri.org/opportunity/ernest-rutherford-fellowship-2025/",
+  "status": "active"
+}

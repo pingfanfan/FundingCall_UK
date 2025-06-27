@@ -1,0 +1,59 @@
+{
+  "id": "academy_university_research_fellowships_1750948836",
+  "title": "University Research Fellowships",
+  "organization": "The Royal Society",
+  "category": "academies",
+  "subcategory": "royal_society",
+  "description": "Support for outstanding early career scientists to establish independent research careers",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [
+      "Natural Sciences",
+      "Engineering",
+      "Mathematics"
+    ],
+    "requirements": [
+      "PhD completed within 8 years",
+      "Demonstrated research excellence",
+      "UK-based position or offer"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000,
+      "max": 500000,
+      "currency": "GBP",
+      "duration_years": 5
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-09-15",
+    "next_deadline": "2025-09-15",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "Very High",
+    "competition_level": "Very Competitive",
+    "success_rate": "15%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "fellowship",
+    "early-career",
+    "independence"
+  ],
+  "last_updated": "2025-06-26T15:40:36.118571",
+  "scraped_from": "https://royalsociety.org",
+  "status": "active"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_experimental_medicine_stage_one_1750949564",
+  "title": "Funding opportunity: Experimental medicine stage one",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to investigate the causes, progression and treatment of human disease. Your project must: You must be a researcher based at a research organisation eligible to apply for MRC funding. If you are taking the next step towards becoming an independent researcher, you may be eligible to apply as a ‘new investigator’.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 10000000000,
+      "max": 10000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-04-17",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "experimental.medicine@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T15:52:44.601320",
+  "scraped_from": "https://www.ukri.org/opportunity/experimental-medicine/",
+  "status": "active"
+}

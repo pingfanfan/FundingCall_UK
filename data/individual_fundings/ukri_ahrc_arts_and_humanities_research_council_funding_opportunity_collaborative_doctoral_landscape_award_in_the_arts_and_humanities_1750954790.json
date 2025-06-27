@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_collaborative_doctoral_landscape_award_in_the_arts_and_humanities_1750954790",
+  "title": "Funding opportunity: Collaborative doctoral landscape award in the arts and humanities",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 29 May 2025 - see all updates UK non-higher education institutions (non-HEI), individual organisations or consortia, can apply to become arts and humanities collaborative doctoral landscape award grant holders to support and provide high-quality doctoral training. AHRC will support up to 50 doctoral studentships per year, for four years through this scheme. You can apply for a minimum of three students per year (two in exceptional circumstances). Doctoral projects must align with the organisation’s priorities and are undertaken with a university partner.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 245000,
+      "max": 245000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-03-26",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant",
+    "training"
+  ],
+  "last_updated": "2025-06-26T17:19:50.001828",
+  "scraped_from": "https://www.ukri.org/opportunity/collaborative-doctoral-landscape-award-in-the-arts-and-humanities/",
+  "status": "active"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "academy_research_grants_1750942552",
+  "title": "Research Grants",
+  "organization": "The Royal Society",
+  "category": "academies",
+  "subcategory": "royal_society",
+  "description": "Funding for research projects across the natural sciences",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Natural Sciences",
+      "Engineering",
+      "Mathematics"
+    ],
+    "requirements": [
+      "Employed at eligible UK institution",
+      "Research proposal in scope"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 50000,
+      "max": 200000,
+      "currency": "GBP",
+      "duration_years": 3
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-05-30",
+    "next_deadline": "2024-11-26",
+    "frequency": "Bi-annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "18%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "research-grant",
+    "natural-sciences"
+  ],
+  "last_updated": "2025-06-26T13:55:52.742060",
+  "scraped_from": "https://royalsociety.org",
+  "status": "active"
+}

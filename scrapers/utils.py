@@ -44,7 +44,7 @@ class FundingScraper:
     @sleep_and_retry
     @limits(calls=10, period=60)  # Rate limit: 10 calls per minute
     def fetch_page(self, url: str, timeout: int = 30) -> BeautifulSoup:
-        """Fetch a web page with rate limiting and error handling."""
+        """Fetch a web page with rate limiting and error handling."""        
         try:
             logger.info(f"Fetching: {url}")
             response = self.session.get(url, timeout=timeout)
@@ -62,6 +62,32 @@ class FundingScraper:
         if element:
             return element.get_text(strip=True)
         return default
+
+    def fetch_page_with_selenium(self, url: str, timeout: int = 30) -> BeautifulSoup:
+        """Fetch a web page using Selenium for dynamic content."""
+        try:
+            logger.info(f"Fetching with Selenium: {url}")
+            from selenium import webdriver
+            from selenium.webdriver.chrome.service import Service
+            from webdriver_manager.chrome import ChromeDriverManager
+            
+            options = webdriver.ChromeOptions()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            
+            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+            driver.get(url)
+            time.sleep(5)  # Wait for dynamic content to load
+            
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            driver.quit()
+            
+            return soup
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch {url} with Selenium: {e}")
+            raise ScrapingError(f"Failed to fetch {url} with Selenium: {e}")
     
     def extract_amount(self, text: str) -> Dict[str, Any]:
         """Extract funding amount from text."""
@@ -153,15 +179,16 @@ class FundingScraper:
         return text
     
     def generate_id(self, title: str, organization: str) -> str:
-        """Generate a unique ID for a funding opportunity."""
+        """Generate a unique ID for a funding opportunity based on its content."""
         # Create a slug from title and organization
         combined = f"{organization}_{title}"
         slug = re.sub(r'[^a-zA-Z0-9]+', '_', combined.lower())
         slug = re.sub(r'_+', '_', slug).strip('_')
         
-        # Add timestamp to ensure uniqueness
-        timestamp = int(time.time())
-        return f"{slug}_{timestamp}"
+        # Use a hash of the combined string to ensure uniqueness based on content
+        import hashlib
+        content_hash = hashlib.md5(combined.encode()).hexdigest()
+        return f"{slug}_{content_hash}"
 
 def load_json(file_path: Path) -> Dict:
     """Load JSON data from file."""

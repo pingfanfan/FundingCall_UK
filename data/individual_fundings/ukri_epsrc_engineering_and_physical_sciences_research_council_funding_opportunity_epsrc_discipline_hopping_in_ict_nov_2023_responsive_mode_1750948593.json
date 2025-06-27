@@ -1,0 +1,49 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_epsrc_discipline_hopping_in_ict_nov_2023_responsive_mode_1750948593",
+  "title": "Funding opportunity: EPSRC discipline hopping in ICT, Nov 2023: responsive mode",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Last updated: 3 April 2025 - see all updates Discipline hopping in ICT grants are for researchers based at an eligible UK research organisation. You may either:",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000,
+      "max": 25000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-11-13",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T15:36:33.335975",
+  "scraped_from": "https://www.ukri.org/opportunity/epsrc-discipline-hopping-in-ict-nov-2023-responsive-mode/",
+  "status": "active"
+}

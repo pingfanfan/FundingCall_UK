@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_canada_uk_semiconductors_1750942884",
+  "title": "Funding opportunity: Canada-UK semiconductors",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "See the full opportunity details on the Innovation Funding Service. UK registered organisations can apply for a share of at least £1 million for collaboration with Canadian small and medium-sized enterprises (SMEs) on joint semiconductors projects. This competition is open to UK and Canadian collaborations only.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000000000,
+      "max": 1000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-16",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation",
+    "collaboration"
+  ],
+  "last_updated": "2025-06-26T14:01:24.289940",
+  "scraped_from": "https://www.ukri.org/opportunity/canada-uk-semiconductors/",
+  "status": "active"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "foundation_discovery_awards_1750934575",
+  "title": "Discovery Awards",
+  "organization": "The Wellcome Trust",
+  "category": "foundations",
+  "subcategory": "wellcome_trust",
+  "description": "Funding for curiosity-driven research across the biomedical sciences",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Biomedical Research",
+      "Medical Humanities",
+      "Global Health"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 300000,
+      "max": 3000000,
+      "currency": "GBP",
+      "duration_years": 5
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel",
+      "Consumables"
+    ]
+  },
+  "application": {
+    "deadline": "2024-04-30",
+    "next_deadline": "2024-10-27",
+    "frequency": "Bi-annual",
+    "application_url": "https://wellcome.org",
+    "guidelines_url": "https://wellcome.org"
+  },
+  "key_info": {
+    "priority_level": "Very High",
+    "competition_level": "Very Competitive",
+    "success_rate": "12%"
+  },
+  "contact": {
+    "email": "grantsenquiries@wellcome.org",
+    "phone": ""
+  },
+  "tags": [
+    "discovery",
+    "biomedical",
+    "curiosity-driven"
+  ],
+  "last_updated": "2025-06-26T11:42:55.749340",
+  "scraped_from": "https://wellcome.org",
+  "status": "active"
+}

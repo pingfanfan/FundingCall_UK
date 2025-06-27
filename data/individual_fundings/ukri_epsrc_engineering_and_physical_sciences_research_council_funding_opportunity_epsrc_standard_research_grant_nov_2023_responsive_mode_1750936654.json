@@ -1,0 +1,49 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_epsrc_standard_research_grant_nov_2023_responsive_mode_1750936654",
+  "title": "Funding opportunity: EPSRC standard research grant, Nov 2023: responsive mode",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Last updated: 1 April 2025 - see all updates Standard research grants are available for researchers at eligible research organisations. There is no limit on the value of the grant or length of the project. You should ask for what is needed to deliver the proposed programme of research.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000000,
+      "max": 400000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-11-13",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T12:17:34.821032",
+  "scraped_from": "https://www.ukri.org/opportunity/epsrc-standard-research-grant-nov-2023-responsive-mode/",
+  "status": "active"
+}

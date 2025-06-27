@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_researching_motor_neurone_disease_highlight_notice_1750948711",
+  "title": "Funding opportunity: Researching motor neurone disease: highlight notice",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 23 June 2023 - see all updates Apply for funding to research motor neurone disease (MND). You can get funding through any:",
+  "eligibility": {
+    "career_stage": "Senior",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1351705000,
+      "max": 1351705000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2022-12-09",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "nmhb@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T15:38:31.011445",
+  "scraped_from": "https://www.ukri.org/opportunity/researching-motor-neurone-disease-highlight-notice/",
+  "status": "active"
+}

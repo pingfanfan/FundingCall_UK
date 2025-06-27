@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ahrc_responsive_mode_ukri_nsf_sbe_lead_agency_1750957383",
+  "title": "Funding opportunity: AHRC responsive mode: UKRI NSF-SBE lead agency",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 4 April 2025 - see all updates Apply for funding to work with overseas researchers in the Unites States (US). Submit a collaborative research grant application within the remit of Arts and Humanities Research Council (AHRC) and US National Science Foundation, Social, Behavioural and Economic Sciences Directorate (NSF-SBE).",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 300000000,
+      "max": 1500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-12-11",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "sbeleadagency@ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T18:03:03.319424",
+  "scraped_from": "https://www.ukri.org/opportunity/ahrc-responsive-mode-ukri-nsf-sbe-lead-agency/",
+  "status": "active"
+}

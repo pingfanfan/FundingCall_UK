@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ukri_sbe_lead_agency_opportunity_1750935634",
+  "title": "Funding opportunity: UKRI-SBE lead agency opportunity",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 5 April 2024 - see all updates This opportunity allows UK and US-based researchers to submit a collaborative proposal that will go through a single review process. The goal is to reduce some of the barriers that researchers and funding agencies encounter when trying to work internationally.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000000000,
+      "max": 1000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2020-09-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "sbeleadagency@ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "international"
+  ],
+  "last_updated": "2025-06-26T12:00:34.790463",
+  "scraped_from": "https://www.ukri.org/opportunity/ukri-sbe-lead-agency-opportunity/",
+  "status": "active"
+}

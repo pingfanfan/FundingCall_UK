@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ukri_gambling_harms_research_coordination_centre_ghrcc_1750936964",
+  "title": "Funding opportunity: UKRI Gambling Harms Research Coordination Centre (GHRCC)",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to coordinate and facilitate activity in the field of gambling harms research as part of UK Research and Innovation (UKRI)’s Research Programme on Gambling (RPG). You must be based at a UK research organisation, IRO, or UK registered business eligible for UKRI funding. The Centre will identify gaps in gambling research, lead and manage a multidisciplinary research programme, collaborate with stakeholders to boost high-quality independent studies, explore how UKRI and other data assets can support the evidence base, and coordinate Gambling Harms Research and Innovation Partnerships (GHRIPs).",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 10000000000,
+      "max": 10000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-23",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T12:22:44.823900",
+  "scraped_from": "https://www.ukri.org/opportunity/ukri-gambling-harms-research-coordination-centre-ghrcc/",
+  "status": "active"
+}

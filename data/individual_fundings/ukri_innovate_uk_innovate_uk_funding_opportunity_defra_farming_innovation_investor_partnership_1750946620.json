@@ -1,0 +1,49 @@
+{
+  "id": "innovate_uk_funding_opportunity_defra_farming_innovation_investor_partnership_1750946620",
+  "title": "Funding opportunity: Defra farming innovation investor partnership",
+  "organization": "Innovate UK",
+  "category": "ukri",
+  "subcategory": "innovate_uk",
+  "description": "See the full opportunity details on the Innovation Funding Service. UK registered SMEs can apply for a share of up to £5 million to develop innovative farming solutions. This must align with private investment from selected investor partners. This competition is open to single applicants only.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 8000000000,
+      "max": 8000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-19",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "innovate_uk",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T15:03:40.820759",
+  "scraped_from": "https://www.ukri.org/opportunity/defra-farming-innovation-investor-partnership-2/",
+  "status": "active"
+}

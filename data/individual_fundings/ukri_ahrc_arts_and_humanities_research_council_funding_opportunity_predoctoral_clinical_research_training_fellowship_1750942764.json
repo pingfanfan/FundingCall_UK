@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_predoctoral_clinical_research_training_fellowship_1750942764",
+  "title": "Funding opportunity: Predoctoral clinical research training fellowship",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to undertake a PhD. Your research can focus on any area of Medical Research Council (MRC)’s remit to improve human health. You must:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000,
+      "max": 25000000,
+      "currency": "GBP",
+      "duration_years": 30
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-11",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "fellows@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "fellowship",
+    "training"
+  ],
+  "last_updated": "2025-06-26T13:59:24.556534",
+  "scraped_from": "https://www.ukri.org/opportunity/pre-doctoral-clinical-research-training-fellowship/",
+  "status": "active"
+}

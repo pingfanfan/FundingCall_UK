@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ahrc_responsive_mode_standard_research_grant_1750933006",
+  "title": "Funding opportunity: AHRC responsive mode: standard research grant",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 4 April 2025 - see all updates Apply for Arts and Humanities Research Council (AHRC) standard research grant funding to support well-defined collaborative projects across the arts and humanities, in areas covered by our remit. You must include a project lead and at least one project co-lead jointly involved in the development and management of the project and co-authored research outputs.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 300000000,
+      "max": 1500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-12-11",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T11:16:46.240133",
+  "scraped_from": "https://www.ukri.org/opportunity/ahrc-responsive-mode-standard-research-grant/",
+  "status": "active"
+}

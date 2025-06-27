@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_clinician_scientist_fellowship_1750950650",
+  "title": "Funding opportunity: Clinician scientist fellowship",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for support to become an independent researcher in a medical research field. Your research can focus on any area of Medical Research Council’s (MRC) remit to improve human health. You must:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000,
+      "max": 25000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-11",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "fellows@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "fellowship"
+  ],
+  "last_updated": "2025-06-26T16:10:50.104889",
+  "scraped_from": "https://www.ukri.org/opportunity/clinician-scientist-fellowship/",
+  "status": "active"
+}

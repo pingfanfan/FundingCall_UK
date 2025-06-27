@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_ahrc_responsive_mode_collaborate_with_researchers_in_luxembourg_1750949745",
+  "title": "Funding opportunity: AHRC responsive mode: collaborate with researchers in Luxembourg",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Last updated: 4 April 2025 - see all updates Apply for funding to work with overseas researchers in Luxembourg. Submit a collaborative research grant application within the remit of AHRC and Fonds National de la Recherche (FNR).",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 300000000,
+      "max": 1500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-12-11",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T15:55:45.059021",
+  "scraped_from": "https://www.ukri.org/opportunity/ahrc-responsive-mode-collaborate-with-researchers-in-luxembourg/",
+  "status": "active"
+}

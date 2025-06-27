@@ -1,0 +1,48 @@
+{
+  "id": "biotechnology_and_biological_sciences_research_council_funding_opportunity_pre_announcement_biological_influence_on_ocean_carbon_novel_modelling_approaches_1750949023",
+  "title": "Funding opportunity: Pre-announcement: Biological influence on ocean carbon: novel modelling approaches",
+  "organization": "Biotechnology and Biological Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "bbsrc",
+  "description": "Apply for funding for a UK-US project to develop new representations of key processes regulating ocean carbon storage for use in global models. For project lead and other UK researchers, you must be: National Aeronautics and Space Administration (NASA) will be providing support. US researchers must be affiliated with a US institution at the time of application submission.",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000000000,
+      "max": 1000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-24",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "laura.lorenzoni@nasa.gov",
+    "phone": ""
+  },
+  "tags": [
+    "bbsrc"
+  ],
+  "last_updated": "2025-06-26T15:43:43.767213",
+  "scraped_from": "https://www.ukri.org/opportunity/biological-influence-on-ocean-carbon-novel-modelling-approaches/",
+  "status": "active"
+}

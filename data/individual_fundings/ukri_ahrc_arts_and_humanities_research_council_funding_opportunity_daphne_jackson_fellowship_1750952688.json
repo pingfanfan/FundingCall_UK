@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_daphne_jackson_fellowship_1750952688",
+  "title": "Funding opportunity: Daphne Jackson fellowship",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "These fellowships are for those looking to return to a research career after a break of two or more years for family, health or caring reasons. The aim is to give participants the confidence and skills they need to make a successful return to research. They provide an opportunity to balance a personalised retraining programme with a challenging research project, in a supportive UK university or research establishment. They are flexible, with at least 100 hours retraining per year, and part-time – usually completed over two years at 0.5 full-time equivalent although some UKRI funders may award longer than this.",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 0,
+      "max": 0,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2020-09-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "djmft@surrey.ac.uk",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "fellowship",
+    "training"
+  ],
+  "last_updated": "2025-06-26T16:44:48.966741",
+  "scraped_from": "https://www.ukri.org/opportunity/daphne-jackson-fellowship/",
+  "status": "active"
+}

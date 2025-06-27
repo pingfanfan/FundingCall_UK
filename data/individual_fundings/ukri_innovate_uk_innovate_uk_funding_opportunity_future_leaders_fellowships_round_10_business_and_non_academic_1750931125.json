@@ -1,0 +1,50 @@
+{
+  "id": "innovate_uk_funding_opportunity_future_leaders_fellowships_round_10_business_and_non_academic_1750931125",
+  "title": "Funding opportunity: Future Leaders Fellowships: round 10, business and non-academic",
+  "organization": "Innovate UK",
+  "category": "ukri",
+  "subcategory": "innovate_uk",
+  "description": "See the full opportunity details on the Innovation Funding Service. UK registered organisations can apply for a share of up to £110 million for ambitious research and innovation projects in any sector, and tailored support to develop careers for future leaders. This competition is open to single applicants with supporting organisations.",
+  "eligibility": {
+    "career_stage": "Mid Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 110000000000,
+      "max": 110000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-03-17",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "innovate_uk",
+    "fellowship",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T10:45:25.289306",
+  "scraped_from": "https://www.ukri.org/opportunity/future-leaders-fellowships-round-10-business-and-non-academic/",
+  "status": "active"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_commercialising_knowledge_assets_fund_autumn_2025_1750946559",
+  "title": "Funding opportunity: Commercialising Knowledge Assets Fund: autumn 2025",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "UK registered government research organisations can apply for grants between £50,000 and £250,000 to move viable public sector knowledge assets towards commercial readiness. This funding is provided by the GOTT. See the full opportunity details on the Innovation Funding Service. This competition is open to single applicants.",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 50000000,
+      "max": 250000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-05",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T15:02:39.588243",
+  "scraped_from": "https://www.ukri.org/opportunity/commercialising-knowledge-assets-fund-autumn-2025/",
+  "status": "active"
+}

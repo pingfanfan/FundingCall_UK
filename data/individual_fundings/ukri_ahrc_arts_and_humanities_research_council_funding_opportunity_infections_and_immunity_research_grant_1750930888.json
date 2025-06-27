@@ -1,0 +1,49 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_infections_and_immunity_research_grant_1750930888",
+  "title": "Funding opportunity: Infections and immunity: research grant",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Apply for funding to support research projects focused on infections and immunity. You must be employed by a research organisation eligible to apply for Medical Research Council (MRC) funding. You can involve more than one research group or organisation in the project.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 25000000,
+      "max": 25000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-01",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "iib@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T10:41:28.898862",
+  "scraped_from": "https://www.ukri.org/opportunity/infections-and-immunity-research/",
+  "status": "active"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "arts_and_humanities_research_council_funding_opportunity_us_uk_and_germany_uk_collaborative_research_seed_funding_in_semiconductor_security_1750947751",
+  "title": "Funding opportunity: US-UK and Germany-UK collaborative research: seed funding in semiconductor security",
+  "organization": "Arts and Humanities Research Council",
+  "category": "ukri",
+  "subcategory": "ahrc",
+  "description": "Important: DSIT spend profiles require that this funding opportunity is only open for four weeks. It closes on 31 July 2025. Awards have a fixed end date of 31 March 2026. Apply for funding to initiate collaborative projects with either the US or Germany in the field of semiconductor security. Applicants may request up to £100,000 for short term visits or short-term projects, to be completed by 31 March 2026. You must be based at a UK research organisation eligible for Engineering and Physical Sciences Research Council (EPSRC) funding.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1875000000,
+      "max": 1875000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-26",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "support@funding-service.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "ahrc"
+  ],
+  "last_updated": "2025-06-26T15:22:31.938053",
+  "scraped_from": "https://www.ukri.org/opportunity/us-uk-and-germany-uk-collaborative-research-seed-funding-in-semiconductor-security/",
+  "status": "active"
+}

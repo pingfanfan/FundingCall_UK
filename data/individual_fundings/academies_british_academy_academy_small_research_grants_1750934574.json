@@ -1,0 +1,56 @@
+{
+  "id": "academy_small_research_grants_1750934574",
+  "title": "Small Research Grants",
+  "organization": "The British Academy",
+  "category": "academies",
+  "subcategory": "british_academy",
+  "description": "Funding for small-scale research projects",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "Humanities",
+      "Social Sciences"
+    ],
+    "requirements": [
+      "Employed at eligible UK institution",
+      "Research proposal in scope"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000,
+      "max": 10000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2024-03-31",
+    "next_deadline": "2025-03-31",
+    "frequency": "Annual",
+    "application_url": "",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "Low",
+    "competition_level": "Very Competitive",
+    "success_rate": "18%"
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "tags": [
+    "small-grant",
+    "research-project"
+  ],
+  "last_updated": "2025-06-26T11:42:54.494687",
+  "scraped_from": "https://www.thebritishacademy.ac.uk",
+  "status": "active"
+}

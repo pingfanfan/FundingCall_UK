@@ -1,0 +1,48 @@
+{
+  "id": "medical_research_council_funding_opportunity_neurosciences_and_mental_health_programme_1750932643",
+  "title": "Funding opportunity: Neurosciences and mental health: programme",
+  "organization": "Medical Research Council",
+  "category": "ukri",
+  "subcategory": "mrc",
+  "description": "Last updated: 19 May 2025 - see all updates Apply for funding to support a programme of research focused on neurosciences and mental health. You must:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 1000,
+      "max": 1000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-05-06",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "nmhb@mrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "mrc"
+  ],
+  "last_updated": "2025-06-26T11:10:43.944886",
+  "scraped_from": "https://www.ukri.org/opportunity/neurosciences-and-mental-health-programme/",
+  "status": "active"
+}

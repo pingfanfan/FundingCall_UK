@@ -1,0 +1,49 @@
+{
+  "id": "research_england_funding_opportunity_institutional_strategic_developmental_projects_in_higher_education_1750936774",
+  "title": "Funding opportunity: Institutional strategic developmental projects in higher education",
+  "organization": "Research England",
+  "category": "ukri",
+  "subcategory": "research_england",
+  "description": "Last updated: 22 February 2024 - see all updates Apply for funding to develop institutional-level innovations in research and knowledge exchange. You must be a higher education (HE) provider that is:",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 500000000,
+      "max": 500000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2020-09-20",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "redevelopmentfund@re.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "research_england",
+    "innovation"
+  ],
+  "last_updated": "2025-06-26T12:19:34.095615",
+  "scraped_from": "https://www.ukri.org/opportunity/research-england-development-fund/",
+  "status": "active"
+}

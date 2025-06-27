@@ -1,0 +1,50 @@
+{
+  "id": "engineering_and_physical_sciences_research_council_funding_opportunity_strategic_infrastructure_for_engineering_and_physical_sciences_june_2025_1750933663",
+  "title": "Funding opportunity: Strategic infrastructure for engineering and physical sciences: June 2025",
+  "organization": "Engineering and Physical Sciences Research Council",
+  "category": "ukri",
+  "subcategory": "epsrc",
+  "description": "Apply for funding to purchase strategic infrastructure including equipment, resources or both. The funding seeks to improve UK scientific capability and enable cutting-edge research that aligns with national priorities, including those within the UK Research and Innovation (UKRI) Strategy and EPSRC Strategic Delivery Plan. This is for invited applicants only. This funding is for either:",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 400000000,
+      "max": 400000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2025-06-05",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "epsrcequipmentfunding@epsrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "epsrc",
+    "innovation",
+    "equipment"
+  ],
+  "last_updated": "2025-06-26T11:27:43.187740",
+  "scraped_from": "https://www.ukri.org/opportunity/strategic-infrastructure-for-engineering-and-physical-sciences-june-2025/",
+  "status": "active"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "science_and_technology_facilities_council_funding_opportunity_mathematical_sciences_small_grants_1750949863",
+  "title": "Funding opportunity: Mathematical sciences small grants",
+  "organization": "Science and Technology Facilities Council",
+  "category": "ukri",
+  "subcategory": "stfc",
+  "description": "Last updated: 1 April 2025 - see all updates Applications to the Mathematical Sciences Small Grants funding opportunity must focus on original research projects. The majority of the research must be within the remit of the EPSRC Mathematical sciences theme.",
+  "eligibility": {
+    "career_stage": "Early Career",
+    "disciplines": [],
+    "requirements": []
+  },
+  "funding_details": {
+    "amount": {
+      "min": 2000000000,
+      "max": 2000000000,
+      "currency": "GBP",
+      "duration_years": 1
+    },
+    "covers": [
+      "Research costs",
+      "Equipment",
+      "Travel"
+    ]
+  },
+  "application": {
+    "deadline": "2023-11-23",
+    "next_deadline": "2026-06-26",
+    "frequency": "Annual",
+    "application_url": "https://www.ukri.org/apply-for-funding/",
+    "guidelines_url": ""
+  },
+  "key_info": {
+    "priority_level": "High",
+    "competition_level": "Very Competitive",
+    "success_rate": "N/A"
+  },
+  "contact": {
+    "email": "maths@epsrc.ukri.org",
+    "phone": ""
+  },
+  "tags": [
+    "stfc",
+    "grant"
+  ],
+  "last_updated": "2025-06-26T15:57:43.230501",
+  "scraped_from": "https://www.ukri.org/opportunity/mathematical-sciences-small-grants/",
+  "status": "active"
+}

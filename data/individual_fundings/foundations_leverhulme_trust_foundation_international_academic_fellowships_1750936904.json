@@ -1,0 +1,58 @@
+{
+  "id": "foundation_international_academic_fellowships_1750936904",
+  "title": "International Academic Fellowships",
+  "organization": "The Leverhulme Trust",
+  "category": "foundations",
+  "subcategory": "leverhulme_trust",
+  "description": "Support for international collaboration and mobility",
+  "eligibility": {
+    "career_stage": "All Stages",
+    "disciplines": [
+      "All Academic Disciplines"
+    ],
+    "requirements": [
+      "Employed at eligible institution",
+      "Research proposal within scope",
+      "Demonstrated research capability"
+    ]
+  },
+  "funding_details": {
+    "amount": {
+      "min": 100000,
+      "max": 250000,
+      "currency": "GBP",
+      "duration_years": 2
+    },
+    "covers": [
+      "Salary",
+      "Research expenses",
+      "Equipment",
+      "Travel",
+      "Training"
+    ]
+  },
+  "application": {
+    "deadline": "2024-03-31",
+    "next_deadline": "2025-03-31",
+    "frequency": "Annual",
+    "application_url": "https://www.leverhulme.ac.uk",
+    "guidelines_url": "https://www.leverhulme.ac.uk"
+  },
+  "key_info": {
+    "priority_level": "Medium",
+    "competition_level": "Competitive",
+    "success_rate": "30%"
+  },
+  "contact": {
+    "email": "enquiries@leverhulme.ac.uk",
+    "phone": ""
+  },
+  "tags": [
+    "international",
+    "collaboration",
+    "mobility"
+  ],
+  "last_updated": "2025-06-26T12:21:44.165448",
+  "scraped_from": "https://www.leverhulme.ac.uk",
+  "status": "active"
+}
