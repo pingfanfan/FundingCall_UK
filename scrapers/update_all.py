@@ -23,6 +23,7 @@ from ukri_scraper import UKRIScraper
 from academies_scraper import AcademiesScraper
 from foundations_scraper import FoundationsScraper
 from utils import setup_directories, update_database, save_json, load_json
+from summarizer import generate_ai_summary
 
 class FundingDataUpdater:
     """Main class to coordinate funding data updates."""
@@ -76,6 +77,7 @@ class FundingDataUpdater:
             if update_database(all_fundings, database_path):
                 logger.info(f"Successfully updated database with {len(all_fundings)} total opportunities")
                 self.generate_summary_report(all_fundings)
+                self.generate_ai_brief(all_fundings)
                 return True
             else:
                 logger.error("Failed to update main database")
@@ -186,6 +188,20 @@ class FundingDataUpdater:
         logger.info(f"  By career stage: {career_stage_counts}")
         logger.info(f"  Upcoming deadlines (30 days): {upcoming_deadlines}")
         logger.info(f"  Total funding range: £{total_min_funding:,} - £{total_max_funding:,}")
+
+    def generate_ai_brief(self, fundings: List[Dict]) -> None:
+        """Generate an AI-style natural language brief for the front-end."""
+        logger.info("Creating daily AI summary...")
+
+        try:
+            summary_payload = generate_ai_summary(fundings)
+        except Exception as exc:
+            logger.error(f"Failed to create AI summary: {exc}")
+            return
+
+        summary_path = self.dirs['data'] / 'ai_summary.json'
+        save_json(summary_payload, summary_path)
+        logger.info(f"AI summary saved to {summary_path}")
     
     def clean_old_data(self, days_old: int = 30) -> None:
         """Clean old individual funding files."""
