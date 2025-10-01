@@ -14,6 +14,14 @@ const noResults = document.getElementById('noResults');
 const modal = document.getElementById('fundingModal');
 const closeModal = document.getElementById('closeModal');
 const modalContent = document.getElementById('modalContent');
+const aiSummaryOverview = document.getElementById('aiSummaryOverview');
+const aiSummaryTimestamp = document.getElementById('aiSummaryTimestamp');
+const aiHighlights = document.getElementById('aiHighlights');
+const aiUpcoming = document.getElementById('aiUpcoming');
+const aiTopBodies = document.getElementById('aiTopBodies');
+const aiCareerFocus = document.getElementById('aiCareerFocus');
+const aiHighValue = document.getElementById('aiHighValue');
+const aiSummarySection = document.getElementById('aiSummarySection');
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,13 +47,23 @@ function setupEventListeners() {
 // Load data from JSON files
 async function loadData() {
     try {
-        // Load main database
-        const response = await fetch('data/funding_database.json');
-        database = await response.json();
-        
+        const [databaseResponse, summaryResponse] = await Promise.all([
+            fetch('data/funding_database.json'),
+            fetch('data/ai_summary.json')
+        ]);
+
+        database = await databaseResponse.json();
+
+        if (summaryResponse.ok) {
+            const summaryData = await summaryResponse.json();
+            updateAISummary(summaryData);
+        } else {
+            showAISummaryFallback('AI summary is not available yet.');
+        }
+
         // Use the fundings from the database instead of sample data
         allFundings = database.fundings || [];
-        
+
         updateStats();
         filteredFundings = [...allFundings];
         sortAndDisplayFundings();
@@ -53,9 +71,69 @@ async function loadData() {
     } catch (error) {
         console.error('Error loading data:', error);
         showError('Failed to load funding data. Please try again later.');
+        showAISummaryFallback('Unable to load AI summary at this time.');
     } finally {
         loading.style.display = 'none';
     }
+}
+
+function updateAISummary(summary) {
+    if (!summary) {
+        showAISummaryFallback('AI summary is not available yet.');
+        return;
+    }
+
+    aiSummaryOverview.textContent = summary.overall_summary || 'Automated briefing is ready.';
+    aiSummaryTimestamp.textContent = summary.generated_at
+        ? `Generated at ${new Date(summary.generated_at).toLocaleString()}`
+        : '-';
+
+    renderList(aiHighlights, summary.highlights, item => `<li>${item}</li>`);
+    renderList(aiUpcoming, summary.upcoming_deadlines, item => `
+        <li>
+            <strong>${item.title}</strong>
+            <span>${item.organization} · Deadline: ${item.deadline} (${item.days_remaining} days left)</span>
+        </li>
+    `);
+    renderList(aiTopBodies, summary.top_funding_bodies, item => `
+        <li>
+            <strong>${item.organization}</strong>
+            <span>${item.opportunity_count} opportunities</span>
+        </li>
+    `);
+    renderList(aiCareerFocus, summary.career_stage_focus, item => `
+        <li>
+            <strong>${item.stage}</strong>
+            <span>${item.opportunity_count} opportunities</span>
+        </li>
+    `);
+    renderList(aiHighValue, summary.high_value_awards, item => `
+        <li>
+            <strong>${item.title}</strong>
+            <span>${item.organization} · ${item.amount} · Deadline: ${item.deadline}</span>
+        </li>
+    `);
+}
+
+function renderList(container, items, templateFn) {
+    if (!container) return;
+    if (!items || items.length === 0) {
+        container.innerHTML = '<li>No data available.</li>';
+        return;
+    }
+
+    container.innerHTML = items.map(templateFn).join('');
+}
+
+function showAISummaryFallback(message) {
+    if (!aiSummarySection) return;
+    aiSummaryOverview.textContent = message;
+    aiSummaryTimestamp.textContent = '-';
+    [aiHighlights, aiUpcoming, aiTopBodies, aiCareerFocus, aiHighValue].forEach(container => {
+        if (container) {
+            container.innerHTML = '<li>No data available.</li>';
+        }
+    });
 }
 
 

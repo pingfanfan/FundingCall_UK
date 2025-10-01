@@ -1,0 +1,78 @@
+{
+  "generated_at": "2025-10-01T21:41:06.089900Z",
+  "overall_summary": "Daily crawl completed: 3057 opportunities consolidated with automatic categorisation across major UK funding bodies. Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now.",
+  "highlights": [
+    "Captured 3057 funding opportunities covering 3 major categories.",
+    "Top thematic areas today: UKRI (2621), FOUNDATIONS (222), ACADEMIES (214).",
+    "Highest available award tops out at \u00a3110.00bn."
+  ],
+  "upcoming_deadlines": [],
+  "top_funding_bodies": [
+    {
+      "organization": "Arts and Humanities Research Council",
+      "opportunity_count": 1483
+    },
+    {
+      "organization": "Medical Research Council",
+      "opportunity_count": 242
+    },
+    {
+      "organization": "Engineering and Physical Sciences Research Council",
+      "opportunity_count": 216
+    },
+    {
+      "organization": "Biotechnology and Biological Sciences Research Council",
+      "opportunity_count": 148
+    },
+    {
+      "organization": "Economic and Social Research Council",
+      "opportunity_count": 146
+    }
+  ],
+  "career_stage_focus": [
+    {
+      "stage": "Early Career",
+      "opportunity_count": 1449
+    },
+    {
+      "stage": "All Stages",
+      "opportunity_count": 1161
+    },
+    {
+      "stage": "Mid Career",
+      "opportunity_count": 328
+    }
+  ],
+  "high_value_awards": [
+    {
+      "title": "Funding opportunity: Future Leaders Fellowships: round 10, business and non-academic",
+      "organization": "Innovate UK",
+      "amount": "\u00a3110.00bn",
+      "deadline": "17 Mar 2025"
+    },
+    {
+      "title": "Funding opportunity: MRC Centre of Research Excellence: round three: invited full application",
+      "organization": "Medical Research Council",
+      "amount": "\u00a350.00bn",
+      "deadline": "15 May 2025"
+    },
+    {
+      "title": "Funding opportunity: UKRI cross research council responsive mode pilot scheme: round two full stage",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a332.50bn",
+      "deadline": "02 Sep 2024"
+    },
+    {
+      "title": "Funding opportunity: Investor partnerships: clean energy and climate technologies",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a330.00bn",
+      "deadline": "09 May 2025"
+    },
+    {
+      "title": "Funding opportunity: Developmental pathway funding scheme: invited stage two",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a330.00bn",
+      "deadline": "07 May 2025"
+    }
+  ]
+}
