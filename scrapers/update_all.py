@@ -93,6 +93,10 @@ class FundingDataUpdater:
                 self.save_individual_fundings(curated_fundings, source_lookup)
                 self.generate_summary_report(curated_fundings)
                 self.generate_ai_brief(curated_fundings, quality_report)
+            if update_database(all_fundings, database_path):
+                logger.info(f"Successfully updated database with {len(all_fundings)} total opportunities")
+                self.generate_summary_report(all_fundings)
+                self.generate_ai_brief(all_fundings)
                 return True
             else:
                 logger.error("Failed to update main database")
@@ -218,11 +222,13 @@ class FundingDataUpdater:
         logger.info(f"  Total funding range: £{total_min_funding:,} - £{total_max_funding:,}")
 
     def generate_ai_brief(self, fundings: List[Dict], quality_report: Optional[Dict] = None) -> None:
+    def generate_ai_brief(self, fundings: List[Dict]) -> None:
         """Generate an AI-style natural language brief for the front-end."""
         logger.info("Creating daily AI summary...")
 
         try:
             summary_payload = generate_ai_summary(fundings, quality_report=quality_report)
+            summary_payload = generate_ai_summary(fundings)
         except Exception as exc:
             logger.error(f"Failed to create AI summary: {exc}")
             return

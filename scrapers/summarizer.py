@@ -4,6 +4,8 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Optional
+from datetime import datetime, timezone
+from typing import Dict, Iterable, List
 
 
 def _safe_get(dct: Dict, path: Iterable[str], default=""):
@@ -105,6 +107,10 @@ def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_
     total = len(fundings)
     window_info = _resolve_window(window_days, quality_report)
     notes = _quality_notes(quality_report)
+def generate_ai_summary(fundings: List[Dict]) -> Dict:
+    """Create a structured natural-language summary for researchers."""
+    generated_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+    total = len(fundings)
 
     if total == 0:
         return {
@@ -183,6 +189,7 @@ def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_
 
     highlights = [
         f"Curated {total} funding opportunities with deadlines between {window_info['label']}."
+        f"Captured {total} funding opportunities covering {len(category_counter)} major categories.",
     ]
     if top_categories:
         highlights.append(
@@ -203,6 +210,7 @@ def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_
         "Daily crawl completed: "
         f"{total} validated opportunities remain after quality checks, "
         "all with deadlines inside the rolling three-month window. "
+        f"{total} opportunities consolidated with automatic categorisation across major UK funding bodies. "
         "Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now."
     )
 

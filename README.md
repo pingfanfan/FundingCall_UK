@@ -79,6 +79,20 @@ FundingCall_UK/
 - 数据质量报告会在“Quality notes”中展示，便于追踪被剔除的条目类别
 - 如需要自定义总结逻辑，可修改 `scrapers/summarizer.py`
 
+## 每日自动更新
+
+- 在服务器上执行一次更新并生成AI摘要: `python scrapers/update_all.py`
+- 持续运行的自动任务（默认每24小时运行一次）: `python scrapers/daily_scheduler.py`
+  - 如需测试单次运行: `python scrapers/daily_scheduler.py --run-once`
+  - 自定义运行间隔（例如每12小时）: `python scrapers/daily_scheduler.py --interval-hours 12`
+- 也可以将 `scrapers/daily_scheduler.py --run-once` 加入系统cron任务或GitHub Actions，实现每天定时抓取
+
+## AI 智能总结
+
+- 每次更新会在 `data/ai_summary.json` 生成自动化总结，前端首页“Daily AI Briefing”模块将实时展示
+- 总结内容包含：核心亮点、14天内截止的资助提醒、热门资助机构、面向的职业阶段及高额资助项目
+- 如需要自定义总结逻辑，可修改 `scrapers/summarizer.py`
+
 ## 部署到GitHub Pages
 
 1. 推送代码到GitHub仓库
