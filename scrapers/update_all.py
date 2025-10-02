@@ -14,7 +14,7 @@ import argparse
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from loguru import logger
 
@@ -24,6 +24,7 @@ from academies_scraper import AcademiesScraper
 from foundations_scraper import FoundationsScraper
 from utils import setup_directories, update_database, save_json, load_json
 from summarizer import generate_ai_summary
+from data_quality import sanitise_fundings
 
 class FundingDataUpdater:
     """Main class to coordinate funding data updates."""
@@ -45,6 +46,7 @@ class FundingDataUpdater:
         logger.info("Starting complete funding data update...")
         
         all_fundings = []
+        source_lookup = {}
         success_count = 0
         
         for scraper_name, scraper in self.scrapers.items():
@@ -61,8 +63,11 @@ class FundingDataUpdater:
                     continue
                 
                 if fundings:
-                    all_fundings.extend(fundings)
-                    self.save_individual_fundings(fundings, scraper_name)
+                    for item in fundings:
+                        all_fundings.append(item)
+                        identifier = str(item.get('id'))
+                        if identifier:
+                            source_lookup[identifier] = scraper_name
                     success_count += 1
                     logger.info(f"Successfully scraped {len(fundings)} opportunities from {scraper_name}")
                 else:
@@ -73,11 +78,21 @@ class FundingDataUpdater:
         
         # Update main database
         if all_fundings:
+            curated_fundings, quality_report = sanitise_fundings(all_fundings, log=logger)
+            if not curated_fundings:
+                logger.warning("All scraped opportunities were filtered out by quality checks")
+                return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            if update_database(all_fundings, database_path):
-                logger.info(f"Successfully updated database with {len(all_fundings)} total opportunities")
-                self.generate_summary_report(all_fundings)
-                self.generate_ai_brief(all_fundings)
+            if update_database(curated_fundings, database_path):
+                logger.info(
+                    "Successfully updated database with {curated} curated opportunities (from {scraped} scraped)".format(
+                        curated=len(curated_fundings),
+                        scraped=len(all_fundings),
+                    )
+                )
+                self.save_individual_fundings(curated_fundings, source_lookup)
+                self.generate_summary_report(curated_fundings)
+                self.generate_ai_brief(curated_fundings, quality_report)
                 return True
             else:
                 logger.error("Failed to update main database")
@@ -91,6 +106,7 @@ class FundingDataUpdater:
         logger.info(f"Running specific scrapers: {', '.join(scraper_names)}")
         
         all_fundings = []
+        source_lookup = {}
         
         for scraper_name in scraper_names:
             if scraper_name not in self.scrapers:
@@ -111,8 +127,11 @@ class FundingDataUpdater:
                     continue
                 
                 if fundings:
-                    all_fundings.extend(fundings)
-                    self.save_individual_fundings(fundings, scraper_name)
+                    for item in fundings:
+                        all_fundings.append(item)
+                        identifier = str(item.get('id'))
+                        if identifier:
+                            source_lookup[identifier] = scraper_name
                     logger.info(f"Successfully scraped {len(fundings)} opportunities from {scraper_name}")
                 
             except Exception as e:
@@ -120,15 +139,24 @@ class FundingDataUpdater:
         
         # Update database
         if all_fundings:
+            curated_fundings, quality_report = sanitise_fundings(all_fundings, log=logger)
+            if not curated_fundings:
+                logger.warning("All scraped opportunities were filtered out by quality checks")
+                return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            return update_database(all_fundings, database_path)
+            if update_database(curated_fundings, database_path):
+                self.save_individual_fundings(curated_fundings, source_lookup)
+                self.generate_ai_brief(curated_fundings, quality_report)
+                return True
+            return False
         
         return False
     
-    def save_individual_fundings(self, fundings: List[Dict], scraper_name: str) -> None:
+    def save_individual_fundings(self, fundings: List[Dict], source_lookup: Dict[str, str]) -> None:
         """Save individual funding files."""
         for funding in fundings:
-            filename = f"{scraper_name}_{funding['subcategory']}_{funding['id']}.json"
+            source = source_lookup.get(str(funding['id']), 'aggregated')
+            filename = f"{source}_{funding['subcategory']}_{funding['id']}.json"
             file_path = self.dirs['individual_fundings'] / filename
             save_json(funding, file_path)
     
@@ -189,12 +217,12 @@ class FundingDataUpdater:
         logger.info(f"  Upcoming deadlines (30 days): {upcoming_deadlines}")
         logger.info(f"  Total funding range: £{total_min_funding:,} - £{total_max_funding:,}")
 
-    def generate_ai_brief(self, fundings: List[Dict]) -> None:
+    def generate_ai_brief(self, fundings: List[Dict], quality_report: Optional[Dict] = None) -> None:
         """Generate an AI-style natural language brief for the front-end."""
         logger.info("Creating daily AI summary...")
 
         try:
-            summary_payload = generate_ai_summary(fundings)
+            summary_payload = generate_ai_summary(fundings, quality_report=quality_report)
         except Exception as exc:
             logger.error(f"Failed to create AI summary: {exc}")
             return
