@@ -1,542 +1,569 @@
-// Global variables
-let allFundings = [];
-let filteredFundings = [];
-let database = {};
+const STATE = {
+    fundings: [],
+    filtered: [],
+    summary: null,
+};
 
-// DOM elements
-const searchInput = document.getElementById('searchInput');
-const categoryFilter = document.getElementById('categoryFilter');
-const careerStageFilter = document.getElementById('careerStageFilter');
-const sortBy = document.getElementById('sortBy');
-const fundingGrid = document.getElementById('fundingGrid');
-const loading = document.getElementById('loading');
-const noResults = document.getElementById('noResults');
-const modal = document.getElementById('fundingModal');
-const closeModal = document.getElementById('closeModal');
-const modalContent = document.getElementById('modalContent');
+const WINDOW_DAYS = 90;
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
+const elements = {
+    searchInput: document.getElementById('searchInput'),
+    sourceFilters: document.querySelectorAll('#sourceFilters input[type="checkbox"]'),
+    careerStageFilter: document.getElementById('careerStageFilter'),
+    sortSelect: document.getElementById('sortSelect'),
+    fundingGrid: document.getElementById('fundingGrid'),
+    loading: document.getElementById('loading'),
+    noResults: document.getElementById('noResults'),
+    totalFundings: document.getElementById('totalFundings'),
+    closingSoon: document.getElementById('closingSoon'),
+    lastUpdated: document.getElementById('lastUpdated'),
+    resultSummary: document.getElementById('resultSummary'),
+    heroHighlight: document.getElementById('heroHighlight'),
+    aiSummarySection: document.getElementById('aiSummarySection'),
+    aiSummaryOverview: document.getElementById('aiSummaryOverview'),
+    aiSummaryTimestamp: document.getElementById('aiSummaryTimestamp'),
+    aiHighlights: document.getElementById('aiHighlights'),
+    aiUpcoming: document.getElementById('aiUpcoming'),
+    aiTopBodies: document.getElementById('aiTopBodies'),
+    aiCareerFocus: document.getElementById('aiCareerFocus'),
+    aiHighValue: document.getElementById('aiHighValue'),
+    aiCoverageWindow: document.getElementById('aiCoverageWindow'),
+    qualityNotes: document.getElementById('qualityNotes'),
+    resetFilters: document.getElementById('resetFilters'),
+    modal: document.getElementById('fundingModal'),
+    closeModal: document.getElementById('closeModal'),
+    modalContent: document.getElementById('modalContent'),
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    bindEvents();
     loadData();
-    setupEventListeners();
 });
 
-// Setup event listeners
-function setupEventListeners() {
-    searchInput.addEventListener('input', debounce(filterFundings, 300));
-    categoryFilter.addEventListener('change', filterFundings);
-    careerStageFilter.addEventListener('change', filterFundings);
-    sortBy.addEventListener('change', sortAndDisplayFundings);
-    
-    closeModal.addEventListener('click', closeModalHandler);
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeModalHandler();
+function bindEvents() {
+    const debouncedFilter = debounce(applyFilters, 200);
+    elements.searchInput.addEventListener('input', debouncedFilter);
+    elements.careerStageFilter.addEventListener('change', applyFilters);
+    elements.sortSelect.addEventListener('change', () => {
+        sortFundings();
+        renderFundings();
+    });
+    elements.sourceFilters.forEach((checkbox) => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+    if (elements.resetFilters) {
+        elements.resetFilters.addEventListener('click', resetFilters);
+    }
+    if (elements.closeModal) {
+        elements.closeModal.addEventListener('click', closeModal);
+    }
+    window.addEventListener('click', (event) => {
+        if (event.target === elements.modal) {
+            closeModal();
         }
     });
 }
 
-// Load data from JSON files
 async function loadData() {
     try {
-        // Load main database
-        const response = await fetch('data/funding_database.json');
-        database = await response.json();
-        
-        // Use the fundings from the database instead of sample data
-        allFundings = database.fundings || [];
-        
-        updateStats();
-        filteredFundings = [...allFundings];
-        sortAndDisplayFundings();
-        
-    } catch (error) {
-        console.error('Error loading data:', error);
-        showError('Failed to load funding data. Please try again later.');
-    } finally {
-        loading.style.display = 'none';
-    }
-}
+        const [databaseResponse, summaryResponse] = await Promise.all([
+            fetch('data/funding_database.json'),
+            fetch('data/ai_summary.json'),
+        ]);
 
-
-
-// Update statistics
-function updateStats() {
-    const totalFundings = allFundings.length;
-    const activeFundings = allFundings.filter(f => f.status === 'active').length;
-    const closingSoon = allFundings.filter(f => {
-        const deadline = new Date(f.application.deadline);
-        const now = new Date();
-        const diffTime = deadline - now;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays <= 30 && diffDays > 0;
-    }).length;
-    
-    document.getElementById('totalFundings').textContent = totalFundings;
-    document.getElementById('activeFundings').textContent = activeFundings;
-    document.getElementById('closingSoon').textContent = closingSoon;
-    document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
-    
-    // Update dashboard
-    updateDashboard();
-}
-
-// Update dashboard with comprehensive statistics
-function updateDashboard() {
-    updateCategoryStats();
-    updateCareerStats();
-    updateFundingRange();
-    updateDeadlineStats();
-    updateOrganizationStats();
-    updateCompetitionStats();
-}
-
-// Update category distribution
-function updateCategoryStats() {
-    const categoryCount = {};
-    allFundings.forEach(funding => {
-        const category = funding.category || 'Other';
-        categoryCount[category] = (categoryCount[category] || 0) + 1;
-    });
-    
-    const total = allFundings.length;
-    const categoryStatsEl = document.getElementById('categoryStats');
-    
-    categoryStatsEl.innerHTML = Object.entries(categoryCount)
-        .sort((a, b) => b[1] - a[1])
-        .map(([category, count]) => {
-            const percentage = ((count / total) * 100).toFixed(1);
-            return `
-                <div class="stat-item">
-                    <div class="stat-bar">
-                        <span class="stat-label">${category}</span>
-                        <div class="stat-progress">
-                            <div class="stat-progress-fill" style="width: ${percentage}%"></div>
-                        </div>
-                        <span class="stat-value">${count} (${percentage}%)</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-}
-
-// Update career stage distribution
-function updateCareerStats() {
-    const careerCount = {};
-    allFundings.forEach(funding => {
-        const stage = funding.eligibility?.career_stage || 'All Stages';
-        careerCount[stage] = (careerCount[stage] || 0) + 1;
-    });
-    
-    const total = allFundings.length;
-    const careerStatsEl = document.getElementById('careerStats');
-    
-    careerStatsEl.innerHTML = Object.entries(careerCount)
-        .sort((a, b) => b[1] - a[1])
-        .map(([stage, count]) => {
-            const percentage = ((count / total) * 100).toFixed(1);
-            return `
-                <div class="stat-item">
-                    <div class="stat-bar">
-                        <span class="stat-label">${stage}</span>
-                        <div class="stat-progress">
-                            <div class="stat-progress-fill" style="width: ${percentage}%"></div>
-                        </div>
-                        <span class="stat-value">${count} (${percentage}%)</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-}
-
-// Update funding range statistics
-function updateFundingRange() {
-    const amounts = allFundings
-        .map(funding => {
-            const amount = funding.funding_details?.amount;
-            if (!amount) return null;
-            return {
-                min: amount.min || amount.max || 0,
-                max: amount.max || amount.min || 0
-            };
-        })
-        .filter(amount => amount && amount.min > 0);
-    
-    if (amounts.length === 0) {
-        document.getElementById('fundingRange').innerHTML = '<p>No funding amount data available</p>';
-        return;
-    }
-    
-    const minAmount = Math.min(...amounts.map(a => a.min));
-    const maxAmount = Math.max(...amounts.map(a => a.max));
-    const avgMin = amounts.reduce((sum, a) => sum + a.min, 0) / amounts.length;
-    const avgMax = amounts.reduce((sum, a) => sum + a.max, 0) / amounts.length;
-    
-    document.getElementById('fundingRange').innerHTML = `
-        <div class="range-item">
-            <div class="range-label">Minimum Available</div>
-            <div class="range-value">£${formatNumber(minAmount)}</div>
-        </div>
-        <div class="range-item">
-            <div class="range-label">Maximum Available</div>
-            <div class="range-value">£${formatNumber(maxAmount)}</div>
-        </div>
-        <div class="range-item">
-            <div class="range-label">Average Range</div>
-            <div class="range-value">£${formatNumber(avgMin)} - £${formatNumber(avgMax)}</div>
-        </div>
-    `;
-}
-
-// Update deadline analysis
-function updateDeadlineStats() {
-    const now = new Date();
-    let openNow = 0;
-    let closingSoon = 0;
-    let closedCount = 0;
-    let noDeadline = 0;
-    
-    allFundings.forEach(funding => {
-        if (!funding.application?.deadline) {
-            noDeadline++;
-            return;
+        if (!databaseResponse.ok) {
+            throw new Error('Unable to load funding database');
         }
-        
-        const deadline = new Date(funding.application.deadline);
-        const diffTime = deadline - now;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
-        if (diffDays < 0) {
-            closedCount++;
-        } else if (diffDays <= 30) {
-            closingSoon++;
+
+        const database = await databaseResponse.json();
+        const fundings = enforceWindow(database.fundings || []);
+        STATE.fundings = fundings;
+        STATE.filtered = [...fundings];
+
+        updateHeadlineMetrics(fundings, database.last_updated);
+        updateInsights(fundings);
+        sortFundings();
+        renderFundings();
+
+        if (summaryResponse.ok) {
+            const summary = await summaryResponse.json();
+            STATE.summary = summary;
+            updateAISummary(summary);
         } else {
-            openNow++;
+            showAISummaryFallback('AI summary is not available yet.');
         }
-    });
-    
-    document.getElementById('deadlineStats').innerHTML = `
-        <div class="deadline-item">
-            <span class="deadline-number">${openNow}</span>
-            <span class="deadline-label">Open Now</span>
-        </div>
-        <div class="deadline-item">
-            <span class="deadline-number">${closingSoon}</span>
-            <span class="deadline-label">Closing Soon</span>
-        </div>
-        <div class="deadline-item">
-            <span class="deadline-number">${closedCount}</span>
-            <span class="deadline-label">Closed</span>
-        </div>
-        <div class="deadline-item">
-            <span class="deadline-number">${noDeadline}</span>
-            <span class="deadline-label">No Deadline</span>
-        </div>
-    `;
-}
-
-// Update top organizations
-function updateOrganizationStats() {
-    const orgCount = {};
-    allFundings.forEach(funding => {
-        const org = funding.organization || 'Unknown';
-        orgCount[org] = (orgCount[org] || 0) + 1;
-    });
-    
-    const topOrgs = Object.entries(orgCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-    
-    document.getElementById('organizationStats').innerHTML = topOrgs
-        .map(([org, count]) => `
-            <div class="stat-item">
-                <span class="stat-label">${org}</span>
-                <span class="stat-value">${count}</span>
-            </div>
-        `).join('');
-}
-
-// Update competition level analysis
-function updateCompetitionStats() {
-    const amounts = allFundings
-        .map(funding => funding.funding_details?.amount?.max || funding.funding_details?.amount?.min || 0)
-        .filter(amount => amount > 0);
-    
-    const avgAmount = amounts.length > 0 ? amounts.reduce((sum, a) => sum + a, 0) / amounts.length : 0;
-    const highValueCount = amounts.filter(a => a > avgAmount * 2).length;
-    const mediumValueCount = amounts.filter(a => a > avgAmount && a <= avgAmount * 2).length;
-    const lowValueCount = amounts.filter(a => a <= avgAmount).length;
-    
-    let competitionLevel = 'Low';
-    let competitionClass = 'competition-low';
-    let description = 'Generally accessible opportunities';
-    
-    if (highValueCount > amounts.length * 0.3) {
-        competitionLevel = 'High';
-        competitionClass = 'competition-high';
-        description = 'Many high-value, competitive opportunities';
-    } else if (mediumValueCount > amounts.length * 0.4) {
-        competitionLevel = 'Medium';
-        competitionClass = 'competition-medium';
-        description = 'Mix of competitive and accessible opportunities';
+    } catch (error) {
+        console.error(error);
+        showErrorState('We could not load the latest funding data. Please try again later.');
+        showAISummaryFallback('Unable to fetch AI summary at this time.');
+    } finally {
+        if (elements.loading) {
+            elements.loading.hidden = true;
+        }
     }
-    
-    document.getElementById('competitionStats').innerHTML = `
-        <div class="competition-item ${competitionClass}">
-            <div class="competition-level">${competitionLevel} Competition</div>
-            <div class="competition-desc">${description}</div>
-        </div>
-        <div style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-            High Value: ${highValueCount} | Medium: ${mediumValueCount} | Accessible: ${lowValueCount}
-        </div>
-    `;
 }
 
-// Filter fundings based on search and filters
-function filterFundings() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const categoryValue = categoryFilter.value;
-    const careerStageValue = careerStageFilter.value;
-    
-    filteredFundings = allFundings.filter(funding => {
-        const matchesSearch = !searchTerm || 
-            funding.title.toLowerCase().includes(searchTerm) ||
-            funding.organization.toLowerCase().includes(searchTerm) ||
-            funding.description.toLowerCase().includes(searchTerm) ||
-            funding.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-            
-        const matchesCategory = !categoryValue || funding.category === categoryValue;
-        const matchesCareerStage = !careerStageValue || funding.eligibility.career_stage === careerStageValue;
-        
-        return matchesSearch && matchesCategory && matchesCareerStage;
-    });
-    
-    sortAndDisplayFundings();
-}
+function enforceWindow(fundings) {
+    const now = new Date();
+    const windowStart = new Date(now.getTime() - WINDOW_DAYS * 24 * 60 * 60 * 1000);
+    const windowEnd = new Date(now.getTime() + WINDOW_DAYS * 24 * 60 * 60 * 1000);
 
-// Sort and display fundings
-function sortAndDisplayFundings() {
-    const sortValue = sortBy.value;
-    
-    filteredFundings.sort((a, b) => {
-        switch (sortValue) {
-            case 'deadline':
-                return new Date(a.application.deadline) - new Date(b.application.deadline);
-            case 'amount':
-                return b.funding_details.amount.max - a.funding_details.amount.max;
-            case 'title':
-                return a.title.localeCompare(b.title);
-            default:
-                return 0;
+    return fundings.filter((funding) => {
+        const deadline = parseDeadline(funding?.application?.deadline);
+        if (!deadline) {
+            return false;
         }
+        return deadline >= windowStart && deadline <= windowEnd;
     });
-    
-    displayFundings();
 }
 
-// Display fundings in the grid
-function displayFundings() {
-    if (filteredFundings.length === 0) {
-        fundingGrid.style.display = 'none';
-        noResults.style.display = 'block';
+function updateHeadlineMetrics(fundings, lastUpdated) {
+    if (!elements.totalFundings || !elements.closingSoon || !elements.lastUpdated) {
         return;
     }
-    
-    fundingGrid.style.display = 'grid';
-    noResults.style.display = 'none';
-    
-    fundingGrid.innerHTML = filteredFundings.map(funding => createFundingCard(funding)).join('');
-    
-    // Add click listeners to cards
-    document.querySelectorAll('.funding-card').forEach(card => {
-        card.addEventListener('click', function() {
-            const fundingId = this.dataset.fundingId;
-            const funding = allFundings.find(f => f.id === fundingId);
-            showFundingDetails(funding);
-        });
+
+    elements.totalFundings.textContent = fundings.length.toString();
+
+    const closingSoon = fundings.filter((funding) => {
+        const deadline = parseDeadline(funding?.application?.deadline);
+        if (!deadline) return false;
+        const diff = deadline.getTime() - Date.now();
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        return days > 0 && days <= 30;
+    }).length;
+    elements.closingSoon.textContent = closingSoon.toString();
+
+    if (lastUpdated) {
+        elements.lastUpdated.textContent = new Date(lastUpdated).toLocaleString();
+    } else {
+        elements.lastUpdated.textContent = new Date().toLocaleString();
+    }
+}
+
+function updateInsights(fundings) {
+    updateCategoryStats(fundings);
+    updateCareerStats(fundings);
+    updateFundingRange(fundings);
+    updateDeadlineStats(fundings);
+    updateOrganizationStats(fundings);
+    updateCompetitionStats(fundings);
+}
+
+function applyFilters() {
+    const query = elements.searchInput.value.trim().toLowerCase();
+    const selectedStages = elements.careerStageFilter.value;
+    const activeSources = Array.from(elements.sourceFilters)
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+
+    let filtered = STATE.fundings.filter((funding) => {
+        const matchesSource = activeSources.includes((funding.category || '').toLowerCase());
+        if (!matchesSource) return false;
+
+        const matchesStage = !selectedStages || funding?.eligibility?.career_stage === selectedStages;
+        if (!matchesStage) return false;
+
+        if (!query) return true;
+        const haystack = [
+            funding.title,
+            funding.organization,
+            funding.description,
+            funding?.eligibility?.career_stage,
+        ]
+            .join(' ')
+            .toLowerCase();
+        return haystack.includes(query);
+    });
+
+    STATE.filtered = filtered;
+    sortFundings();
+    renderFundings();
+}
+
+function sortFundings() {
+    const mode = elements.sortSelect.value;
+    STATE.filtered.sort((a, b) => {
+        if (mode === 'title') {
+            return a.title.localeCompare(b.title);
+        }
+
+        if (mode === 'amount') {
+            const amountA = getAmountValue(a);
+            const amountB = getAmountValue(b);
+            return amountB - amountA;
+        }
+
+        const deadlineA = parseDeadline(a?.application?.deadline) || new Date(8640000000000000);
+        const deadlineB = parseDeadline(b?.application?.deadline) || new Date(8640000000000000);
+        return deadlineA - deadlineB;
     });
 }
 
-// Create funding card HTML
-function createFundingCard(funding) {
-    const deadline = new Date(funding.application.deadline);
-    const now = new Date();
-    const diffTime = deadline - now;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    let deadlineClass = 'safe';
-    let cardClass = '';
-    if (diffDays <= 7) {
-        deadlineClass = 'urgent';
-        cardClass = 'urgent';
-    } else if (diffDays <= 30) {
-        deadlineClass = 'warning';
-        cardClass = 'closing-soon';
+function renderFundings() {
+    if (!elements.fundingGrid) return;
+
+    const hasResults = STATE.filtered.length > 0;
+    elements.noResults.hidden = hasResults;
+    elements.fundingGrid.innerHTML = '';
+
+    if (!hasResults) {
+        elements.resultSummary.textContent = 'Showing 0 opportunities';
+        return;
     }
-    
-    const amount = funding.funding_details.amount;
-    const amountText = amount.min === amount.max ? 
-        `£${formatNumber(amount.max)}` : 
-        `£${formatNumber(amount.min)} - £${formatNumber(amount.max)}`;
-    
+
+    elements.resultSummary.textContent = `Showing ${STATE.filtered.length} opportunities`;
+
+    const fragment = document.createDocumentFragment();
+
+    STATE.filtered.forEach((funding) => {
+        const card = document.createElement('article');
+        card.className = 'funding-card';
+        card.innerHTML = createFundingCardMarkup(funding);
+        const button = card.querySelector('button[data-id]');
+        if (button) {
+            button.addEventListener('click', () => openModal(funding));
+        }
+        fragment.appendChild(card);
+    });
+
+    elements.fundingGrid.appendChild(fragment);
+}
+
+function createFundingCardMarkup(funding) {
+    const deadline = formatDate(funding?.application?.deadline) || 'Date TBC';
+    const amount = formatCurrencyDisplay(getAmountValue(funding));
+    const category = (funding.category || 'Other').toUpperCase();
+    const organization = funding.organization || 'Unknown organisation';
+    const description = (funding.description || '').slice(0, 180);
+
     return `
-        <div class="funding-card ${cardClass}" data-funding-id="${funding.id}">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">${funding.title}</h3>
-                    <div class="card-organization">${funding.organization}</div>
-                </div>
-                <div class="card-amount">${amountText}</div>
-            </div>
-            
-            <p class="card-description">${funding.description}</p>
-            
-            <div class="card-details">
-                <div class="detail-item">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>${funding.eligibility.career_stage}</span>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-clock"></i>
-                    <span>${funding.funding_details.amount.duration_years} years</span>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-chart-line"></i>
-                    <span>${funding.key_info.success_rate || 'N/A'}</span>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-calendar"></i>
-                    <span>${funding.application.frequency}</span>
-                </div>
-            </div>
-            
-            <div class="card-tags">
-                ${funding.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
-            
-            <div class="card-footer">
-                <div class="deadline ${deadlineClass}">
-                    <i class="fas fa-calendar-alt"></i>
-                    Deadline: ${formatDate(deadline)}
-                    ${diffDays > 0 ? `(${diffDays} days)` : '(Closed)'}
-                </div>
-                <button class="view-details">View Details</button>
-            </div>
+        <span class="funding-card__badge"><i class="fas fa-layer-group"></i> ${category}</span>
+        <h3 class="funding-card__title">${funding.title}</h3>
+        <div class="funding-card__meta">
+            <span><i class="fas fa-building"></i> ${organization}</span>
+            <span><i class="fas fa-pound-sign"></i> ${amount}</span>
+        </div>
+        <p class="funding-card__description">${description}${description.length === 180 ? '…' : ''}</p>
+        <div class="funding-card__footer">
+            <span class="funding-card__deadline"><i class="fas fa-calendar"></i> ${deadline}</span>
+            <button class="funding-card__button" data-id="${funding.id}"><span>View details</span> <i class="fas fa-arrow-right"></i></button>
         </div>
     `;
 }
 
-// Show funding details in modal
-function showFundingDetails(funding) {
-    const amount = funding.funding_details.amount;
-    const amountText = amount.min === amount.max ? 
-        `£${formatNumber(amount.max)}` : 
-        `£${formatNumber(amount.min)} - £${formatNumber(amount.max)}`;
-    
-    modalContent.innerHTML = `
-        <h2>${funding.title}</h2>
-        <h3 style="color: #667eea; margin-bottom: 2rem;">${funding.organization}</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <div>
-                <h4><i class="fas fa-info-circle"></i> Overview</h4>
-                <p style="margin-bottom: 1rem;">${funding.description}</p>
-                
-                <h4><i class="fas fa-pound-sign"></i> Funding Details</h4>
-                <ul style="margin-bottom: 1rem;">
-                    <li><strong>Amount:</strong> ${amountText}</li>
-                    <li><strong>Duration:</strong> ${funding.funding_details.amount.duration_years} years</li>
-                    <li><strong>Covers:</strong> ${funding.funding_details.covers.join(', ')}</li>
-                </ul>
-                
-                <h4><i class="fas fa-calendar"></i> Application</h4>
-                <ul style="margin-bottom: 1rem;">
-                    <li><strong>Deadline:</strong> ${formatDate(new Date(funding.application.deadline))}</li>
-                    <li><strong>Next Deadline:</strong> ${formatDate(new Date(funding.application.next_deadline))}</li>
-                    <li><strong>Frequency:</strong> ${funding.application.frequency}</li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4><i class="fas fa-user-check"></i> Eligibility</h4>
-                <ul style="margin-bottom: 1rem;">
-                    <li><strong>Career Stage:</strong> ${funding.eligibility.career_stage}</li>
-                    <li><strong>Disciplines:</strong> ${funding.eligibility.disciplines.join(', ')}</li>
-                </ul>
-                <div style="margin-bottom: 1rem;">
-                    <strong>Requirements:</strong>
-                    <ul style="margin-left: 1rem;">
-                        ${funding.eligibility.requirements.map(req => `<li>${req}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <h4><i class="fas fa-chart-bar"></i> Key Information</h4>
-                <ul style="margin-bottom: 1rem;">
-                    <li><strong>Priority Level:</strong> ${funding.key_info.priority_level}</li>
-                    <li><strong>Competition Level:</strong> ${funding.key_info.competition_level}</li>
-                    <li><strong>Success Rate:</strong> ${funding.key_info.success_rate || 'N/A'}</li>
-                </ul>
-                
-                <div style="margin-top: 2rem;">
-                    <a href="${funding.scraped_from || funding.application.application_url}" target="_blank" 
-                       style="background: #667eea; color: white; padding: 0.75rem 1.5rem; 
-                              border-radius: 6px; text-decoration: none; display: inline-block;">
-                        <i class="fas fa-external-link-alt"></i> Apply Now
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                ${funding.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
+function openModal(funding) {
+    if (!elements.modal || !elements.modalContent) return;
+
+    const deadline = formatDate(funding?.application?.deadline) || 'Date TBC';
+    const nextDeadline = formatDate(funding?.application?.next_deadline);
+    const amount = formatCurrencyDisplay(getAmountValue(funding));
+    const coverage = funding?.funding_details?.covers || [];
+    const requirements = funding?.eligibility?.requirements || [];
+
+    elements.modalContent.innerHTML = `
+        <h2 id="modalTitle">${funding.title}</h2>
+        <p><strong>Organisation:</strong> ${funding.organization || 'Unknown organisation'}</p>
+        <p><strong>Category:</strong> ${(funding.category || 'Other').toUpperCase()}</p>
+        <p><strong>Funding amount:</strong> ${amount}</p>
+        <p><strong>Deadline:</strong> ${deadline}</p>
+        ${nextDeadline ? `<p><strong>Next cycle:</strong> ${nextDeadline}</p>` : ''}
+        <p>${funding.description || ''}</p>
+        ${renderListBlock('Covers', coverage)}
+        ${renderListBlock('Eligibility requirements', requirements)}
+        ${funding?.application?.application_url ? `<a class="button" href="${funding.application.application_url}" target="_blank" rel="noopener">Apply on website</a>` : ''}
+    `;
+
+    elements.modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+}
+
+function renderListBlock(title, items) {
+    if (!items || items.length === 0) {
+        return '';
+    }
+    const list = items
+        .map((item) => `<li>${item}</li>`)
+        .join('');
+    return `
+        <div>
+            <h3>${title}</h3>
+            <ul>${list}</ul>
         </div>
     `;
-    
-    modal.style.display = 'block';
 }
 
-// Close modal
-function closeModalHandler() {
-    modal.style.display = 'none';
+function closeModal() {
+    if (!elements.modal) return;
+    elements.modal.hidden = true;
+    document.body.style.overflow = '';
 }
 
-// Utility functions
-function debounce(func, wait) {
+function updateAISummary(summary) {
+    if (!summary || !elements.aiSummarySection) {
+        showAISummaryFallback('AI summary is not available yet.');
+        return;
+    }
+
+    elements.aiSummaryOverview.textContent = summary.overall_summary || 'Automated briefing ready.';
+    elements.aiSummaryTimestamp.textContent = summary.generated_at
+        ? `Generated ${new Date(summary.generated_at).toLocaleString()}`
+        : 'Generated recently';
+
+    if (summary.coverage_window?.label) {
+        elements.aiCoverageWindow.textContent = `Window: ${summary.coverage_window.label}`;
+    }
+
+    renderSimpleList(elements.aiHighlights, summary.highlights, (item) => `<li>${item}</li>`);
+    renderSimpleList(
+        elements.aiUpcoming,
+        summary.upcoming_deadlines,
+        (item) => `
+            <li>
+                <strong>${item.title}</strong>
+                <span>${item.organization} · ${item.deadline} (${item.days_remaining} days left)</span>
+            </li>
+        `
+    );
+    renderSimpleList(
+        elements.aiTopBodies,
+        summary.top_funding_bodies,
+        (item) => `
+            <li>
+                <strong>${item.organization}</strong>
+                <span>${item.opportunity_count} opportunities</span>
+            </li>
+        `
+    );
+    renderSimpleList(
+        elements.aiCareerFocus,
+        summary.career_stage_focus,
+        (item) => `
+            <li>
+                <strong>${item.stage}</strong>
+                <span>${item.opportunity_count} opportunities</span>
+            </li>
+        `
+    );
+    renderSimpleList(
+        elements.aiHighValue,
+        summary.high_value_awards,
+        (item) => `
+            <li>
+                <strong>${item.title}</strong>
+                <span>${item.organization} · ${item.amount} · Deadline: ${item.deadline}</span>
+            </li>
+        `
+    );
+
+    updateHeroHighlight(summary);
+    updateQualityNotes(summary.quality_notes || []);
+}
+
+function updateHeroHighlight(summary) {
+    if (!elements.heroHighlight) return;
+    const firstHighlight = summary.highlights?.[0];
+    const heroText = firstHighlight || summary.overall_summary || 'Daily briefing ready.';
+    elements.heroHighlight.innerHTML = `<p class="hero__snapshot-text">${heroText}</p>`;
+}
+
+function updateQualityNotes(notes) {
+    if (!elements.qualityNotes) return;
+    if (!notes.length) {
+        elements.qualityNotes.innerHTML = '';
+        return;
+    }
+    elements.qualityNotes.innerHTML = notes.map((note) => `<span>${note}</span>`).join('');
+}
+
+function showAISummaryFallback(message) {
+    elements.aiSummaryOverview.textContent = message;
+    elements.aiSummaryTimestamp.textContent = '—';
+    elements.aiCoverageWindow.textContent = 'Window: —';
+    ['aiHighlights', 'aiUpcoming', 'aiTopBodies', 'aiCareerFocus', 'aiHighValue'].forEach((key) => {
+        const container = elements[key];
+        if (container) {
+            container.innerHTML = '<li>No data available.</li>';
+        }
+    });
+    updateQualityNotes([]);
+}
+
+function renderSimpleList(container, items, templateFn) {
+    if (!container) return;
+    if (!items || !items.length) {
+        container.innerHTML = '<li>No data available.</li>';
+        return;
+    }
+    container.innerHTML = items.map(templateFn).join('');
+}
+
+function showErrorState(message) {
+    if (!elements.noResults) return;
+    elements.noResults.hidden = false;
+    elements.noResults.querySelector('h3').textContent = 'Unable to load data';
+    elements.noResults.querySelector('p').textContent = message;
+}
+
+function parseDeadline(value) {
+    if (!value) return null;
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function formatDate(value) {
+    const date = parseDeadline(value);
+    if (!date) return null;
+    return new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    }).format(date);
+}
+
+function getAmountValue(funding) {
+    const amount = funding?.funding_details?.amount || {};
+    return amount.max || amount.min || 0;
+}
+
+function formatCurrencyDisplay(value) {
+    if (!value) return 'Unknown';
+    if (value >= 1_000_000_000) {
+        return `£${(value / 1_000_000_000).toFixed(2)}bn`;
+    }
+    if (value >= 1_000_000) {
+        return `£${(value / 1_000_000).toFixed(1)}m`;
+    }
+    if (value >= 1_000) {
+        return `£${Math.round(value / 1_000)}k`;
+    }
+    return `£${value.toLocaleString()}`;
+}
+
+function debounce(fn, wait = 150) {
     let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
+    return (...args) => {
         clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        timeout = setTimeout(() => fn.apply(null, args), wait);
     };
 }
 
-function formatNumber(num) {
-    // Convert from pence to pounds if the number is very large (likely in pence)
-    if (num > 1000000) {
-        num = num / 100;
-    }
-    return new Intl.NumberFormat('en-GB').format(num);
-}
-
-function formatDate(date) {
-    return date.toLocaleDateString('en-GB', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
+function resetFilters() {
+    elements.searchInput.value = '';
+    elements.careerStageFilter.value = '';
+    elements.sourceFilters.forEach((checkbox) => {
+        checkbox.checked = true;
     });
+    elements.sortSelect.value = 'deadline';
+    applyFilters();
 }
 
-function showError(message) {
-    fundingGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #e74c3c;">
-            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-            <h3>Error</h3>
-            <p>${message}</p>
+function updateCategoryStats(fundings) {
+    const container = document.getElementById('categoryStats');
+    if (!container) return;
+    const counts = countBy(fundings, (funding) => funding.category || 'Other');
+    renderStatList(container, counts, fundings.length);
+}
+
+function updateCareerStats(fundings) {
+    const container = document.getElementById('careerStats');
+    if (!container) return;
+    const counts = countBy(fundings, (funding) => funding?.eligibility?.career_stage || 'All');
+    renderStatList(container, counts, fundings.length);
+}
+
+function updateFundingRange(fundings) {
+    const container = document.getElementById('fundingRange');
+    if (!container) return;
+    if (!fundings.length) {
+        container.innerHTML = '<p>No funding data available.</p>';
+        return;
+    }
+    const amounts = fundings.map(getAmountValue);
+    const max = Math.max(...amounts);
+    const min = Math.min(...amounts.filter((value) => value > 0));
+    container.innerHTML = `
+        <div class="stat-item">
+            <span class="stat-label">Largest award</span>
+            <span>${formatCurrencyDisplay(max)}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Smallest award</span>
+            <span>${min === Infinity ? 'Unknown' : formatCurrencyDisplay(min)}</span>
         </div>
     `;
+}
+
+function updateDeadlineStats(fundings) {
+    const container = document.getElementById('deadlineStats');
+    if (!container) return;
+    if (!fundings.length) {
+        container.innerHTML = '<p>No deadlines available.</p>';
+        return;
+    }
+    const buckets = {
+        '0-14 days': 0,
+        '15-30 days': 0,
+        '31-60 days': 0,
+        '61-90 days': 0,
+    };
+    const now = Date.now();
+    fundings.forEach((funding) => {
+        const deadline = parseDeadline(funding?.application?.deadline);
+        if (!deadline) return;
+        const diff = deadline.getTime() - now;
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        if (days <= 14) buckets['0-14 days'] += 1;
+        else if (days <= 30) buckets['15-30 days'] += 1;
+        else if (days <= 60) buckets['31-60 days'] += 1;
+        else buckets['61-90 days'] += 1;
+    });
+    renderStatList(container, buckets, fundings.length);
+}
+
+function updateOrganizationStats(fundings) {
+    const container = document.getElementById('organizationStats');
+    if (!container) return;
+    const counts = countBy(fundings, (funding) => funding.organization || 'Unknown');
+    const entries = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 6);
+    renderStatList(container, Object.fromEntries(entries), fundings.length);
+}
+
+function updateCompetitionStats(fundings) {
+    const container = document.getElementById('competitionStats');
+    if (!container) return;
+    const counts = countBy(fundings, (funding) => funding?.key_info?.competition_level || 'Not stated');
+    renderStatList(container, counts, fundings.length);
+}
+
+function countBy(items, keyFn) {
+    return items.reduce((acc, item) => {
+        const key = keyFn(item);
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+    }, {});
+}
+
+function renderStatList(container, counts, total) {
+    if (!total) {
+        container.innerHTML = '<p>No data available.</p>';
+        return;
+    }
+    const markup = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([label, count]) => {
+            const percentage = Math.round((count / total) * 100);
+            return `
+                <div class="stat-item">
+                    <div class="stat-label">${label}</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <div>${count} (${percentage}%)</div>
+                </div>
+            `;
+        })
+        .join('');
+    container.innerHTML = markup || '<p>No data available.</p>';
 }

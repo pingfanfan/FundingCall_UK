@@ -27,8 +27,9 @@ FundingCall_UK/
 
 - 📊 **数据库系统**: JSON格式存储所有funding信息
 - 🕷️ **爬虫系统**: 自动获取最新funding信息
-- 🎨 **现代UI**: 响应式设计，便于快速浏览
-- 🔍 **搜索过滤**: 按类型、截止日期、金额等筛选
+- 🎨 **现代UI**: 响应式设计与数据仪表盘，便于快速浏览
+- 🔍 **搜索过滤**: 关键字检索、来源筛选、职业阶段筛选与排序
+- 🧭 **时间窗口管理**: 仅保留截止日期在当前前后三个月内且元数据完整的机会
 - 📱 **移动友好**: 适配各种设备
 
 ## 资助来源
@@ -59,8 +60,24 @@ FundingCall_UK/
 ## 使用方法
 
 1. 运行爬虫更新数据: `python scrapers/update_all.py`
-2. 在浏览器中打开 `index.html`
-3. 使用搜索和过滤功能查找相关funding
+2. 自动校验会剔除缺失字段、重复及不在 ±3 个月时间窗口内的机会
+3. 在浏览器中打开 `index.html`
+4. 使用侧边栏搜索和过滤功能查找相关funding
+
+## 每日自动更新
+
+- 在服务器上执行一次更新并生成AI摘要: `python scrapers/update_all.py`
+- 持续运行的自动任务（默认每24小时运行一次）: `python scrapers/daily_scheduler.py`
+  - 如需测试单次运行: `python scrapers/daily_scheduler.py --run-once`
+  - 自定义运行间隔（例如每12小时）: `python scrapers/daily_scheduler.py --interval-hours 12`
+- 也可以将 `scrapers/daily_scheduler.py --run-once` 加入系统cron任务或GitHub Actions，实现每天定时抓取
+
+## AI 智能总结
+
+- 每次更新会在 `data/ai_summary.json` 生成自动化总结，前端首页“Daily intelligence briefing” 模块将实时展示
+- 总结内容包含：核心亮点、14 天内截止提醒、热门资助机构、面向的职业阶段、高额资助项目，以及当前滚动时间窗口说明
+- 数据质量报告会在“Quality notes”中展示，便于追踪被剔除的条目类别
+- 如需要自定义总结逻辑，可修改 `scrapers/summarizer.py`
 
 ## 部署到GitHub Pages
 
