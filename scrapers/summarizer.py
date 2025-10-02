@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from collections import Counter
+from datetime import datetime, timedelta, timezone
+from typing import Dict, Iterable, List, Optional
 from datetime import datetime, timezone
 from typing import Dict, Iterable, List
 
@@ -41,6 +43,70 @@ def _extract_amount_range(funding: Dict) -> int:
     return int(amount.get("max") or amount.get("min") or 0)
 
 
+def _resolve_window(window_days: int, quality_report: Optional[Dict]) -> Dict[str, str]:
+    now = datetime.now(timezone.utc)
+    default_start = now - timedelta(days=window_days)
+    default_end = now + timedelta(days=window_days)
+
+    if quality_report:
+        window = quality_report.get("window", {})
+        start = window.get("start")
+        end = window.get("end")
+        try:
+            if start and end:
+                start_dt = datetime.fromisoformat(start)
+                end_dt = datetime.fromisoformat(end)
+                if start_dt.tzinfo is None:
+                    start_dt = start_dt.replace(tzinfo=timezone.utc)
+                if end_dt.tzinfo is None:
+                    end_dt = end_dt.replace(tzinfo=timezone.utc)
+                return {
+                    "start": start_dt.isoformat(),
+                    "end": end_dt.isoformat(),
+                    "label": f"{start_dt.strftime('%d %b %Y')} – {end_dt.strftime('%d %b %Y')}",
+                }
+        except ValueError:
+            pass
+
+    return {
+        "start": default_start.isoformat(),
+        "end": default_end.isoformat(),
+        "label": f"{default_start.strftime('%d %b %Y')} – {default_end.strftime('%d %b %Y')}",
+    }
+
+
+def _quality_notes(quality_report: Optional[Dict]) -> List[str]:
+    if not quality_report:
+        return []
+
+    dropped = quality_report.get("dropped", {})
+    notes: List[str] = []
+    drop_messages = {
+        "missing_fields": "missing critical metadata",
+        "duplicate": "duplicate identifiers",
+        "undated": "undated deadlines",
+        "outside_window": "deadlines outside the 3-month window",
+    }
+
+    for key, reason in drop_messages.items():
+        count = dropped.get(key, 0)
+        if count:
+            notes.append(f"{count} entries skipped due to {reason}.")
+
+    retained = quality_report.get("retained")
+    total = quality_report.get("total")
+    if retained is not None and total:
+        notes.insert(0, f"Curated {retained} of {total} scraped opportunities after validation checks.")
+
+    return notes
+
+
+def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_report: Optional[Dict] = None) -> Dict:
+    """Create a structured natural-language summary for researchers."""
+    generated_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+    total = len(fundings)
+    window_info = _resolve_window(window_days, quality_report)
+    notes = _quality_notes(quality_report)
 def generate_ai_summary(fundings: List[Dict]) -> Dict:
     """Create a structured natural-language summary for researchers."""
     generated_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
@@ -56,6 +122,8 @@ def generate_ai_summary(fundings: List[Dict]) -> Dict:
             "upcoming_deadlines": [],
             "top_funding_bodies": [],
             "career_stage_focus": [],
+            "coverage_window": window_info,
+            "quality_notes": notes,
         }
 
     category_counter = Counter(f.get("category", "Uncategorised") for f in fundings)
@@ -120,6 +188,7 @@ def generate_ai_summary(fundings: List[Dict]) -> Dict:
             break
 
     highlights = [
+        f"Curated {total} funding opportunities with deadlines between {window_info['label']}."
         f"Captured {total} funding opportunities covering {len(category_counter)} major categories.",
     ]
     if top_categories:
@@ -139,6 +208,8 @@ def generate_ai_summary(fundings: List[Dict]) -> Dict:
 
     overall_summary = (
         "Daily crawl completed: "
+        f"{total} validated opportunities remain after quality checks, "
+        "all with deadlines inside the rolling three-month window. "
         f"{total} opportunities consolidated with automatic categorisation across major UK funding bodies. "
         "Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now."
     )
@@ -174,4 +245,6 @@ def generate_ai_summary(fundings: List[Dict]) -> Dict:
             for item in high_value
             if item["amount"] > 0
         ],
+        "coverage_window": window_info,
+        "quality_notes": notes,
     }
