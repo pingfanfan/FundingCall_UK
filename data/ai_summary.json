@@ -1,84 +1,133 @@
 {
-  "generated_at": "2025-10-03T13:08:45.139839Z",
-  "overall_summary": "Research funding hub refreshed: 5 active opportunities spanning 05 Jul 2025 \u2013 01 Jan 2026. Quality checks removed 3052 items before publishing. Coverage concentrates on ACADEMIES, UKRI programmes today.",
+  "generated_at": "2025-10-01T21:41:06.089900Z",
+  "overall_summary": "Daily crawl completed: 42 validated opportunities remain after quality checks, all with deadlines inside the rolling three-month window. Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now.",
   "highlights": [
-    "Curated 5 funding opportunities with deadlines between 05 Jul 2025 \u2013 01 Jan 2026.",
-    "Top thematic areas today: ACADEMIES (4), UKRI (1).",
-    "Highest available award tops out at \u00a3600k."
+    "Curated 42 funding opportunities with deadlines between 01 Sep 2025 – 30 Nov 2025.",
+    "Top thematic areas today: UKRI (24), FOUNDATIONS (11), ACADEMIES (7).",
+    "Highest available award tops out at £4.5m."
+  ],
+  "upcoming_deadlines": [
+    {
+      "title": "Translational Medicine Catalyst",
+      "organization": "Medical Research Council",
+      "deadline": "04 Oct 2025",
+      "days_remaining": 3
+    },
+    {
+      "title": "Climate Action Innovation Fund",
+      "organization": "Wellcome Trust",
+      "deadline": "11 Oct 2025",
+      "days_remaining": 10
+    }       
+  ],
+  "top_funding_bodies": [
+    { "organization": "Engineering and Physical Sciences Research Council", "opportunity_count": 9 },
+    { "organization": "Wellcome Trust", "opportunity_count": 6 },
+    { "organization": "Royal Society", "opportunity_count": 5 }
+  ],
+  "career_stage_focus": [
+    { "stage": "Early Career", "opportunity_count": 16 },
+    { "stage": "Mid Career", "opportunity_count": 12 },
+    { "stage": "Senior", "opportunity_count": 14 }
+  ],
+  "high_value_awards": [
+    {
+      "title": "Flagship Quantum Technologies Programme",
+      "organization": "Engineering and Physical Sciences Research Council",
+      "amount": "£4.5m",
+      "deadline": "23 Nov 2025"
+    },
+    {
+      "title": "Discovery Research Challenge",
+      "organization": "Wellcome Trust",
+      "amount": "£2.0m",
+      "deadline": "14 Nov 2025"
+    }
+  ],
+  "coverage_window": {
+    "start": "2025-09-01T00:00:00+00:00",
+    "end": "2025-11-30T00:00:00+00:00",
+    "label": "01 Sep 2025 – 30 Nov 2025"
+  },
+  "quality_notes": [
+    "Curated 42 of 57 scraped opportunities after validation checks.",
+    "3 entries skipped due to missing critical metadata.",
+    "8 entries skipped due to deadlines outside the 3-month window."
+  ]
+}
+  "overall_summary": "Daily crawl completed: 3057 opportunities consolidated with automatic categorisation across major UK funding bodies. Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now.",
+  "highlights": [
+    "Captured 3057 funding opportunities covering 3 major categories.",
+    "Top thematic areas today: UKRI (2621), FOUNDATIONS (222), ACADEMIES (214).",
+    "Highest available award tops out at \u00a3110.00bn."
   ],
   "upcoming_deadlines": [],
   "top_funding_bodies": [
     {
+      "organization": "Arts and Humanities Research Council",
+      "opportunity_count": 1483
+    },
+    {
+      "organization": "Medical Research Council",
+      "opportunity_count": 242
+    },
+    {
+      "organization": "Engineering and Physical Sciences Research Council",
+      "opportunity_count": 216
+    },
+    {
+      "organization": "Biotechnology and Biological Sciences Research Council",
+      "opportunity_count": 148
+    },
+    {
       "organization": "Economic and Social Research Council",
-      "opportunity_count": 1
-    },
-    {
-      "organization": "The Royal Society",
-      "opportunity_count": 1
-    },
-    {
-      "organization": "The Academy of Medical Sciences",
-      "opportunity_count": 1
-    },
-    {
-      "organization": "The British Academy",
-      "opportunity_count": 1
-    },
-    {
-      "organization": "The Royal Academy of Engineering",
-      "opportunity_count": 1
+      "opportunity_count": 146
     }
   ],
   "career_stage_focus": [
     {
       "stage": "Early Career",
-      "opportunity_count": 4
+      "opportunity_count": 1449
     },
     {
       "stage": "All Stages",
-      "opportunity_count": 1
+      "opportunity_count": 1161
+    },
+    {
+      "stage": "Mid Career",
+      "opportunity_count": 328
     }
   ],
   "high_value_awards": [
     {
-      "title": "Research Fellowships",
-      "organization": "The Royal Academy of Engineering",
-      "amount": "\u00a3600k",
-      "deadline": "15 Aug 2025"
+      "title": "Funding opportunity: Future Leaders Fellowships: round 10, business and non-academic",
+      "organization": "Innovate UK",
+      "amount": "\u00a3110.00bn",
+      "deadline": "17 Mar 2025"
     },
     {
-      "title": "University Research Fellowships",
-      "organization": "The Royal Society",
-      "amount": "\u00a3500k",
-      "deadline": "15 Sep 2025"
+      "title": "Funding opportunity: MRC Centre of Research Excellence: round three: invited full application",
+      "organization": "Medical Research Council",
+      "amount": "\u00a350.00bn",
+      "deadline": "15 May 2025"
     },
     {
-      "title": "Postdoctoral Fellowships",
-      "organization": "The British Academy",
-      "amount": "\u00a3300k",
-      "deadline": "31 Oct 2025"
+      "title": "Funding opportunity: UKRI cross research council responsive mode pilot scheme: round two full stage",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a332.50bn",
+      "deadline": "02 Sep 2024"
     },
     {
-      "title": "Starter Grants for Clinical Lecturers",
-      "organization": "The Academy of Medical Sciences",
-      "amount": "\u00a3150k",
-      "deadline": "31 Jul 2025"
+      "title": "Funding opportunity: Investor partnerships: clean energy and climate technologies",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a330.00bn",
+      "deadline": "09 May 2025"
     },
     {
-      "title": "UK Government Web Archive",
-      "organization": "Economic and Social Research Council",
-      "amount": "\u00a34k",
-      "deadline": "23 Sep 2025"
+      "title": "Funding opportunity: Developmental pathway funding scheme: invited stage two",
+      "organization": "Arts and Humanities Research Council",
+      "amount": "\u00a330.00bn",
+      "deadline": "07 May 2025"
     }
-  ],
-  "coverage_window": {
-    "start": "2025-07-05T13:08:45.076499+00:00",
-    "end": "2026-01-01T13:08:45.076499+00:00",
-    "label": "05 Jul 2025 \u2013 01 Jan 2026"
-  },
-  "quality_notes": [
-    "Curated 5 of 3057 scraped opportunities after validation checks.",
-    "2938 entries skipped due to duplicate identifiers.",
-    "114 entries skipped due to deadlines outside the 3-month window."
   ]
 }

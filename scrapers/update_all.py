@@ -83,8 +83,7 @@ class FundingDataUpdater:
                 logger.warning("All scraped opportunities were filtered out by quality checks")
                 return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            self.persist_quality_report(quality_report)
-            if update_database(curated_fundings, database_path, replace=True):
+            if update_database(curated_fundings, database_path):
                 logger.info(
                     "Successfully updated database with {curated} curated opportunities (from {scraped} scraped)".format(
                         curated=len(curated_fundings),
@@ -94,6 +93,10 @@ class FundingDataUpdater:
                 self.save_individual_fundings(curated_fundings, source_lookup)
                 self.generate_summary_report(curated_fundings)
                 self.generate_ai_brief(curated_fundings, quality_report)
+            if update_database(all_fundings, database_path):
+                logger.info(f"Successfully updated database with {len(all_fundings)} total opportunities")
+                self.generate_summary_report(all_fundings)
+                self.generate_ai_brief(all_fundings)
                 return True
             else:
                 logger.error("Failed to update main database")
@@ -145,8 +148,7 @@ class FundingDataUpdater:
                 logger.warning("All scraped opportunities were filtered out by quality checks")
                 return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            self.persist_quality_report(quality_report)
-            if update_database(curated_fundings, database_path, replace=True):
+            if update_database(curated_fundings, database_path):
                 self.save_individual_fundings(curated_fundings, source_lookup)
                 self.generate_ai_brief(curated_fundings, quality_report)
                 return True
@@ -220,11 +222,13 @@ class FundingDataUpdater:
         logger.info(f"  Total funding range: £{total_min_funding:,} - £{total_max_funding:,}")
 
     def generate_ai_brief(self, fundings: List[Dict], quality_report: Optional[Dict] = None) -> None:
+    def generate_ai_brief(self, fundings: List[Dict]) -> None:
         """Generate an AI-style natural language brief for the front-end."""
         logger.info("Creating daily AI summary...")
 
         try:
             summary_payload = generate_ai_summary(fundings, quality_report=quality_report)
+            summary_payload = generate_ai_summary(fundings)
         except Exception as exc:
             logger.error(f"Failed to create AI summary: {exc}")
             return
@@ -232,15 +236,6 @@ class FundingDataUpdater:
         summary_path = self.dirs['data'] / 'ai_summary.json'
         save_json(summary_payload, summary_path)
         logger.info(f"AI summary saved to {summary_path}")
-
-    def persist_quality_report(self, report: Optional[Dict]) -> None:
-        """Persist the structured quality report for the front-end hub."""
-        if not report:
-            return
-
-        quality_path = self.dirs['data'] / 'quality_report.json'
-        save_json(report, quality_path)
-        logger.info(f"Quality report saved to {quality_path}")
     
     def clean_old_data(self, days_old: int = 30) -> None:
         """Clean old individual funding files."""

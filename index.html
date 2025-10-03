@@ -9,12 +9,12 @@
 </head>
 <body>
     <div class="page">
-        <header class="hero" id="top">
+        <header class="hero">
             <div class="hero__container container">
                 <div class="hero__intro">
                     <span class="hero__badge"><i class="fas fa-rotate"></i> Auto-refreshed daily</span>
                     <h1>UK Research Funding Radar</h1>
-                    <p>Track every major UK grant with a curated three-month window, an interactive quality console, and an AI briefing tailored for busy researchers.</p>
+                    <p>Track every major UK grant with a curated three-month window and AI briefing tailored for busy researchers.</p>
                     <div class="hero__stats">
                         <div class="hero__stat">
                             <span class="hero__stat-label">Active opportunities</span>
@@ -36,15 +36,44 @@
             </div>
         </header>
 
-        <nav class="hub-nav" aria-label="Funding hub navigation">
-            <div class="hub-nav__container container">
-                <a href="#overview" data-scroll>Overview</a>
-                <a href="#briefing" data-scroll>AI briefing</a>
-                <a href="#quality" data-scroll>Quality console</a>
-                <a href="#insights" data-scroll>Insights</a>
-                <a href="#explorer" data-scroll>Explorer</a>
-            </div>
-        </nav>
+        <main class="layout container">
+            <aside class="filters" aria-label="Filter funding opportunities">
+                <div class="filter-card">
+                    <h2>Search &amp; filter</h2>
+                    <div class="filter-group">
+                        <label for="searchInput">Keyword search</label>
+                        <div class="input-icon">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search title, organisation, summary…" autocomplete="off">
+            <section class="ai-briefing" id="aiSummarySection">
+                <div class="ai-briefing-header">
+                    <h2><i class="fas fa-robot"></i> Daily AI Briefing</h2>
+                    <span class="ai-timestamp" id="aiSummaryTimestamp">-</span>
+                </div>
+                <p class="ai-overview" id="aiSummaryOverview"></p>
+                <div class="ai-briefing-grid">
+                    <div class="ai-card">
+                        <h3><i class="fas fa-star"></i> Key Highlights</h3>
+                        <ul class="ai-list" id="aiHighlights"></ul>
+                    </div>
+                    <div class="ai-card">
+                        <h3><i class="fas fa-hourglass-half"></i> Deadlines (Next 14 Days)</h3>
+                        <ul class="ai-list" id="aiUpcoming"></ul>
+                    </div>
+                    <div class="ai-card">
+                        <h3><i class="fas fa-building"></i> Top Funding Bodies</h3>
+                        <ul class="ai-list" id="aiTopBodies"></ul>
+                    </div>
+                    <div class="ai-card">
+                        <h3><i class="fas fa-user-friends"></i> Career Stage Focus</h3>
+                        <ul class="ai-list" id="aiCareerFocus"></ul>
+                    </div>
+                    <div class="ai-card">
+                        <h3><i class="fas fa-pound-sign"></i> High-Value Awards</h3>
+                        <ul class="ai-list" id="aiHighValue"></ul>
+                    </div>
+                </div>
+            </section>
 
         <main class="layout container">
             <aside class="filters" aria-label="Filter funding opportunities">
@@ -85,55 +114,7 @@
             </aside>
 
             <section class="content">
-                <section class="hub-overview" id="overview">
-                    <header class="section-header">
-                        <h2><i class="fas fa-gauge-high"></i> Hub overview</h2>
-                        <p>A command centre for today’s curated grants, source coverage, and workflow shortcuts.</p>
-                    </header>
-                    <div class="hub-overview__grid">
-                        <article class="hub-card hub-card--primary">
-                            <h3>Coverage window</h3>
-                            <p class="hub-card__range" id="coverageRange">—</p>
-                            <div class="hub-card__stats">
-                                <div class="hub-stat">
-                                    <span class="hub-stat__label">Active listings</span>
-                                    <span class="hub-stat__value" id="hubActiveCount">0</span>
-                                </div>
-                                <div class="hub-stat">
-                                    <span class="hub-stat__label">Last refreshed</span>
-                                    <span class="hub-stat__value" id="hubLastUpdated">—</span>
-                                </div>
-                                <div class="hub-stat">
-                                    <span class="hub-stat__label">Quality retention</span>
-                                    <span class="hub-stat__value" id="hubRetention">—</span>
-                                </div>
-                            </div>
-                            <p class="hub-card__note" id="hubOverviewNote">We validate each record before it lands here.</p>
-                        </article>
-                        <article class="hub-card">
-                            <h3>Source coverage</h3>
-                            <ul class="hub-list" id="sourceMix">
-                                <li>No data yet.</li>
-                            </ul>
-                        </article>
-                        <article class="hub-card">
-                            <h3>Data quality monitor</h3>
-                            <ul class="hub-list" id="qualityBreakdown">
-                                <li>Waiting for latest crawl…</li>
-                            </ul>
-                        </article>
-                        <article class="hub-card">
-                            <h3>Workflow shortcuts</h3>
-                            <ul class="hub-list hub-list--static">
-                                <li><i class="fas fa-cloud-download-alt"></i> <span>Run <code>python scrapers/update_all.py</code> to refresh the hub data.</span></li>
-                                <li><i class="fas fa-robot"></i> <span>Generate the AI briefing and quality report in the same pass.</span></li>
-                                <li><i class="fas fa-clock"></i> <span>Schedule <code>scrapers/daily_scheduler.py</code> for automatic updates.</span></li>
-                            </ul>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="ai-briefing" id="briefing">
+                <section class="ai-briefing" id="aiSummarySection">
                     <header class="ai-briefing__header">
                         <div>
                             <h2><i class="fas fa-robot"></i> Daily intelligence briefing</h2>
@@ -169,37 +150,7 @@
                     <div class="ai-briefing__notes" id="qualityNotes" aria-live="polite"></div>
                 </section>
 
-                <section class="quality-console" id="quality">
-                    <header class="section-header">
-                        <h2><i class="fas fa-shield-check"></i> Quality console</h2>
-                        <p>See exactly how many items were reviewed, retained, or dropped during the latest crawl.</p>
-                    </header>
-                    <div class="quality-console__grid">
-                        <article class="quality-card">
-                            <h3>Sanitisation snapshot</h3>
-                            <dl class="quality-metrics">
-                                <div><dt>Scraped</dt><dd id="qualityScraped">0</dd></div>
-                                <div><dt>Published</dt><dd id="qualityPublished">0</dd></div>
-                                <div><dt>Duplicates removed</dt><dd id="qualityDuplicates">0</dd></div>
-                                <div><dt>Window</dt><dd id="qualityWindow">—</dd></div>
-                            </dl>
-                        </article>
-                        <article class="quality-card">
-                            <h3>Drop reasons</h3>
-                            <ul class="quality-list" id="dropReasons">
-                                <li>Awaiting crawl data.</li>
-                            </ul>
-                        </article>
-                        <article class="quality-card">
-                            <h3>Deadline sources</h3>
-                            <ul class="quality-list" id="deadlineSources">
-                                <li>Awaiting crawl data.</li>
-                            </ul>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="insights" id="insights">
+                <section class="insights">
                     <header class="section-header">
                         <h2><i class="fas fa-chart-line"></i> Funding landscape snapshot</h2>
                         <p>Where attention is concentrated across disciplines, organisations, and deadlines.</p>
@@ -269,7 +220,7 @@
                 </div>
                 <div>
                     <h3>Data discipline</h3>
-                    <p>Only opportunities with verified metadata and deadlines inside the configured window are shown, ensuring accuracy and actionability.</p>
+                    <p>Only opportunities with verified metadata and deadlines inside a ±3 month window are shown, ensuring accuracy and actionability.</p>
                 </div>
                 <div>
                     <h3>Contribute</h3>
