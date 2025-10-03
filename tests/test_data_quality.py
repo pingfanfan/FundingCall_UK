@@ -40,6 +40,7 @@ def test_sanitise_filters_outside_window_and_duplicates():
     assert report["dropped"]["missing_fields"] == 1
     assert report["dropped"]["undated"] == 1
     assert report["substitutions"]["primary_deadline_used"] == 2
+    assert report["duplicates"]["id"] == 1
 
 
 def test_sanitise_uses_next_deadline_when_primary_is_stale():
@@ -53,3 +54,36 @@ def test_sanitise_uses_next_deadline_when_primary_is_stale():
     active_deadline = curated[0]["application"]["active_deadline"]
     assert active_deadline is not None
     assert report["substitutions"]["next_deadline_used"] == 1
+
+
+def test_duplicate_detection_uses_urls_and_titles():
+    now = datetime.now(timezone.utc)
+    base_deadline = (now + timedelta(days=10)).date().isoformat()
+
+    template = {
+        "title": "Shared Call",
+        "organization": "Org",
+        "category": "ukri",
+        "subcategory": "sample",
+        "description": "Description",
+        "eligibility": {"career_stage": "Early Career"},
+        "funding_details": {"amount": {"min": 1, "max": 2}},
+        "application": {"deadline": base_deadline, "application_url": "https://example.com/opportunity"},
+        "scraped_from": "https://example.com/opportunity?utm_source=newsletter",
+    }
+
+    fundings = [
+        {"id": "first", **template},
+        {"id": "second", **template},  # duplicate by URL after canonicalisation
+        {
+            "id": "third",
+            **{**template, "title": "Shared  Call", "scraped_from": "https://example.com/other"},
+        },  # duplicate by normalised title/org
+    ]
+
+    curated, report = sanitise_fundings(fundings, window_months=3)
+
+    assert len(curated) == 1
+    assert report["duplicates"]["source"] == 1
+    assert report["duplicates"]["title"] == 1
+    assert report["dropped"]["duplicate"] == 2

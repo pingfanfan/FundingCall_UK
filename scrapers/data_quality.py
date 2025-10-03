@@ -4,6 +4,8 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Tuple
 
+from utils import canonicalize_url, normalise_whitespace
+
 REQUIRED_FIELDS: Tuple[str, ...] = (
     "id",
     "title",
@@ -103,12 +105,19 @@ def sanitise_fundings(
 
     curated: List[Dict] = []
     seen_ids: set[str] = set()
+    seen_sources: set[str] = set()
+    seen_titles: set[str] = set()
     total_seen = 0
     dropped: Dict[str, int] = {
         "missing_fields": 0,
         "duplicate": 0,
         "undated": 0,
         "outside_window": 0,
+    }
+    duplicates: Dict[str, int] = {
+        "id": 0,
+        "source": 0,
+        "title": 0,
     }
     substitutions: Dict[str, int] = {
         "primary_deadline_used": 0,
@@ -129,13 +138,51 @@ def sanitise_fundings(
                 )
             continue
 
+        # Normalise core string fields early so duplicate detection is reliable.
+        funding["title"] = normalise_whitespace(funding.get("title", ""))
+        funding["organization"] = normalise_whitespace(funding.get("organization", ""))
+        funding["description"] = normalise_whitespace(funding.get("description", ""))
+
         identifier = str(funding["id"])
         if identifier in seen_ids:
+            duplicates["id"] += 1
             dropped["duplicate"] += 1
             if log:
                 log.warning(f"Discarded duplicate funding id {identifier}")
             continue
         seen_ids.add(identifier)
+
+        source_url = canonicalize_url(
+            funding.get("scraped_from")
+            or (funding.get("application") or {}).get("application_url")
+        )
+        if source_url:
+            if source_url in seen_sources:
+                duplicates["source"] += 1
+                dropped["duplicate"] += 1
+                if log:
+                    log.warning(
+                        "Discarded duplicate funding from source {source} (id {identifier})".format(
+                            source=source_url,
+                            identifier=identifier,
+                        )
+                    )
+                continue
+            seen_sources.add(source_url)
+
+        title_key = f"{funding['title'].lower()}::{funding['organization'].lower()}"
+        if title_key in seen_titles:
+            duplicates["title"] += 1
+            dropped["duplicate"] += 1
+            if log:
+                log.warning(
+                    "Discarded duplicate funding title '{title}' for organisation {org}".format(
+                        title=funding["title"],
+                        org=funding["organization"],
+                    )
+                )
+            continue
+        seen_titles.add(title_key)
 
         selected_deadline, source = _select_deadline(funding, window_start, window_end)
 
@@ -182,6 +229,7 @@ def sanitise_fundings(
             "months": window_months,
         },
         substitutions=substitutions,
+        duplicates=duplicates,
     )
 
     if log:

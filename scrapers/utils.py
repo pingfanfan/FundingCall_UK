@@ -16,7 +16,7 @@ import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -189,6 +189,28 @@ class FundingScraper:
         import hashlib
         content_hash = hashlib.md5(combined.encode()).hexdigest()
         return f"{slug}_{content_hash}"
+
+
+def canonicalize_url(url: str) -> str:
+    """Return a normalised representation of a URL for duplicate detection."""
+
+    if not url:
+        return ""
+
+    parsed = urlparse(url.strip())
+    # Drop query/fragment noise and normalise trailing slashes so different
+    # representations of the same opportunity collapse to one key.
+    path = parsed.path.rstrip("/") or "/"
+    normalised = urlunparse((parsed.scheme, parsed.netloc, path, "", "", ""))
+    return normalised.lower()
+
+
+def normalise_whitespace(value: str | None) -> str:
+    """Collapse repeated whitespace and strip surrounding spaces."""
+
+    if not value:
+        return ""
+    return " ".join(value.split())
 
 def load_json(file_path: Path) -> Dict:
     """Load JSON data from file."""

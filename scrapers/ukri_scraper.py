@@ -23,7 +23,13 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from loguru import logger
 
-from utils import FundingScraper, save_json, setup_directories, update_database
+from utils import (
+    FundingScraper,
+    canonicalize_url,
+    save_json,
+    setup_directories,
+    update_database,
+)
 
 class UKRIScraper(FundingScraper):
     """Scraper for UKRI funding opportunities."""
@@ -85,38 +91,54 @@ class UKRIScraper(FundingScraper):
     
     def scrape_all_councils(self) -> List[Dict]:
         """Scrape funding opportunities from all UKRI councils without duplicates."""
-        all_fundings = []
-        scraped_urls = set()  # Track scraped URLs to avoid duplicates
-        
         logger.info("Scraping all UKRI opportunities...")
-        
-        # Scrape from main opportunities page first
+
+        collected_links: List[Dict] = []
+        seen_urls: set[str] = set()
+
         try:
-            main_fundings = self.scrape_main_opportunities(scraped_urls)
-            all_fundings.extend(main_fundings)
-            logger.info(f"Found {len(main_fundings)} opportunities from main page")
-        except Exception as e:
-            logger.error(f"Failed to scrape main opportunities: {e}")
-        
-        # Then scrape each council's specific opportunities
+            main_links = self.collect_main_opportunity_links(seen_urls)
+            collected_links.extend(main_links)
+            logger.info(
+                "Collected %s links from main listing (unique so far: %s)"
+                % (len(main_links), len(collected_links))
+            )
+        except Exception as exc:
+            logger.error(f"Failed to collect links from main opportunities: {exc}")
+
         for council_id, council_info in self.councils.items():
-            logger.info(f"Scraping {council_info['name']}...")
+            logger.info(f"Collecting links for {council_info['name']}...")
             try:
-                council_fundings = self.scrape_council(council_id, scraped_urls)
-                all_fundings.extend(council_fundings)
-                logger.info(f"Found {len(council_fundings)} new opportunities from {council_info['name']}")
-            except Exception as e:
-                logger.error(f"Failed to scrape {council_info['name']}: {e}")
-        
-        return all_fundings
-    
-    def scrape_main_opportunities(self, scraped_urls: set) -> List[Dict]:
-        """Scrape opportunities from the main UKRI opportunities page with pagination."""
-        fundings = []
+                council_links = self.collect_council_links(council_id, seen_urls)
+                collected_links.extend(council_links)
+                logger.info(
+                    "Collected %s additional links from %s (unique so far: %s)"
+                    % (
+                        len(council_links),
+                        council_info["name"],
+                        len(collected_links),
+                    )
+                )
+            except Exception as exc:
+                logger.error(f"Failed to collect links for {council_info['name']}: {exc}")
+
+        if not collected_links:
+            logger.warning("No UKRI opportunity links discovered")
+            return []
+
+        logger.info(
+            "Discovered %s unique UKRI opportunity URLs – fetching details in second stage"
+            % len(collected_links)
+        )
+        return self.build_fundings_from_links(collected_links)
+
+    def collect_main_opportunity_links(self, seen_urls: set[str]) -> List[Dict]:
+        """Collect opportunity links from the main UKRI opportunities page."""
+        collected: List[Dict] = []
         base_url = "https://www.ukri.org/opportunity/"
         page = 1
         max_pages = 15  # Safety limit - UKRI has ~109 opportunities, so ~10 pages
-        
+
         while page <= max_pages:
             try:
                 # Construct URL with page parameter
@@ -144,24 +166,25 @@ class UKRIScraper(FundingScraper):
                 
                 new_links_found = 0
                 for link in opportunity_links:
-                    # Skip if already scraped
-                    if link in scraped_urls:
+                    url_key = canonicalize_url(link)
+                    if url_key in seen_urls:
                         continue
-                        
-                    scraped_urls.add(link)
+
+                    seen_urls.add(url_key)
                     new_links_found += 1
-                    
-                    try:
-                        # Determine council from URL or page content
-                        council_id = self.determine_council_from_url(link)
-                        funding = self.scrape_opportunity_details(link, council_id)
-                        if funding:
-                            fundings.append(funding)
-                    except Exception as e:
-                        logger.error(f"Failed to scrape opportunity {link}: {e}")
-                
-                logger.info(f"Found {new_links_found} new opportunities on page {page} (total so far: {len(fundings)})")
-                
+
+                    collected.append(
+                        {
+                            "url": link,
+                            "council_id": self.determine_council_from_url(link),
+                        }
+                    )
+
+                logger.info(
+                    "Found %s new opportunity links on page %s (unique so far: %s)"
+                    % (new_links_found, page, len(collected))
+                )
+
                 # If no new links were found, we might have reached the end
                 if new_links_found == 0:
                     logger.info(f"No new opportunities found on page {page}, stopping pagination")
@@ -173,34 +196,48 @@ class UKRIScraper(FundingScraper):
                 logger.error(f"Failed to scrape opportunities page {page}: {e}")
                 break
         
-        logger.info(f"Completed scraping main opportunities. Total pages: {page-1}, Total opportunities: {len(fundings)}")
-        return fundings
-    
-    def scrape_council(self, council_id: str, scraped_urls: set) -> List[Dict]:
-        """Scrape funding opportunities from a specific council."""
+        logger.info(
+            "Completed link collection from main opportunities. Total pages: %s, unique links: %s"
+            % (page - 1, len(collected))
+        )
+        return collected
+
+    def collect_council_links(self, council_id: str, seen_urls: set[str]) -> List[Dict]:
+        """Collect opportunity links from a specific council listing."""
         council_info = self.councils[council_id]
-        fundings = []
-        
+        collected: List[Dict] = []
+
         # Get the opportunities listing page
         soup = self.fetch_page(council_info['funding_url'])
-        
+
         # Find opportunity links
         opportunity_links = self.extract_opportunity_links(soup)
-        
+
         for link in opportunity_links:
-            # Skip if already scraped
-            if link in scraped_urls:
+            url_key = canonicalize_url(link)
+            if url_key in seen_urls:
                 continue
-                
-            scraped_urls.add(link)
-            
+
+            seen_urls.add(url_key)
+
+            collected.append({"url": link, "council_id": council_id})
+
+        return collected
+
+    def build_fundings_from_links(self, link_batch: List[Dict]) -> List[Dict]:
+        """Fetch and build funding payloads for a batch of collected links."""
+
+        fundings: List[Dict] = []
+        for item in link_batch:
             try:
-                funding = self.scrape_opportunity_details(link, council_id)
-                if funding:
-                    fundings.append(funding)
-            except Exception as e:
-                logger.error(f"Failed to scrape opportunity {link}: {e}")
-        
+                funding = self.scrape_opportunity_details(item["url"], item.get("council_id"))
+            except Exception as exc:
+                logger.error(f"Failed to scrape opportunity {item['url']}: {exc}")
+                continue
+
+            if funding:
+                fundings.append(funding)
+
         return fundings
     
     def determine_council_from_url(self, url: str) -> str:
