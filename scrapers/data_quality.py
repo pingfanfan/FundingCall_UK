@@ -1,6 +1,7 @@
 """Data quality helpers for filtering and validating scraped funding calls."""
 from __future__ import annotations
 
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Tuple
 
@@ -219,6 +220,10 @@ def sanitise_fundings(
 
         curated.append(funding)
 
+    window_label = f"{window_start.strftime('%d %b %Y')} – {window_end.strftime('%d %b %Y')}"
+
+    source_counter = Counter(funding.get("category", "uncategorised") for funding in curated)
+
     report: FundingQualityReport = FundingQualityReport(
         total=total_seen,
         retained=len(curated),
@@ -227,9 +232,11 @@ def sanitise_fundings(
             "start": window_start.isoformat(),
             "end": window_end.isoformat(),
             "months": window_months,
+            "label": window_label,
         },
         substitutions=substitutions,
         duplicates=duplicates,
+        source_totals=dict(source_counter.most_common()),
     )
 
     if log:

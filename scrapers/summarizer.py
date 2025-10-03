@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Tuple
 
 
 def _safe_get(dct: Dict, path: Iterable[str], default=""):
@@ -39,6 +39,27 @@ def _format_deadline(deadline: str) -> str:
 def _extract_amount_range(funding: Dict) -> int:
     amount = funding.get("funding_details", {}).get("amount", {})
     return int(amount.get("max") or amount.get("min") or 0)
+
+
+def _parse_deadline(value: Optional[str]) -> Optional[datetime]:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _resolve_active_deadline(funding: Dict) -> Tuple[Optional[datetime], Optional[str]]:
+    application = funding.get("application") or {}
+    for field in ("active_deadline", "deadline", "next_deadline"):
+        candidate = _parse_deadline(application.get(field))
+        if candidate:
+            return candidate, field
+    return None, None
 
 
 def _resolve_window(window_days: int, quality_report: Optional[Dict]) -> Dict[str, str]:
@@ -135,40 +156,35 @@ def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_
     upcoming: List[Dict] = []
     now = datetime.now(timezone.utc)
     for funding in fundings:
-        deadline = _safe_get(funding, ("application", "deadline"))
-        try:
-            if not deadline:
-                continue
-            deadline_dt = datetime.fromisoformat(deadline)
-            if deadline_dt.tzinfo is None:
-                deadline_dt = deadline_dt.replace(tzinfo=timezone.utc)
-        except ValueError:
+        deadline_dt, source = _resolve_active_deadline(funding)
+        if not deadline_dt:
             continue
         delta = (deadline_dt - now).days
         if 0 <= delta <= 14:
             upcoming.append({
                 "title": funding.get("title", "Untitled opportunity"),
                 "organization": funding.get("organization", ""),
-                "deadline": deadline,
+                "deadline": deadline_dt.isoformat(),
                 "days_remaining": delta,
+                "deadline_source": source,
             })
     upcoming.sort(key=lambda item: item["days_remaining"])
     upcoming = upcoming[:5]
 
     # High value opportunities
-    high_value_candidates = sorted(
-        [
+    high_value_candidates = []
+    for funding in fundings:
+        deadline_dt, _ = _resolve_active_deadline(funding)
+        high_value_candidates.append(
             {
                 "title": funding.get("title", "Untitled opportunity"),
                 "organization": funding.get("organization", ""),
                 "amount": _extract_amount_range(funding),
-                "deadline": _safe_get(funding, ("application", "deadline")),
+                "deadline": deadline_dt.isoformat() if deadline_dt else None,
             }
-            for funding in fundings
-        ],
-        key=lambda item: item["amount"],
-        reverse=True,
-    )
+        )
+
+    high_value_candidates.sort(key=lambda item: item["amount"], reverse=True)
 
     high_value = []
     seen_titles = set()
@@ -199,12 +215,24 @@ def generate_ai_summary(fundings: List[Dict], *, window_days: int = 90, quality_
             f"Highest available award tops out at {_format_currency(high_value[0]['amount'])}."
         )
 
-    overall_summary = (
-        "Daily crawl completed: "
-        f"{total} validated opportunities remain after quality checks, "
-        "all with deadlines inside the rolling three-month window. "
-        "Insights highlight where researchers should focus immediate attention and the most lucrative calls open right now."
-    )
+    retained = quality_report.get("retained") if quality_report else None
+    total_seen = quality_report.get("total") if quality_report else None
+    drop_count: Optional[int] = None
+    if retained is not None and total_seen is not None:
+        drop_count = max(total_seen - retained, 0)
+
+    overall_bits = [
+        f"Research funding hub refreshed: {total} active opportunities spanning {window_info['label']}.",
+    ]
+    if drop_count:
+        overall_bits.append(f"Quality checks removed {drop_count} items before publishing.")
+    if quality_report and quality_report.get("source_totals"):
+        top_sources = list(quality_report["source_totals"].items())[:3]
+        if top_sources:
+            readable = ", ".join(f"{name.upper()}" for name, _ in top_sources)
+            overall_bits.append(f"Coverage concentrates on {readable} programmes today.")
+
+    overall_summary = " ".join(overall_bits)
 
     return {
         "generated_at": generated_at,

@@ -257,13 +257,22 @@ def validate_funding_data(funding: Dict) -> bool:
         logger.error("Missing funding amount")
         return False
     
-    if 'deadline' not in funding['application']:
+    application = funding['application']
+    if not any(
+        application.get(field)
+        for field in ('active_deadline', 'deadline', 'next_deadline')
+    ):
         logger.error("Missing application deadline")
         return False
     
     return True
 
-def update_database(new_fundings: List[Dict], database_path: Path) -> bool:
+def update_database(
+    new_fundings: List[Dict],
+    database_path: Path,
+    *,
+    replace: bool = False,
+) -> bool:
     """Update the main funding database with new entries."""
     try:
         # Load existing database
@@ -276,14 +285,19 @@ def update_database(new_fundings: List[Dict], database_path: Path) -> bool:
                 'fundings': []
             }
         
-        existing_ids = {f['id'] for f in database.get('fundings', [])}
-        
-        # Add new fundings (avoid duplicates)
-        new_count = 0
-        for funding in new_fundings:
-            if validate_funding_data(funding) and funding['id'] not in existing_ids:
-                database['fundings'].append(funding)
-                new_count += 1
+        if replace:
+            curated = [f for f in new_fundings if validate_funding_data(f)]
+            database['fundings'] = curated
+            new_count = len(curated)
+        else:
+            existing_ids = {f['id'] for f in database.get('fundings', [])}
+
+            # Add new fundings (avoid duplicates)
+            new_count = 0
+            for funding in new_fundings:
+                if validate_funding_data(funding) and funding['id'] not in existing_ids:
+                    database['fundings'].append(funding)
+                    new_count += 1
         
         # Update metadata
         database['last_updated'] = datetime.now().isoformat()

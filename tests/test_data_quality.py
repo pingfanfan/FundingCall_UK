@@ -41,6 +41,8 @@ def test_sanitise_filters_outside_window_and_duplicates():
     assert report["dropped"]["undated"] == 1
     assert report["substitutions"]["primary_deadline_used"] == 2
     assert report["duplicates"]["id"] == 1
+    assert "label" in report["window"]
+    assert report["source_totals"]["ukri"] == 2
 
 
 def test_sanitise_uses_next_deadline_when_primary_is_stale():

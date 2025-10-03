@@ -2,9 +2,11 @@ const STATE = {
     fundings: [],
     filtered: [],
     summary: null,
+    quality: null,
+    window: null,
 };
 
-const WINDOW_DAYS = 90;
+const DEFAULT_WINDOW_DAYS = 90;
 
 const elements = {
     searchInput: document.getElementById('searchInput'),
@@ -19,7 +21,7 @@ const elements = {
     lastUpdated: document.getElementById('lastUpdated'),
     resultSummary: document.getElementById('resultSummary'),
     heroHighlight: document.getElementById('heroHighlight'),
-    aiSummarySection: document.getElementById('aiSummarySection'),
+    aiSummarySection: document.getElementById('briefing'),
     aiSummaryOverview: document.getElementById('aiSummaryOverview'),
     aiSummaryTimestamp: document.getElementById('aiSummaryTimestamp'),
     aiHighlights: document.getElementById('aiHighlights'),
@@ -33,6 +35,20 @@ const elements = {
     modal: document.getElementById('fundingModal'),
     closeModal: document.getElementById('closeModal'),
     modalContent: document.getElementById('modalContent'),
+    navLinks: document.querySelectorAll('.hub-nav [data-scroll]'),
+    coverageRange: document.getElementById('coverageRange'),
+    hubActiveCount: document.getElementById('hubActiveCount'),
+    hubLastUpdated: document.getElementById('hubLastUpdated'),
+    hubRetention: document.getElementById('hubRetention'),
+    hubOverviewNote: document.getElementById('hubOverviewNote'),
+    sourceMix: document.getElementById('sourceMix'),
+    qualityBreakdown: document.getElementById('qualityBreakdown'),
+    qualityScraped: document.getElementById('qualityScraped'),
+    qualityPublished: document.getElementById('qualityPublished'),
+    qualityDuplicates: document.getElementById('qualityDuplicates'),
+    qualityWindow: document.getElementById('qualityWindow'),
+    dropReasons: document.getElementById('dropReasons'),
+    deadlineSources: document.getElementById('deadlineSources'),
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -54,6 +70,9 @@ function bindEvents() {
     if (elements.resetFilters) {
         elements.resetFilters.addEventListener('click', resetFilters);
     }
+    elements.navLinks.forEach((link) => {
+        link.addEventListener('click', handleNavClick);
+    });
     if (elements.closeModal) {
         elements.closeModal.addEventListener('click', closeModal);
     }
@@ -64,11 +83,21 @@ function bindEvents() {
     });
 }
 
+function handleNavClick(event) {
+    const href = event.currentTarget.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 async function loadData() {
     try {
-        const [databaseResponse, summaryResponse] = await Promise.all([
+        const [databaseResponse, summaryResponse, qualityResponse] = await Promise.all([
             fetch('data/funding_database.json'),
             fetch('data/ai_summary.json'),
+            fetch('data/quality_report.json'),
         ]);
 
         if (!databaseResponse.ok) {
@@ -76,11 +105,17 @@ async function loadData() {
         }
 
         const database = await databaseResponse.json();
-        const fundings = enforceWindow(database.fundings || []);
+        const quality = qualityResponse.ok ? await qualityResponse.json() : null;
+        STATE.quality = quality;
+        STATE.window = deriveWindow(quality);
+
+        const fundings = applyWindow(database.fundings || [], STATE.window);
         STATE.fundings = fundings;
         STATE.filtered = [...fundings];
 
         updateHeadlineMetrics(fundings, database.last_updated);
+        updateHubOverview(fundings, database.last_updated, quality);
+        updateQualityConsole(quality);
         updateInsights(fundings);
         sortFundings();
         renderFundings();
@@ -96,6 +131,7 @@ async function loadData() {
         console.error(error);
         showErrorState('We could not load the latest funding data. Please try again later.');
         showAISummaryFallback('Unable to fetch AI summary at this time.');
+        updateQualityConsole(null);
     } finally {
         if (elements.loading) {
             elements.loading.hidden = true;
@@ -103,19 +139,51 @@ async function loadData() {
     }
 }
 
-function enforceWindow(fundings) {
+function deriveWindow(quality) {
+    const parseDate = (value) => {
+        if (!value) return null;
+        const parsed = new Date(value);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+
+    if (quality?.window?.start && quality?.window?.end) {
+        const start = parseDate(quality.window.start);
+        const end = parseDate(quality.window.end);
+        if (start && end) {
+            return {
+                start,
+                end,
+                label: quality.window.label || `${formatDate(start.toISOString())} – ${formatDate(end.toISOString())}`,
+            };
+        }
+    }
+
     const now = new Date();
-    const windowStart = new Date(now.getTime() - WINDOW_DAYS * 24 * 60 * 60 * 1000);
-    const windowEnd = new Date(now.getTime() + WINDOW_DAYS * 24 * 60 * 60 * 1000);
+    const start = new Date(now.getTime() - DEFAULT_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+    const end = new Date(now.getTime() + DEFAULT_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+    return {
+        start,
+        end,
+        label: `${formatDate(start.toISOString())} – ${formatDate(end.toISOString())}`,
+    };
+}
+
+function applyWindow(fundings, windowRange) {
+    if (!windowRange || !windowRange.start || !windowRange.end) {
+        return fundings.map((funding) => enrichFunding(funding));
+    }
+
+    const start = windowRange.start;
+    const end = windowRange.end;
 
     return fundings
-        .map((funding) => enrichFunding(funding, windowStart, windowEnd))
+        .map((funding) => enrichFunding(funding, start, end))
         .filter((funding) => {
             const deadline = getActiveDeadlineDate(funding);
             if (!deadline) {
                 return false;
             }
-            return deadline >= windowStart && deadline <= windowEnd;
+            return deadline >= start && deadline <= end;
         });
 }
 
@@ -135,11 +203,41 @@ function updateHeadlineMetrics(fundings, lastUpdated) {
     }).length;
     elements.closingSoon.textContent = closingSoon.toString();
 
-    if (lastUpdated) {
-        elements.lastUpdated.textContent = new Date(lastUpdated).toLocaleString();
-    } else {
-        elements.lastUpdated.textContent = new Date().toLocaleString();
+    elements.lastUpdated.textContent = formatDateTime(lastUpdated);
+}
+
+function updateHubOverview(fundings, lastUpdated, quality) {
+    if (!elements.coverageRange) return;
+
+    elements.coverageRange.textContent = STATE.window?.label || '—';
+    if (elements.hubActiveCount) {
+        elements.hubActiveCount.textContent = fundings.length.toString();
     }
+    if (elements.hubLastUpdated) {
+        elements.hubLastUpdated.textContent = formatDateTime(lastUpdated);
+    }
+
+    if (elements.hubRetention) {
+        if (quality && typeof quality.retained === 'number' && typeof quality.total === 'number') {
+            elements.hubRetention.textContent = `${quality.retained}/${quality.total}`;
+        } else if (quality && typeof quality.retained === 'number') {
+            elements.hubRetention.textContent = `${quality.retained}`;
+        } else {
+            elements.hubRetention.textContent = `${fundings.length}`;
+        }
+    }
+
+    if (elements.hubOverviewNote) {
+        if (quality && typeof quality.total === 'number' && typeof quality.retained === 'number') {
+            const dropped = Math.max(quality.total - quality.retained, 0);
+            elements.hubOverviewNote.textContent = `Validated ${quality.retained} listings after reviewing ${quality.total} records and removing ${dropped} issues.`;
+        } else {
+            elements.hubOverviewNote.textContent = 'We validate each record before it lands here.';
+        }
+    }
+
+    updateSourceMix(quality, fundings);
+    updateQualityBreakdownList(quality);
 }
 
 function updateInsights(fundings) {
@@ -149,6 +247,124 @@ function updateInsights(fundings) {
     updateDeadlineStats(fundings);
     updateOrganizationStats(fundings);
     updateCompetitionStats(fundings);
+}
+
+function updateQualityConsole(quality) {
+    if (!elements.qualityScraped || !elements.dropReasons || !elements.deadlineSources) {
+        return;
+    }
+
+    if (!quality) {
+        elements.qualityScraped.textContent = '0';
+        elements.qualityPublished.textContent = '0';
+        elements.qualityDuplicates.textContent = '0';
+        elements.qualityWindow.textContent = '—';
+        elements.dropReasons.innerHTML = '<li>No quality report available.</li>';
+        elements.deadlineSources.innerHTML = '<li>No quality report available.</li>';
+        return;
+    }
+
+    const total = Number(quality.total) || 0;
+    const retained = Number(quality.retained) || 0;
+    const duplicates = sumValues(quality.duplicates || {});
+
+    elements.qualityScraped.textContent = total.toString();
+    elements.qualityPublished.textContent = retained.toString();
+    elements.qualityDuplicates.textContent = duplicates.toString();
+    elements.qualityWindow.textContent = quality.window?.label || '—';
+
+    renderQualityList(elements.dropReasons, quality.dropped || {}, {
+        missing_fields: 'Missing metadata',
+        duplicate: 'Duplicates',
+        undated: 'Undated deadlines',
+        outside_window: 'Outside window',
+    });
+
+    renderQualityList(elements.deadlineSources, quality.substitutions || {}, {
+        primary_deadline_used: 'Primary deadline',
+        next_deadline_used: 'Fallback next deadline',
+    });
+}
+
+function updateSourceMix(quality, fundings) {
+    if (!elements.sourceMix) return;
+
+    const counts = quality?.source_totals && Object.keys(quality.source_totals).length
+        ? quality.source_totals
+        : countBy(fundings, (funding) => funding.category || 'Other');
+
+    const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    if (!entries.length) {
+        elements.sourceMix.innerHTML = '<li>No active sources.</li>';
+        return;
+    }
+
+    elements.sourceMix.innerHTML = entries
+        .map(
+            ([label, value]) =>
+                `<li><i class="fas fa-layer-group"></i> <span>${label.toUpperCase()}</span> <strong>${value}</strong></li>`
+        )
+        .join('');
+}
+
+function updateQualityBreakdownList(quality) {
+    if (!elements.qualityBreakdown) return;
+    if (!quality) {
+        elements.qualityBreakdown.innerHTML = '<li>Waiting for latest crawl…</li>';
+        return;
+    }
+
+    const duplicateCount = sumValues(quality.duplicates || {});
+    const items = [];
+
+    if (typeof quality.retained === 'number' && typeof quality.total === 'number') {
+        items.push(`<li><i class="fas fa-circle-check"></i> Retained ${quality.retained} of ${quality.total}</li>`);
+    }
+    if (duplicateCount) {
+        items.push(`<li><i class="fas fa-clone"></i> Removed ${duplicateCount} duplicates</li>`);
+    }
+    if (quality.dropped?.outside_window) {
+        items.push(`<li><i class="fas fa-calendar-times"></i> ${quality.dropped.outside_window} outside the window</li>`);
+    }
+    if (quality.dropped?.undated) {
+        items.push(`<li><i class="fas fa-question-circle"></i> ${quality.dropped.undated} missing deadlines</li>`);
+    }
+
+    elements.qualityBreakdown.innerHTML = items.length ? items.join('') : '<li>Quality checks found no issues.</li>';
+}
+
+function renderQualityList(container, stats, labels) {
+    if (!container) return;
+    const entries = Object.entries(stats)
+        .filter(([, value]) => Number(value) > 0)
+        .sort((a, b) => Number(b[1]) - Number(a[1]));
+
+    if (!entries.length) {
+        container.innerHTML = '<li>No issues recorded.</li>';
+        return;
+    }
+
+    container.innerHTML = entries
+        .map(([key, value]) => {
+            const label = labels[key] || key.replace(/_/g, ' ');
+            return `<li><span class="quality-count">${value}</span> ${label}</li>`;
+        })
+        .join('');
+}
+
+function sumValues(obj) {
+    return Object.values(obj).reduce((total, value) => total + (Number(value) || 0), 0);
+}
+
+function formatDateTime(value) {
+    if (!value) {
+        return new Date().toLocaleString();
+    }
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) {
+        return new Date().toLocaleString();
+    }
+    return parsed.toLocaleString();
 }
 
 function applyFilters() {
@@ -329,12 +545,16 @@ function updateAISummary(summary) {
     renderSimpleList(
         elements.aiUpcoming,
         summary.upcoming_deadlines,
-        (item) => `
-            <li>
-                <strong>${item.title}</strong>
-                <span>${item.organization} · ${item.deadline} (${item.days_remaining} days left)</span>
-            </li>
-        `
+        (item) => {
+            const formatted = formatDate(item.deadline) || 'Date TBC';
+            const badge = item.deadline_source === 'next_deadline' ? 'Next cycle' : 'Deadline';
+            return `
+                <li>
+                    <strong>${item.title}</strong>
+                    <span>${item.organization} · ${badge}: ${formatted} (${item.days_remaining} days left)</span>
+                </li>
+            `;
+        }
     );
     renderSimpleList(
         elements.aiTopBodies,
@@ -359,12 +579,15 @@ function updateAISummary(summary) {
     renderSimpleList(
         elements.aiHighValue,
         summary.high_value_awards,
-        (item) => `
-            <li>
-                <strong>${item.title}</strong>
-                <span>${item.organization} · ${item.amount} · Deadline: ${item.deadline}</span>
-            </li>
-        `
+        (item) => {
+            const deadline = formatDate(item.deadline) || 'Date TBC';
+            return `
+                <li>
+                    <strong>${item.title}</strong>
+                    <span>${item.organization} · ${item.amount} · Deadline: ${deadline}</span>
+                </li>
+            `;
+        }
     );
 
     updateHeroHighlight(summary);
@@ -416,7 +639,7 @@ function showErrorState(message) {
     elements.noResults.querySelector('p').textContent = message;
 }
 
-function enrichFunding(funding, windowStart, windowEnd) {
+function enrichFunding(funding, windowStart = null, windowEnd = null) {
     const application = { ...(funding.application || {}) };
     const { date, source } = resolveActiveDeadline(application, windowStart, windowEnd);
 
@@ -444,7 +667,12 @@ function resolveActiveDeadline(application, windowStart, windowEnd) {
     const deadline = parseDeadline(application.deadline);
     const nextDeadline = parseDeadline(application.next_deadline);
 
-    const inWindow = (value) => value && value >= windowStart && value <= windowEnd;
+    const hasWindow = windowStart instanceof Date && windowEnd instanceof Date;
+    const inWindow = (value) => {
+        if (!value) return false;
+        if (!hasWindow) return true;
+        return value >= windowStart && value <= windowEnd;
+    };
 
     if (inWindow(deadline)) {
         return { date: deadline, source: 'deadline' };
@@ -460,7 +688,7 @@ function resolveActiveDeadline(application, windowStart, windowEnd) {
     ];
 
     for (const candidate of futureCandidates) {
-        if (candidate.date && candidate.date >= windowStart) {
+        if (candidate.date && (!hasWindow || candidate.date >= windowStart)) {
             return candidate;
         }
     }

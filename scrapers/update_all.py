@@ -83,7 +83,8 @@ class FundingDataUpdater:
                 logger.warning("All scraped opportunities were filtered out by quality checks")
                 return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            if update_database(curated_fundings, database_path):
+            self.persist_quality_report(quality_report)
+            if update_database(curated_fundings, database_path, replace=True):
                 logger.info(
                     "Successfully updated database with {curated} curated opportunities (from {scraped} scraped)".format(
                         curated=len(curated_fundings),
@@ -144,7 +145,8 @@ class FundingDataUpdater:
                 logger.warning("All scraped opportunities were filtered out by quality checks")
                 return False
             database_path = self.dirs['data'] / 'funding_database.json'
-            if update_database(curated_fundings, database_path):
+            self.persist_quality_report(quality_report)
+            if update_database(curated_fundings, database_path, replace=True):
                 self.save_individual_fundings(curated_fundings, source_lookup)
                 self.generate_ai_brief(curated_fundings, quality_report)
                 return True
@@ -230,6 +232,15 @@ class FundingDataUpdater:
         summary_path = self.dirs['data'] / 'ai_summary.json'
         save_json(summary_payload, summary_path)
         logger.info(f"AI summary saved to {summary_path}")
+
+    def persist_quality_report(self, report: Optional[Dict]) -> None:
+        """Persist the structured quality report for the front-end hub."""
+        if not report:
+            return
+
+        quality_path = self.dirs['data'] / 'quality_report.json'
+        save_json(report, quality_path)
+        logger.info(f"Quality report saved to {quality_path}")
     
     def clean_old_data(self, days_old: int = 30) -> None:
         """Clean old individual funding files."""
