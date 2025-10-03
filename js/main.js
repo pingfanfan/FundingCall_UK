@@ -505,6 +505,16 @@ function showAISummaryFallback(message) {
         if (container) {
             container.innerHTML = '<li>No data available.</li>';
         }
+
+        if (mode === 'amount') {
+            const amountA = getAmountValue(a);
+            const amountB = getAmountValue(b);
+            return amountB - amountA;
+        }
+
+        const deadlineA = getActiveDeadlineDate(a) || new Date(8640000000000000);
+        const deadlineB = getActiveDeadlineDate(b) || new Date(8640000000000000);
+        return deadlineA - deadlineB;
     });
     updateQualityNotes([]);
 }

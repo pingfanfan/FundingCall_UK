@@ -75,23 +75,15 @@
                 </div>
             </section>
 
-            <!-- Dashboard Section -->
-            <div class="dashboard">
-                <h2 class="dashboard-title">
-                    <i class="fas fa-chart-pie"></i>
-                    Funding Overview Dashboard
-                </h2>
-                
-                <div class="dashboard-grid">
-                    <!-- Category Distribution -->
-                    <div class="dashboard-card">
-                        <div class="dashboard-card-header">
-                            <h3><i class="fas fa-layer-group"></i> By Category</h3>
-                        </div>
-                        <div class="dashboard-card-content">
-                            <div class="category-stats" id="categoryStats">
-                                <!-- Will be populated by JavaScript -->
-                            </div>
+        <main class="layout container">
+            <aside class="filters" aria-label="Filter funding opportunities">
+                <div class="filter-card">
+                    <h2>Search &amp; filter</h2>
+                    <div class="filter-group">
+                        <label for="searchInput">Keyword search</label>
+                        <div class="input-icon">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search title, organisation, summary…" autocomplete="off">
                         </div>
                     </div>
 
