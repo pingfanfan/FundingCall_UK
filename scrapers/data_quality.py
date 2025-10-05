@@ -1,8 +1,12 @@
 """Data quality helpers for filtering and validating scraped funding calls."""
 from __future__ import annotations
 
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Tuple
+from urllib.parse import urlparse
+
+from utils import canonicalize_url, normalise_whitespace
 
 REQUIRED_FIELDS: Tuple[str, ...] = (
     "id",
@@ -103,12 +107,19 @@ def sanitise_fundings(
 
     curated: List[Dict] = []
     seen_ids: set[str] = set()
+    seen_sources: set[str] = set()
+    seen_titles: set[str] = set()
     total_seen = 0
     dropped: Dict[str, int] = {
         "missing_fields": 0,
         "duplicate": 0,
         "undated": 0,
         "outside_window": 0,
+    }
+    duplicates: Dict[str, int] = {
+        "id": 0,
+        "source": 0,
+        "title": 0,
     }
     substitutions: Dict[str, int] = {
         "primary_deadline_used": 0,
@@ -129,13 +140,64 @@ def sanitise_fundings(
                 )
             continue
 
+        # Normalise core string fields early so duplicate detection is reliable.
+        funding["title"] = normalise_whitespace(funding.get("title", ""))
+        funding["organization"] = normalise_whitespace(funding.get("organization", ""))
+        funding["description"] = normalise_whitespace(funding.get("description", ""))
+
         identifier = str(funding["id"])
         if identifier in seen_ids:
+            duplicates["id"] += 1
             dropped["duplicate"] += 1
             if log:
                 log.warning(f"Discarded duplicate funding id {identifier}")
             continue
         seen_ids.add(identifier)
+
+        source_url = canonicalize_url(
+            funding.get("scraped_from")
+            or (funding.get("application") or {}).get("application_url")
+        )
+        if source_url:
+            parsed_source = urlparse(source_url)
+            path = parsed_source.path or "/"
+            # Treat bare domains as insufficient for duplicate detection; many
+            # partner feeds only link to their homepage, so filtering on these
+            # would collapse dozens of legitimate opportunities into one.
+            if path not in {"", "/"}:
+                if source_url in seen_sources:
+                    duplicates["source"] += 1
+                    dropped["duplicate"] += 1
+                    if log:
+                        log.warning(
+                            "Discarded duplicate funding from source {source} (id {identifier})".format(
+                                source=source_url,
+                                identifier=identifier,
+                            )
+                        )
+                    continue
+                seen_sources.add(source_url)
+
+        title_key = f"{funding['title'].lower()}::{funding['organization'].lower()}"
+        if title_key in seen_titles:
+            duplicates["title"] += 1
+            dropped["duplicate"] += 1
+            if log:
+                log.warning(
+                    "Discarded duplicate funding title '{title}' for organisation {org}".format(
+                        title=funding["title"],
+                        org=funding["organization"],
+                    )
+                )
+            continue
+        seen_titles.add(title_key)
+
+        application = funding.setdefault("application", {})
+
+        scraped_from = (funding.get("scraped_from") or "").strip()
+        application_url = (application.get("application_url") or "").strip()
+        if scraped_from and (not application_url or urlparse(application_url).path in {"", "/"}):
+            application["application_url"] = scraped_from
 
         selected_deadline, source = _select_deadline(funding, window_start, window_end)
 
@@ -165,12 +227,15 @@ def sanitise_fundings(
         else:
             substitutions["primary_deadline_used"] += 1
 
-        application = funding.setdefault("application", {})
         application["active_deadline"] = selected_deadline.isoformat()
         if source:
             application["deadline_source"] = source
 
         curated.append(funding)
+
+    window_label = f"{window_start.strftime('%d %b %Y')} – {window_end.strftime('%d %b %Y')}"
+
+    source_counter = Counter(funding.get("category", "uncategorised") for funding in curated)
 
     report: FundingQualityReport = FundingQualityReport(
         total=total_seen,
@@ -180,8 +245,11 @@ def sanitise_fundings(
             "start": window_start.isoformat(),
             "end": window_end.isoformat(),
             "months": window_months,
+            "label": window_label,
         },
         substitutions=substitutions,
+        duplicates=duplicates,
+        source_totals=dict(source_counter.most_common()),
     )
 
     if log:

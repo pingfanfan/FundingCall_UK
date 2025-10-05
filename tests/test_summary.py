@@ -6,7 +6,7 @@ from scrapers.summarizer import generate_ai_summary
 
 def _sample_fundings():
     now = datetime.now(timezone.utc)
-    base_deadline = (now + timedelta(days=21)).date().isoformat()
+    base_deadline = (now + timedelta(days=10)).date().isoformat()
     return [
         {
             "id": "sample-1",
@@ -41,11 +41,13 @@ def test_generate_ai_summary_structure():
 
     summary = generate_ai_summary(curated, quality_report=report)
 
-    assert summary["overall_summary"].startswith("Daily crawl completed")
+    assert summary["overall_summary"].startswith("Research funding hub refreshed")
     assert isinstance(summary["highlights"], list) and summary["highlights"]
     assert isinstance(summary["quality_notes"], list)
     assert "coverage_window" in summary and "label" in summary["coverage_window"]
     assert summary["top_funding_bodies"][0]["organization"] == "Sample Council"
+    if summary["upcoming_deadlines"]:
+        assert summary["upcoming_deadlines"][0].get("deadline_source") in {None, "deadline", "active_deadline", "next_deadline"}
 
 
 def test_generate_ai_summary_empty():

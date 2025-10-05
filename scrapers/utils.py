@@ -90,41 +90,82 @@ class FundingScraper:
             raise ScrapingError(f"Failed to fetch {url} with Selenium: {e}")
     
     def extract_amount(self, text: str) -> Dict[str, Any]:
-        """Extract funding amount from text."""
-        # Common patterns for UK funding amounts
-        patterns = [
-            r'£([\d,]+)(?:\s*-\s*£([\d,]+))?',  # £100,000 or £100,000 - £500,000
-            r'([\d,]+)(?:\s*-\s*([\d,]+))?\s*(?:thousand|k)',  # 100k or 100-500k
-            r'([\d,]+)(?:\s*-\s*([\d,]+))?\s*(?:million|m)',  # 1m or 1-5m
-        ]
-        
-        for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                min_amount = self._parse_amount(match.group(1))
-                max_amount = self._parse_amount(match.group(2)) if match.group(2) else min_amount
-                
-                # Handle k/m suffixes
-                if 'thousand' in text.lower() or 'k' in text.lower():
-                    min_amount *= 1000
-                    max_amount *= 1000
-                elif 'million' in text.lower() or 'm' in text.lower():
-                    min_amount *= 1000000
-                    max_amount *= 1000000
-                
-                return {
-                    'min': min_amount,
-                    'max': max_amount,
-                    'currency': 'GBP'
-                }
-        
-        return {'min': 0, 'max': 0, 'currency': 'GBP'}
-    
-    def _parse_amount(self, amount_str: str) -> int:
-        """Parse amount string to integer."""
+        """Extract a funding amount from free-form text.
+
+        The previous implementation scanned the entire document for any number
+        that looked roughly currency-shaped which led to wildly inaccurate
+        values (for example years or statistics being interpreted as £1bn
+        budgets).  This revision tightens the heuristics so we only accept
+        figures that are clearly marked with a currency symbol or a scale
+        suffix (k/m/bn) and clamps obviously unrealistic numbers.
+        """
+
+        if not text:
+            return {"min": 0, "max": 0, "currency": "GBP"}
+
+        pattern = re.compile(
+            r"£?\s*([\d.,]+)\s*(k|thousand|m|million|bn|billion)?"
+            r"(?:\s*(?:[-–]|to)\s*£?\s*([\d.,]+)\s*(k|thousand|m|million|bn|billion)?)?",
+            re.IGNORECASE,
+        )
+
+        for match in pattern.finditer(text):
+            raw_min = match.group(1)
+            scale_min = match.group(2)
+            raw_max = match.group(3)
+            scale_max = match.group(4)
+
+            snippet = match.group(0)
+            if "£" not in snippet and not (scale_min or scale_max):
+                continue
+
+            min_amount = self._parse_amount(raw_min)
+            max_amount = self._parse_amount(raw_max) if raw_max else min_amount
+
+            min_multiplier = self._scale_multiplier(scale_min)
+            max_multiplier = self._scale_multiplier(scale_max or scale_min)
+
+            min_amount = int(round(min_amount * min_multiplier))
+            max_amount = int(round(max_amount * max_multiplier))
+
+            if max_amount and min_amount > max_amount:
+                min_amount, max_amount = max_amount, min_amount
+
+            # Clamp unrealistic one-off awards; UKRI calls rarely exceed £100m
+            # for a single opportunity.  Anything above that is assumed to be a
+            # parsing artefact so we discard the value.
+            if max(min_amount, max_amount) > 100_000_000:
+                continue
+
+            return {"min": min_amount, "max": max_amount, "currency": "GBP"}
+
+        return {"min": 0, "max": 0, "currency": "GBP"}
+
+    def _parse_amount(self, amount_str: str | None) -> float:
+        """Parse an amount string to a float value."""
+
         if not amount_str:
-            return 0
-        return int(re.sub(r'[^\d]', '', amount_str))
+            return 0.0
+
+        # Allow decimal figures (e.g. £1.5m) before stripping punctuation.
+        amount = amount_str.replace(",", "").strip()
+        try:
+            return float(amount)
+        except ValueError:
+            cleaned = re.sub(r"[^\d]", "", amount)
+            return float(cleaned) if cleaned else 0.0
+
+    def _scale_multiplier(self, scale: str | None) -> int:
+        if not scale:
+            return 1
+        scale_lower = scale.lower()
+        if scale_lower in {"k", "thousand"}:
+            return 1_000
+        if scale_lower in {"m", "million"}:
+            return 1_000_000
+        if scale_lower in {"bn", "billion"}:
+            return 1_000_000_000
+        return 1
     
     def extract_deadline(self, text: str) -> Optional[str]:
         """Extract deadline from text and return ISO format date."""

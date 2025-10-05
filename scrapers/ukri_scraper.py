@@ -326,8 +326,9 @@ class UKRIScraper(FundingScraper):
         description = self.extract_description(soup)
         eligibility = self.extract_eligibility(soup)
         funding_details = self.extract_funding_details(soup)
-        application_info = self.extract_application_info(soup)
-        
+        application_info = self.extract_application_info(soup, url)
+        last_updated = self.extract_last_updated(soup) or datetime.now().isoformat()
+
         # Generate funding data structure
         funding = {
             'id': self.generate_id(title, self.councils[council_id]['name']),
@@ -342,11 +343,11 @@ class UKRIScraper(FundingScraper):
             'key_info': self.extract_key_info(soup),
             'contact': self.extract_contact_info(soup),
             'tags': self.generate_tags(title, description, council_id),
-            'last_updated': datetime.now().isoformat(),
+            'last_updated': last_updated,
             'scraped_from': url,
             'status': 'active'
         }
-        
+
         return funding
     
     def extract_title(self, soup: BeautifulSoup) -> str:
@@ -422,52 +423,156 @@ class UKRIScraper(FundingScraper):
         return eligibility
     
     def extract_funding_details(self, soup: BeautifulSoup) -> Dict:
-        """Extract funding amount and details."""
+        """Extract funding amount and related details."""
+
         funding_details = {
             'amount': {'min': 0, 'max': 0, 'currency': 'GBP', 'duration_years': 1},
             'covers': ['Research costs', 'Equipment', 'Travel']
         }
-        
-        # Look for funding amount in text
-        text_content = soup.get_text()
-        try:
-            amount_info = self.extract_amount(text_content)
-            if amount_info:
-                funding_details['amount'].update(amount_info)
-        except Exception as e:
-            logger.error(f"Could not extract amount from {self.base_url}: {e}")
-        
-        # Extract duration
-        duration_match = re.search(r'(\d+)\s*year', text_content, re.IGNORECASE)
-        if duration_match:
-            funding_details['amount']['duration_years'] = int(duration_match.group(1))
-        
+
+        amount_info = None
+        for candidate in self._amount_candidates(soup):
+            try:
+                info = self.extract_amount(candidate)
+            except Exception as exc:
+                logger.debug(f"Amount parsing failed for candidate '{candidate[:80]}…': {exc}")
+                continue
+            if info and (info.get('min') or info.get('max')):
+                amount_info = info
+                break
+
+        if not amount_info:
+            try:
+                amount_info = self.extract_amount(soup.get_text(separator=' '))
+            except Exception as exc:
+                logger.error(f"Could not extract amount from opportunity page: {exc}")
+                amount_info = None
+
+        if amount_info:
+            funding_details['amount'].update(amount_info)
+            min_amount = funding_details['amount'].get('min') or 0
+            max_amount = funding_details['amount'].get('max') or 0
+            if max_amount and min_amount and min_amount > max_amount:
+                funding_details['amount']['min'], funding_details['amount']['max'] = max_amount, min_amount
+
+        # Extract duration from nearby sections.
+        duration_text = self._find_duration_text(soup)
+        if duration_text:
+            duration_match = re.search(r'(\d+(?:\.\d+)?)\s*(?:year|month)', duration_text, re.IGNORECASE)
+            if duration_match:
+                value = float(duration_match.group(1))
+                if 'month' in duration_match.group(0).lower():
+                    funding_details['amount']['duration_years'] = max(1, int(round(value / 12)))
+                else:
+                    funding_details['amount']['duration_years'] = max(1, int(round(value)))
+
         return funding_details
-    
-    def extract_application_info(self, soup: BeautifulSoup) -> Dict:
+
+    def extract_application_info(self, soup: BeautifulSoup, detail_url: str) -> Dict:
         """Extract application deadline and process information."""
+
+        now = datetime.now()
         application = {
-            'deadline': (datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d'),
-            'next_deadline': (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d'),
+            'deadline': (now + timedelta(days=90)).strftime('%Y-%m-%d'),
+            'next_deadline': (now + timedelta(days=365)).strftime('%Y-%m-%d'),
             'frequency': 'Annual',
-            'application_url': soup.find('base', href=True)['href'] if soup.find('base', href=True) else '',
+            'application_url': detail_url,
             'guidelines_url': ''
         }
-        
-        # Look for deadline information
-        text_content = soup.get_text()
+
+        text_content = soup.get_text(separator=' ')
         deadline = self.extract_deadline(text_content)
         if deadline:
             application['deadline'] = deadline
-        
-        # Look for application links
-        apply_links = soup.find_all('a', string=re.compile(r'apply|application', re.IGNORECASE))
-        if apply_links:
-            href = apply_links[0].get('href')
-            if href:
-                application['application_url'] = urljoin(self.base_url, href)
-        
+
+        apply_links = soup.find_all('a', string=re.compile(r'apply|application|start now', re.IGNORECASE))
+        for link in apply_links:
+            href = link.get('href')
+            if not href or href.startswith('#'):
+                continue
+            application['application_url'] = urljoin(detail_url, href)
+            break
+
+        guidelines_link = soup.find('a', string=re.compile(r'guidance|guidelines', re.IGNORECASE))
+        if guidelines_link and guidelines_link.get('href'):
+            application['guidelines_url'] = urljoin(detail_url, guidelines_link['href'])
+
         return application
+
+    def extract_last_updated(self, soup: BeautifulSoup) -> Optional[str]:
+        """Extract the last updated timestamp from the opportunity page."""
+
+        meta = soup.find('meta', attrs={'property': 'article:modified_time'})
+        if meta and meta.get('content'):
+            parsed = self._parse_datetime(meta['content'])
+            if parsed:
+                return parsed
+
+        time_element = soup.find('time')
+        if time_element:
+            datetime_attr = time_element.get('datetime')
+            text_value = time_element.get_text(strip=True)
+            for candidate in filter(None, [datetime_attr, text_value]):
+                parsed = self._parse_datetime(candidate)
+                if parsed:
+                    return parsed
+
+        label = soup.find(string=re.compile(r'(last updated|updated|published)', re.IGNORECASE))
+        if label:
+            parsed = self._parse_datetime(str(label))
+            if parsed:
+                return parsed
+
+        return None
+
+    def _amount_candidates(self, soup: BeautifulSoup) -> List[str]:
+        """Return text snippets that are likely to contain funding amounts."""
+
+        candidates: List[str] = []
+        seen: set[str] = set()
+        labels = soup.find_all(
+            ['dt', 'th', 'h2', 'h3', 'h4'],
+            string=re.compile(r'funding amount|funding available|award|you can apply for', re.IGNORECASE),
+        )
+
+        for label in labels:
+            for sibling in label.find_all_next(['dd', 'td', 'p', 'li'], limit=3):
+                text = self.clean_text(sibling.get_text())
+                if text and text not in seen:
+                    seen.add(text)
+                    candidates.append(text)
+
+        return candidates
+
+    def _find_duration_text(self, soup: BeautifulSoup) -> Optional[str]:
+        duration_label = soup.find(
+            string=re.compile(r'duration|project length|award length', re.IGNORECASE)
+        )
+        if duration_label:
+            parent = duration_label.parent
+            if parent:
+                return self.clean_text(parent.get_text())
+        return None
+
+    def _parse_datetime(self, value: str) -> Optional[str]:
+        if not value:
+            return None
+        cleaned = value.strip().replace('Z', '+00:00')
+        for fmt in ("%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%S.%f%z", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+            try:
+                dt = datetime.strptime(cleaned, fmt)
+                return dt.isoformat()
+            except ValueError:
+                continue
+        # Fallback to existing date extraction (returns YYYY-MM-DD)
+        date_only = self.extract_deadline(value)
+        if date_only:
+            try:
+                dt = datetime.strptime(date_only, "%Y-%m-%d")
+                return dt.isoformat()
+            except ValueError:
+                return date_only
+        return None
     
     def extract_key_info(self, soup: BeautifulSoup) -> Dict:
         """Extract key information like competition level, success rate."""
