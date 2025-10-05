@@ -1,0 +1,84 @@
+{
+  "generated_at": "2025-10-03T13:08:45.139839Z",
+  "overall_summary": "Research funding hub refreshed: 5 active opportunities spanning 05 Jul 2025 \u2013 01 Jan 2026. Quality checks removed 3052 items before publishing. Coverage concentrates on ACADEMIES, UKRI programmes today.",
+  "highlights": [
+    "Curated 5 funding opportunities with deadlines between 05 Jul 2025 \u2013 01 Jan 2026.",
+    "Top thematic areas today: ACADEMIES (4), UKRI (1).",
+    "Highest available award tops out at \u00a3600k."
+  ],
+  "upcoming_deadlines": [],
+  "top_funding_bodies": [
+    {
+      "organization": "Economic and Social Research Council",
+      "opportunity_count": 1
+    },
+    {
+      "organization": "The Royal Society",
+      "opportunity_count": 1
+    },
+    {
+      "organization": "The Academy of Medical Sciences",
+      "opportunity_count": 1
+    },
+    {
+      "organization": "The British Academy",
+      "opportunity_count": 1
+    },
+    {
+      "organization": "The Royal Academy of Engineering",
+      "opportunity_count": 1
+    }
+  ],
+  "career_stage_focus": [
+    {
+      "stage": "Early Career",
+      "opportunity_count": 4
+    },
+    {
+      "stage": "All Stages",
+      "opportunity_count": 1
+    }
+  ],
+  "high_value_awards": [
+    {
+      "title": "Research Fellowships",
+      "organization": "The Royal Academy of Engineering",
+      "amount": "\u00a3600k",
+      "deadline": "15 Aug 2025"
+    },
+    {
+      "title": "University Research Fellowships",
+      "organization": "The Royal Society",
+      "amount": "\u00a3500k",
+      "deadline": "15 Sep 2025"
+    },
+    {
+      "title": "Postdoctoral Fellowships",
+      "organization": "The British Academy",
+      "amount": "\u00a3300k",
+      "deadline": "31 Oct 2025"
+    },
+    {
+      "title": "Starter Grants for Clinical Lecturers",
+      "organization": "The Academy of Medical Sciences",
+      "amount": "\u00a3150k",
+      "deadline": "31 Jul 2025"
+    },
+    {
+      "title": "UK Government Web Archive",
+      "organization": "Economic and Social Research Council",
+      "amount": "\u00a34k",
+      "deadline": "23 Sep 2025"
+    }
+  ],
+  "coverage_window": {
+    "start": "2025-07-05T13:08:45.076499+00:00",
+    "end": "2026-01-01T13:08:45.076499+00:00",
+    "label": "05 Jul 2025 \u2013 01 Jan 2026"
+  },
+  "quality_notes": [
+    "Curated 5 of 3057 scraped opportunities after validation checks.",
+    "2938 entries skipped due to duplicate identifiers.",
+    "114 entries skipped due to deadlines outside the 3-month window."
+  ]
+}

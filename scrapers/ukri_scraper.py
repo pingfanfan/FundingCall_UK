@@ -23,7 +23,13 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from loguru import logger
 
-from utils import FundingScraper, save_json, setup_directories, update_database
+from utils import (
+    FundingScraper,
+    canonicalize_url,
+    save_json,
+    setup_directories,
+    update_database,
+)
 
 class UKRIScraper(FundingScraper):
     """Scraper for UKRI funding opportunities."""
@@ -85,38 +91,54 @@ class UKRIScraper(FundingScraper):
     
     def scrape_all_councils(self) -> List[Dict]:
         """Scrape funding opportunities from all UKRI councils without duplicates."""
-        all_fundings = []
-        scraped_urls = set()  # Track scraped URLs to avoid duplicates
-        
         logger.info("Scraping all UKRI opportunities...")
-        
-        # Scrape from main opportunities page first
+
+        collected_links: List[Dict] = []
+        seen_urls: set[str] = set()
+
         try:
-            main_fundings = self.scrape_main_opportunities(scraped_urls)
-            all_fundings.extend(main_fundings)
-            logger.info(f"Found {len(main_fundings)} opportunities from main page")
-        except Exception as e:
-            logger.error(f"Failed to scrape main opportunities: {e}")
-        
-        # Then scrape each council's specific opportunities
+            main_links = self.collect_main_opportunity_links(seen_urls)
+            collected_links.extend(main_links)
+            logger.info(
+                "Collected %s links from main listing (unique so far: %s)"
+                % (len(main_links), len(collected_links))
+            )
+        except Exception as exc:
+            logger.error(f"Failed to collect links from main opportunities: {exc}")
+
         for council_id, council_info in self.councils.items():
-            logger.info(f"Scraping {council_info['name']}...")
+            logger.info(f"Collecting links for {council_info['name']}...")
             try:
-                council_fundings = self.scrape_council(council_id, scraped_urls)
-                all_fundings.extend(council_fundings)
-                logger.info(f"Found {len(council_fundings)} new opportunities from {council_info['name']}")
-            except Exception as e:
-                logger.error(f"Failed to scrape {council_info['name']}: {e}")
-        
-        return all_fundings
-    
-    def scrape_main_opportunities(self, scraped_urls: set) -> List[Dict]:
-        """Scrape opportunities from the main UKRI opportunities page with pagination."""
-        fundings = []
+                council_links = self.collect_council_links(council_id, seen_urls)
+                collected_links.extend(council_links)
+                logger.info(
+                    "Collected %s additional links from %s (unique so far: %s)"
+                    % (
+                        len(council_links),
+                        council_info["name"],
+                        len(collected_links),
+                    )
+                )
+            except Exception as exc:
+                logger.error(f"Failed to collect links for {council_info['name']}: {exc}")
+
+        if not collected_links:
+            logger.warning("No UKRI opportunity links discovered")
+            return []
+
+        logger.info(
+            "Discovered %s unique UKRI opportunity URLs – fetching details in second stage"
+            % len(collected_links)
+        )
+        return self.build_fundings_from_links(collected_links)
+
+    def collect_main_opportunity_links(self, seen_urls: set[str]) -> List[Dict]:
+        """Collect opportunity links from the main UKRI opportunities page."""
+        collected: List[Dict] = []
         base_url = "https://www.ukri.org/opportunity/"
         page = 1
         max_pages = 15  # Safety limit - UKRI has ~109 opportunities, so ~10 pages
-        
+
         while page <= max_pages:
             try:
                 # Construct URL with page parameter
@@ -144,24 +166,25 @@ class UKRIScraper(FundingScraper):
                 
                 new_links_found = 0
                 for link in opportunity_links:
-                    # Skip if already scraped
-                    if link in scraped_urls:
+                    url_key = canonicalize_url(link)
+                    if url_key in seen_urls:
                         continue
-                        
-                    scraped_urls.add(link)
+
+                    seen_urls.add(url_key)
                     new_links_found += 1
-                    
-                    try:
-                        # Determine council from URL or page content
-                        council_id = self.determine_council_from_url(link)
-                        funding = self.scrape_opportunity_details(link, council_id)
-                        if funding:
-                            fundings.append(funding)
-                    except Exception as e:
-                        logger.error(f"Failed to scrape opportunity {link}: {e}")
-                
-                logger.info(f"Found {new_links_found} new opportunities on page {page} (total so far: {len(fundings)})")
-                
+
+                    collected.append(
+                        {
+                            "url": link,
+                            "council_id": self.determine_council_from_url(link),
+                        }
+                    )
+
+                logger.info(
+                    "Found %s new opportunity links on page %s (unique so far: %s)"
+                    % (new_links_found, page, len(collected))
+                )
+
                 # If no new links were found, we might have reached the end
                 if new_links_found == 0:
                     logger.info(f"No new opportunities found on page {page}, stopping pagination")
@@ -173,34 +196,48 @@ class UKRIScraper(FundingScraper):
                 logger.error(f"Failed to scrape opportunities page {page}: {e}")
                 break
         
-        logger.info(f"Completed scraping main opportunities. Total pages: {page-1}, Total opportunities: {len(fundings)}")
-        return fundings
-    
-    def scrape_council(self, council_id: str, scraped_urls: set) -> List[Dict]:
-        """Scrape funding opportunities from a specific council."""
+        logger.info(
+            "Completed link collection from main opportunities. Total pages: %s, unique links: %s"
+            % (page - 1, len(collected))
+        )
+        return collected
+
+    def collect_council_links(self, council_id: str, seen_urls: set[str]) -> List[Dict]:
+        """Collect opportunity links from a specific council listing."""
         council_info = self.councils[council_id]
-        fundings = []
-        
+        collected: List[Dict] = []
+
         # Get the opportunities listing page
         soup = self.fetch_page(council_info['funding_url'])
-        
+
         # Find opportunity links
         opportunity_links = self.extract_opportunity_links(soup)
-        
+
         for link in opportunity_links:
-            # Skip if already scraped
-            if link in scraped_urls:
+            url_key = canonicalize_url(link)
+            if url_key in seen_urls:
                 continue
-                
-            scraped_urls.add(link)
-            
+
+            seen_urls.add(url_key)
+
+            collected.append({"url": link, "council_id": council_id})
+
+        return collected
+
+    def build_fundings_from_links(self, link_batch: List[Dict]) -> List[Dict]:
+        """Fetch and build funding payloads for a batch of collected links."""
+
+        fundings: List[Dict] = []
+        for item in link_batch:
             try:
-                funding = self.scrape_opportunity_details(link, council_id)
-                if funding:
-                    fundings.append(funding)
-            except Exception as e:
-                logger.error(f"Failed to scrape opportunity {link}: {e}")
-        
+                funding = self.scrape_opportunity_details(item["url"], item.get("council_id"))
+            except Exception as exc:
+                logger.error(f"Failed to scrape opportunity {item['url']}: {exc}")
+                continue
+
+            if funding:
+                fundings.append(funding)
+
         return fundings
     
     def determine_council_from_url(self, url: str) -> str:
@@ -289,8 +326,9 @@ class UKRIScraper(FundingScraper):
         description = self.extract_description(soup)
         eligibility = self.extract_eligibility(soup)
         funding_details = self.extract_funding_details(soup)
-        application_info = self.extract_application_info(soup)
-        
+        application_info = self.extract_application_info(soup, url)
+        last_updated = self.extract_last_updated(soup) or datetime.now().isoformat()
+
         # Generate funding data structure
         funding = {
             'id': self.generate_id(title, self.councils[council_id]['name']),
@@ -305,11 +343,11 @@ class UKRIScraper(FundingScraper):
             'key_info': self.extract_key_info(soup),
             'contact': self.extract_contact_info(soup),
             'tags': self.generate_tags(title, description, council_id),
-            'last_updated': datetime.now().isoformat(),
+            'last_updated': last_updated,
             'scraped_from': url,
             'status': 'active'
         }
-        
+
         return funding
     
     def extract_title(self, soup: BeautifulSoup) -> str:
@@ -385,52 +423,156 @@ class UKRIScraper(FundingScraper):
         return eligibility
     
     def extract_funding_details(self, soup: BeautifulSoup) -> Dict:
-        """Extract funding amount and details."""
+        """Extract funding amount and related details."""
+
         funding_details = {
             'amount': {'min': 0, 'max': 0, 'currency': 'GBP', 'duration_years': 1},
             'covers': ['Research costs', 'Equipment', 'Travel']
         }
-        
-        # Look for funding amount in text
-        text_content = soup.get_text()
-        try:
-            amount_info = self.extract_amount(text_content)
-            if amount_info:
-                funding_details['amount'].update(amount_info)
-        except Exception as e:
-            logger.error(f"Could not extract amount from {self.base_url}: {e}")
-        
-        # Extract duration
-        duration_match = re.search(r'(\d+)\s*year', text_content, re.IGNORECASE)
-        if duration_match:
-            funding_details['amount']['duration_years'] = int(duration_match.group(1))
-        
+
+        amount_info = None
+        for candidate in self._amount_candidates(soup):
+            try:
+                info = self.extract_amount(candidate)
+            except Exception as exc:
+                logger.debug(f"Amount parsing failed for candidate '{candidate[:80]}…': {exc}")
+                continue
+            if info and (info.get('min') or info.get('max')):
+                amount_info = info
+                break
+
+        if not amount_info:
+            try:
+                amount_info = self.extract_amount(soup.get_text(separator=' '))
+            except Exception as exc:
+                logger.error(f"Could not extract amount from opportunity page: {exc}")
+                amount_info = None
+
+        if amount_info:
+            funding_details['amount'].update(amount_info)
+            min_amount = funding_details['amount'].get('min') or 0
+            max_amount = funding_details['amount'].get('max') or 0
+            if max_amount and min_amount and min_amount > max_amount:
+                funding_details['amount']['min'], funding_details['amount']['max'] = max_amount, min_amount
+
+        # Extract duration from nearby sections.
+        duration_text = self._find_duration_text(soup)
+        if duration_text:
+            duration_match = re.search(r'(\d+(?:\.\d+)?)\s*(?:year|month)', duration_text, re.IGNORECASE)
+            if duration_match:
+                value = float(duration_match.group(1))
+                if 'month' in duration_match.group(0).lower():
+                    funding_details['amount']['duration_years'] = max(1, int(round(value / 12)))
+                else:
+                    funding_details['amount']['duration_years'] = max(1, int(round(value)))
+
         return funding_details
-    
-    def extract_application_info(self, soup: BeautifulSoup) -> Dict:
+
+    def extract_application_info(self, soup: BeautifulSoup, detail_url: str) -> Dict:
         """Extract application deadline and process information."""
+
+        now = datetime.now()
         application = {
-            'deadline': (datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d'),
-            'next_deadline': (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d'),
+            'deadline': (now + timedelta(days=90)).strftime('%Y-%m-%d'),
+            'next_deadline': (now + timedelta(days=365)).strftime('%Y-%m-%d'),
             'frequency': 'Annual',
-            'application_url': soup.find('base', href=True)['href'] if soup.find('base', href=True) else '',
+            'application_url': detail_url,
             'guidelines_url': ''
         }
-        
-        # Look for deadline information
-        text_content = soup.get_text()
+
+        text_content = soup.get_text(separator=' ')
         deadline = self.extract_deadline(text_content)
         if deadline:
             application['deadline'] = deadline
-        
-        # Look for application links
-        apply_links = soup.find_all('a', string=re.compile(r'apply|application', re.IGNORECASE))
-        if apply_links:
-            href = apply_links[0].get('href')
-            if href:
-                application['application_url'] = urljoin(self.base_url, href)
-        
+
+        apply_links = soup.find_all('a', string=re.compile(r'apply|application|start now', re.IGNORECASE))
+        for link in apply_links:
+            href = link.get('href')
+            if not href or href.startswith('#'):
+                continue
+            application['application_url'] = urljoin(detail_url, href)
+            break
+
+        guidelines_link = soup.find('a', string=re.compile(r'guidance|guidelines', re.IGNORECASE))
+        if guidelines_link and guidelines_link.get('href'):
+            application['guidelines_url'] = urljoin(detail_url, guidelines_link['href'])
+
         return application
+
+    def extract_last_updated(self, soup: BeautifulSoup) -> Optional[str]:
+        """Extract the last updated timestamp from the opportunity page."""
+
+        meta = soup.find('meta', attrs={'property': 'article:modified_time'})
+        if meta and meta.get('content'):
+            parsed = self._parse_datetime(meta['content'])
+            if parsed:
+                return parsed
+
+        time_element = soup.find('time')
+        if time_element:
+            datetime_attr = time_element.get('datetime')
+            text_value = time_element.get_text(strip=True)
+            for candidate in filter(None, [datetime_attr, text_value]):
+                parsed = self._parse_datetime(candidate)
+                if parsed:
+                    return parsed
+
+        label = soup.find(string=re.compile(r'(last updated|updated|published)', re.IGNORECASE))
+        if label:
+            parsed = self._parse_datetime(str(label))
+            if parsed:
+                return parsed
+
+        return None
+
+    def _amount_candidates(self, soup: BeautifulSoup) -> List[str]:
+        """Return text snippets that are likely to contain funding amounts."""
+
+        candidates: List[str] = []
+        seen: set[str] = set()
+        labels = soup.find_all(
+            ['dt', 'th', 'h2', 'h3', 'h4'],
+            string=re.compile(r'funding amount|funding available|award|you can apply for', re.IGNORECASE),
+        )
+
+        for label in labels:
+            for sibling in label.find_all_next(['dd', 'td', 'p', 'li'], limit=3):
+                text = self.clean_text(sibling.get_text())
+                if text and text not in seen:
+                    seen.add(text)
+                    candidates.append(text)
+
+        return candidates
+
+    def _find_duration_text(self, soup: BeautifulSoup) -> Optional[str]:
+        duration_label = soup.find(
+            string=re.compile(r'duration|project length|award length', re.IGNORECASE)
+        )
+        if duration_label:
+            parent = duration_label.parent
+            if parent:
+                return self.clean_text(parent.get_text())
+        return None
+
+    def _parse_datetime(self, value: str) -> Optional[str]:
+        if not value:
+            return None
+        cleaned = value.strip().replace('Z', '+00:00')
+        for fmt in ("%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%S.%f%z", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+            try:
+                dt = datetime.strptime(cleaned, fmt)
+                return dt.isoformat()
+            except ValueError:
+                continue
+        # Fallback to existing date extraction (returns YYYY-MM-DD)
+        date_only = self.extract_deadline(value)
+        if date_only:
+            try:
+                dt = datetime.strptime(date_only, "%Y-%m-%d")
+                return dt.isoformat()
+            except ValueError:
+                return date_only
+        return None
     
     def extract_key_info(self, soup: BeautifulSoup) -> Dict:
         """Extract key information like competition level, success rate."""

@@ -1,0 +1,29 @@
+{
+  "total": 3057,
+  "retained": 5,
+  "dropped": {
+    "missing_fields": 0,
+    "duplicate": 2938,
+    "undated": 0,
+    "outside_window": 114
+  },
+  "window": {
+    "start": "2025-07-05T13:08:45.076499+00:00",
+    "end": "2026-01-01T13:08:45.076499+00:00",
+    "months": 3,
+    "label": "05 Jul 2025 \u2013 01 Jan 2026"
+  },
+  "substitutions": {
+    "primary_deadline_used": 1,
+    "next_deadline_used": 4
+  },
+  "duplicates": {
+    "id": 0,
+    "source": 2938,
+    "title": 0
+  },
+  "source_totals": {
+    "academies": 4,
+    "ukri": 1
+  }
+}
